@@ -1,20 +1,35 @@
 package com.synops.replayreader.controller;
 
-import com.synops.replayreader.service.ReplayReaderService;
+import com.synops.replayreader.service.ReplayService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MainViewController {
 
-  private final ReplayReaderService replayReaderService;
+  private final ReplayService replayService;
 
-  public MainViewController(ReplayReaderService replayReaderService) {
-    this.replayReaderService = replayReaderService;
+  @FXML
+  protected AnchorPane root;
+
+  public MainViewController(ReplayService replayService) {
+    this.replayService = replayService;
   }
 
   @FXML
   public void initialize() {
-    System.out.println(replayReaderService.getReplayFileName());
+    System.out.println(replayService.getReplayFileName());
+  }
+
+  @FXML
+  private void onMenuExit() {
+    Platform.exit();
+  }
+
+  @FXML
+  private void onClickAbout() {
+    (new AboutWindowController()).showAndWait();
   }
 }

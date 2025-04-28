@@ -1,6 +1,6 @@
 package com.synops.replayreader.configuration;
 
-import com.synops.replayreader.service.ReplayReaderService;
+import com.synops.replayreader.service.ReplayService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class ReplayReaderConfiguration {
 
   @Bean
-  public ReplayReaderService replayReaderService() {
-    return new ReplayReaderService();
+  public ReplayService replayReaderService() {
+    return new ReplayService();
   }
 }

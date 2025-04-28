@@ -3,7 +3,7 @@ package com.synops.replayreader.service;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ReplayReaderService {
+public class ReplayService {
 
   private String replayFileName;
 

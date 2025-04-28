@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
   xmlns="http://javafx.com/javafx"
-  fx:controller="com.synops.replayreader.controller.MainViewController">
+  fx:controller="com.synops.replayreader.controller.MainViewController"
+  fx:id="root">
+  <VBox AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+    AnchorPane.topAnchor="0">
+    <MenuBar>
+      <Menu text="File">
+        <MenuItem onAction="#onMenuExit" text="Close"/>
+      </Menu>
+      <Menu text="Help">
+        <MenuItem onAction="#onClickAbout" text="About"/>
+      </Menu>
+    </MenuBar>
+  </VBox>
 </AnchorPane>
