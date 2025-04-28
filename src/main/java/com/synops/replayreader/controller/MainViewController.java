@@ -1,6 +1,7 @@
 package com.synops.replayreader.controller;
 
 import com.synops.replayreader.service.ReplayService;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
@@ -10,12 +11,14 @@ import org.springframework.stereotype.Component;
 public class MainViewController {
 
   private final ReplayService replayService;
+  private final ResourceBundle resourceBundle;
 
   @FXML
   protected AnchorPane root;
 
-  public MainViewController(ReplayService replayService) {
+  public MainViewController(ReplayService replayService, ResourceBundle resourceBundle) {
     this.replayService = replayService;
+    this.resourceBundle = resourceBundle;
   }
 
   @FXML
@@ -30,6 +33,6 @@ public class MainViewController {
 
   @FXML
   private void onClickAbout() {
-    (new AboutWindowController()).showAndWait();
+    (new AboutWindowController(resourceBundle)).showAndWait();
   }
 }

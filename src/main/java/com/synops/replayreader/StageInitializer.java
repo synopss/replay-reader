@@ -1,5 +1,6 @@
 package com.synops.replayreader;
 
+import com.synops.replayreader.common.I18nUtils;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,7 +35,8 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
   @Override
   public void onApplicationEvent(StageReadyEvent event) {
     try {
-      var fxmlLoader = new FXMLLoader(mainResource.getURL());
+      var bundle = I18nUtils.getBundle();
+      var fxmlLoader = new FXMLLoader(mainResource.getURL(), bundle);
       fxmlLoader.setControllerFactory(applicationContext::getBean);
       Parent parent = fxmlLoader.load();
       var stage = event.getStage();

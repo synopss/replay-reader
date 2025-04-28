@@ -12,11 +12,11 @@
   <VBox AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
     AnchorPane.topAnchor="0">
     <MenuBar>
-      <Menu text="File">
-        <MenuItem onAction="#onMenuExit" text="Close"/>
+      <Menu text="%main.menu.file">
+        <MenuItem onAction="#onMenuExit" text="%main.menu.file.exit"/>
       </Menu>
-      <Menu text="Help">
-        <MenuItem onAction="#onClickAbout" text="About"/>
+      <Menu text="%main.menu.help">
+        <MenuItem onAction="#onClickAbout" text="%main.menu.help.about"/>
       </Menu>
     </MenuBar>
   </VBox>
