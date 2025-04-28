@@ -28,8 +28,8 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
   @Value("classpath:/views/main.fxml")
   private Resource mainResource;
 
-  public StageInitializer(ApplicationContext applicationCOntext) {
-    this.applicationContext = applicationCOntext;
+  public StageInitializer(ApplicationContext applicationContext) {
+    this.applicationContext = applicationContext;
   }
 
   @Override
