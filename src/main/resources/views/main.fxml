@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
   xmlns="http://javafx.com/javafx"
   fx:controller="com.synops.replayreader.controller.MainViewController"
@@ -27,6 +28,12 @@
     <ToolBar>
       <Label text="%main.toolbar.sort"/>
       <ChoiceBox fx:id="sortingChoiceBox"/>
+      <Label text="%main.toolbar.filter-clan">
+        <padding>
+          <Insets left="10.0"/>
+        </padding>
+      </Label>
+      <ChoiceBox fx:id="clanChoiceBox"/>
     </ToolBar>
     <HBox fx:id="hbox">
       <ListView fx:id="playersList"/>

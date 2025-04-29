@@ -33,12 +33,16 @@ public class MainViewController {
   private final StringProperty selectedClan = new SimpleStringProperty("");
   @Value("${replay-reader.application.config.max-players}")
   private int MAX_PLAYERS;
+  @Value("${replay-reader.application.config.max-clans}")
+  private int MAX_CLANS;
   @Value("${replay-reader.application.config.clan-all}")
   private String CLAN_ALL;
   @FXML
   private AnchorPane root;
   @FXML
   private ChoiceBox<String> sortingChoiceBox;
+  @FXML
+  private ChoiceBox<String> clanChoiceBox;
   @FXML
   private HBox hbox;
   @FXML
@@ -57,6 +61,7 @@ public class MainViewController {
     initMainModel();
     hbox.prefHeightProperty().bind(root.heightProperty());
     initSortingChoiceBox();
+    initClanChoiceBox();
   }
 
   @FXML
@@ -76,10 +81,17 @@ public class MainViewController {
     sortingChoiceBox.setItems(sortingList);
     sortingChoiceBox.getSelectionModel().select(PlayerSort.GAMES.getResourceBundleName());
     sortingChoiceBox.getSelectionModel().selectedItemProperty().addListener(this::onSortingChanged);
-    sortingChoiceBox.setTooltip(
-        new Tooltip(String.format("Show the first %d players", MAX_PLAYERS)));
+    sortingChoiceBox.setTooltip(new Tooltip(
+        String.format(resourceBundle.getString("main.toolbar.sort.tooltip"), MAX_PLAYERS)));
 
     playersComparator = new PlayerListComparatorLong(replayService::getNumberOfGames);
+  }
+
+  private void initClanChoiceBox() {
+    clanChoiceBox.getSelectionModel().selectedItemProperty().addListener(this::onClanChanged);
+    clanChoiceBox.setTooltip(new Tooltip(
+        String.format(resourceBundle.getString("main.toolbar.filter-clan.tooltip"), MAX_CLANS)));
+    selectedClan.bind(clanChoiceBox.getSelectionModel().selectedItemProperty());
   }
 
   private void onSortingChanged(ObservableValue<? extends String> player, String oldValue,
@@ -115,6 +127,15 @@ public class MainViewController {
     playersList.setItems(getMainModel().getPlayersData());
     playersList.getSelectionModel().select(0);
     playersList.scrollTo(0);
+  }
+
+  private void onClanChanged(ObservableValue<? extends String> player, String oldValue,
+      String newValue) {
+    if (oldValue != null) {
+      updatePlayers();
+    }
+
+    playersList.getSelectionModel().selectFirst();
   }
 
   private MainModel getMainModel() {
