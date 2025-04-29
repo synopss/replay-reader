@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
   xmlns="http://javafx.com/javafx"
@@ -19,5 +24,12 @@
         <MenuItem onAction="#onClickAbout" text="%main.menu.help.about"/>
       </Menu>
     </MenuBar>
+    <ToolBar>
+      <Label text="%main.toolbar.sort"/>
+      <ChoiceBox fx:id="sortingChoiceBox"/>
+    </ToolBar>
+    <HBox fx:id="hbox">
+      <ListView fx:id="playersList"/>
+    </HBox>
   </VBox>
 </AnchorPane>

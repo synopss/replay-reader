@@ -1,17 +1,29 @@
 package com.synops.replayreader.service;
 
-import org.springframework.stereotype.Service;
+import com.synops.replayreader.model.Player;
+import javafx.collections.ObservableList;
 
-@Service
-public class ReplayService {
+public interface ReplayService {
 
-  private String replayFileName;
+  ObservableList<String> getPlayers();
 
-  public String getReplayFileName() {
-    return replayFileName;
-  }
+  int getNumberOfGames(String player, String vehicle);
 
-  public void setReplayFileName(String replayFileName) {
-    this.replayFileName = replayFileName;
-  }
+  Player getPlayerInfo(String player);
+
+  int getDamageDealt(String player, String vehicle);
+
+  Double getAvgKills(String player, String vehicle);
+
+  Double getPenRate(String player, String vehicle);
+
+  int getAvgTdamageDealt(String player, String vehicle);
+
+  int getAvgSpotAssist(String player, String vehicle);
+
+  int getAvgTrackAssist(String player, String vehicle);
+
+  int getAvgBlocked(String player, String vehicle);
+
+  int getAvgXp(String player, String vehicle);
 }
