@@ -1,5 +1,6 @@
 package com.synops.replayreader.controller;
 
+import com.synops.replayreader.comparator.ClanListComparator;
 import com.synops.replayreader.comparator.MapsComparator;
 import com.synops.replayreader.comparator.PlayerListComparatorLong;
 import com.synops.replayreader.comparator.SortingComparators;
@@ -7,9 +8,15 @@ import com.synops.replayreader.control.PlayerListCell;
 import com.synops.replayreader.control.VehicleListCell;
 import com.synops.replayreader.model.MainModel;
 import com.synops.replayreader.model.PlayerSort;
+import com.synops.replayreader.model.ReplayProgressEvent;
 import com.synops.replayreader.service.ReplayService;
+import com.synops.replayreader.util.ClanStringConverter;
+import com.synops.replayreader.util.DragDropSupport;
+import java.io.File;
 import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.application.Platform;
@@ -19,10 +26,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
@@ -107,7 +117,10 @@ public class MainViewController {
   private TextField textDamageRank;
   @FXML
   private ListView<String> mapsList;
-
+  @FXML
+  private ProgressBar progressBar;
+  @FXML
+  private Label progressLabel;
   private MainModel mainModel;
 
   public MainViewController(ReplayService replayService, ResourceBundle resourceBundle) {
@@ -120,9 +133,11 @@ public class MainViewController {
     initMainModel();
     hbox.prefHeightProperty().bind(root.heightProperty());
     initLists();
+    initDragDrop();
     initSortingChoiceBox();
     initClanChoiceBox();
     bindingSelectedElements();
+    progressBar.setVisible(false);
   }
 
   @FXML
@@ -142,6 +157,16 @@ public class MainViewController {
     vehiclesList.setCellFactory(
         (_) -> new VehicleListCell(selectedPlayer, replayService::getNumberOfGames));
     vehiclesList.getSelectionModel().selectedItemProperty().addListener(this::showVehicleStats);
+  }
+
+  private void initDragDrop() {
+    var dragDrop = new DragDropSupport(this::load);
+    root.sceneProperty().addListener((_, oldValue, newValue) -> {
+      if (oldValue == null && newValue != null) {
+        newValue.setOnDragOver(dragDrop::onDragOver);
+        newValue.setOnDragDropped(dragDrop::onDragDropped);
+      }
+    });
   }
 
   private void initSortingChoiceBox() {
@@ -252,6 +277,40 @@ public class MainViewController {
     mapsList.scrollTo(0);
   }
 
+  private void load(final List<File> files) {
+    progressBar.setVisible(true);
+    final Consumer<ReplayProgressEvent> progress = this::onProgressChanged;
+    var task = new Task<>() {
+      protected Boolean call() {
+        MainViewController.this.replayService.load(files, progress);
+        return Boolean.TRUE;
+      }
+    };
+    task.setOnRunning(_ -> {
+    });
+    progressBar.setProgress(0);
+    task.setOnScheduled(this::onLoadSucceeded);
+    var thread = new Thread(task);
+    thread.setDaemon(true);
+    thread.start();
+  }
+
+  private void onProgressChanged(ReplayProgressEvent event) {
+    Platform.runLater(() -> progressLabel.setText(
+        String.format("%d/%d (%d %s)", event.getCount(), event.getTotal(), event.getCountCorrupt(),
+            resourceBundle.getString("main.footer.corrupted"))));
+    progressBar.setProgress((double) event.getCount() / (double) event.getTotal());
+  }
+
+  private void onLoadSucceeded(WorkerStateEvent event) {
+    updatePlayers();
+    updateClans();
+    playersList.getSelectionModel().selectFirst();
+    clanChoiceBox.getSelectionModel().selectFirst();
+    sortingChoiceBox.getSelectionModel().selectFirst();
+    progressBar.setVisible(false);
+  }
+
   private void updatePlayers() {
     var playersRawData = replayService.getPlayers();
     FXCollections.sort(playersRawData, playersComparator);
@@ -273,6 +332,21 @@ public class MainViewController {
     playersList.setItems(getMainModel().getPlayersData());
     playersList.getSelectionModel().select(0);
     playersList.scrollTo(0);
+  }
+
+  private void updateClans() {
+    var newClansData = replayService.getClans();
+    newClansData.addFirst(CLAN_ALL);
+    var sortedClans = new SortedList<>(newClansData);
+    sortedClans.setComparator(new ClanListComparator(replayService::getNumberOFClanPlayers));
+    clanChoiceBox.setConverter(new ClanStringConverter(replayService::getNumberOFClanPlayers,
+        replayService.getPlayers().size()));
+    int size = newClansData.size();
+    if (size > MAX_CLANS) {
+      newClansData.removeAll(sortedClans.subList(MAX_CLANS, size - 1));
+    }
+    getMainModel().setClansData(newClansData);
+    clanChoiceBox.setItems(sortedClans);
   }
 
   private void onClanChanged(ObservableValue<? extends String> player, String oldValue,

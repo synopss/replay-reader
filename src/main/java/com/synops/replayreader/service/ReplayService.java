@@ -1,9 +1,15 @@
 package com.synops.replayreader.service;
 
 import com.synops.replayreader.model.Player;
+import com.synops.replayreader.model.ReplayProgressEvent;
+import java.io.File;
+import java.util.List;
+import java.util.function.Consumer;
 import javafx.collections.ObservableList;
 
 public interface ReplayService {
+
+  void load(List<File> files, Consumer<ReplayProgressEvent> progress);
 
   ObservableList<String> getPlayers();
 
@@ -11,9 +17,13 @@ public interface ReplayService {
 
   ObservableList<String> getVehicles(String player);
 
+  ObservableList<String> getClans();
+
   ObservableList<String> getMaps(String player, String vehicle);
 
   int getNumberOfMapsPlayed(String player, String vehicle, String map);
+
+  int getNumberOFClanPlayers(String clan);
 
   int getNumberOfGames(String player, String vehicle);
 

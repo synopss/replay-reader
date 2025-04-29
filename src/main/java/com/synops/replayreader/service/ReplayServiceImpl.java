@@ -1,11 +1,20 @@
 package com.synops.replayreader.service;
 
 import com.synops.replayreader.model.Player;
+import com.synops.replayreader.model.ReplayProgressEvent;
+import java.io.File;
+import java.util.List;
+import java.util.function.Consumer;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReplayServiceImpl implements ReplayService {
+
+  @Override
+  public void load(List<File> files, Consumer<ReplayProgressEvent> progress) {
+
+  }
 
   public ObservableList<String> getPlayers() {
     return null;
@@ -17,12 +26,22 @@ public class ReplayServiceImpl implements ReplayService {
   }
 
   @Override
+  public ObservableList<String> getClans() {
+    return null;
+  }
+
+  @Override
   public ObservableList<String> getMaps(String player, String vehicle) {
     return null;
   }
 
   @Override
   public int getNumberOfMapsPlayed(String player, String vehicle, String map) {
+    return 0;
+  }
+
+  @Override
+  public int getNumberOFClanPlayers(String clan) {
     return 0;
   }
 

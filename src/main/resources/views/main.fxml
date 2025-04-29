@@ -16,12 +16,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.ProgressBar?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
   xmlns="http://javafx.com/javafx"
+  minWidth="800.0" prefHeight="583.0" prefWidth="1199.0"
   fx:controller="com.synops.replayreader.controller.MainViewController"
   fx:id="root">
-  <VBox AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-    AnchorPane.topAnchor="0">
+  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+    AnchorPane.topAnchor="0.0">
     <MenuBar>
       <Menu text="%main.menu.file">
         <MenuItem onAction="#onMenuExit" text="%main.menu.file.exit"/>
@@ -30,7 +32,7 @@
         <MenuItem onAction="#onClickAbout" text="%main.menu.help.about"/>
       </Menu>
     </MenuBar>
-    <ToolBar>
+    <ToolBar prefHeight="40.0" prefWidth="200.0">
       <Label text="%main.toolbar.sort"/>
       <ChoiceBox fx:id="sortingChoiceBox"/>
       <Label text="%main.toolbar.filter-clan">
@@ -140,5 +142,18 @@
         </GridPane>
       </AnchorPane>
     </HBox>
+    <ToolBar prefHeight="40">
+      <Label text="%main.footer.drag">
+        <font>
+          <Font name="System Bold" size="12.0"/>
+        </font>
+      </Label>
+      <ProgressBar fx:id="progressBar" prefHeight="18.0" progress="0.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+        <padding>
+          <Insets left="182.0"/>
+        </padding>
+      </ProgressBar>
+      <Label fx:id="progressLabel" prefHeight="17.0" prefWidth="183.0" GridPane.columnIndex="1"/>
+    </ToolBar>
   </VBox>
 </AnchorPane>
