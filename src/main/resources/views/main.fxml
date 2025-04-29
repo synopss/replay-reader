@@ -80,63 +80,63 @@
           <padding>
             <Insets left="10.0" right="10.0"/>
           </padding>
-          <Label text="dmg (&gt;300m)" GridPane.rowIndex="3"/>
+          <Label text="%main.stats.dmg" GridPane.rowIndex="3"/>
           <TextField fx:id="textDmg" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
           <TextField fx:id="textKills" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-          <Label text="kills" GridPane.rowIndex="4"/>
-          <Label text="assist (spots/tracks)" GridPane.rowIndex="6"/>
-          <Label text="penrate" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-          <Label text="hitrate" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+          <Label text="%main.stats.kills" GridPane.rowIndex="4"/>
+          <Label text="%main.stats.assist" GridPane.rowIndex="6"/>
+          <Label text="%main.stats.pen-rate" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+          <Label text="%main.stats.hit-rate" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
           <TextField fx:id="textPenRate" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
           <TextField fx:id="textHitRate" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
           <TextField fx:id="textAssist" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
           <TextField fx:id="textSpots" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-          <Label text="spots" GridPane.rowIndex="5"/>
-          <Label text="life time" GridPane.columnIndex="2" GridPane.rowIndex="13"/>
+          <Label text="%main.stats.spots" GridPane.rowIndex="5"/>
+          <Label text="%main.stats.life-duration" GridPane.columnIndex="2" GridPane.rowIndex="13"/>
           <TextField fx:id="textLifeTime" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="13"/>
           <TextField fx:id="textBlocked" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
           <TextField fx:id="textHitsReceived" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
           <TextField fx:id="textDmgReceived" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="9"/>
           <TextField fx:id="textDmgReceivedInvisible" editable="false" GridPane.columnIndex="3"
             GridPane.rowIndex="10"/>
-          <Label text="dmg blocked" GridPane.rowIndex="9"/>
-          <Label text="hits received" GridPane.rowIndex="10"/>
-          <Label text="dmg received" GridPane.columnIndex="2" GridPane.rowIndex="9"/>
-          <Label text="dmg received invisible" GridPane.columnIndex="2" GridPane.rowIndex="10"/>
+          <Label text="%main.stats.dmg-blocked" GridPane.rowIndex="9"/>
+          <Label text="%main.stats.hits-received" GridPane.rowIndex="10"/>
+          <Label text="%main.stats.dmg-received" GridPane.columnIndex="2" GridPane.rowIndex="9"/>
+          <Label text="%main.stats.dmg-received-invisible" GridPane.columnIndex="2" GridPane.rowIndex="10"/>
           <TextField fx:id="textXP" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
           <TextField fx:id="textCredits" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="12"/>
-          <Label text="xp (base)" GridPane.rowIndex="12"/>
-          <Label text="credits (base)" GridPane.columnIndex="2" GridPane.rowIndex="12"/>
+          <Label text="%main.stats.xp-base" GridPane.rowIndex="12"/>
+          <Label text="%main.stats.credits-base" GridPane.columnIndex="2" GridPane.rowIndex="12"/>
           <TextField fx:id="textTeamDmg" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="15"/>
-          <Label text="team dmg" GridPane.columnIndex="2" GridPane.rowIndex="15"/>
-          <Label text="mileage" GridPane.rowIndex="13"/>
+          <Label text="%main.stats.team-dmg" GridPane.columnIndex="2" GridPane.rowIndex="15"/>
+          <Label text="%main.stats.mileage" GridPane.rowIndex="13"/>
           <TextField fx:id="textMileage" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
           <Label fx:id="textVehicle" prefHeight="17.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <font>
               <Font name="System Bold" size="12.0"/>
             </font>
           </Label>
-          <Label text="shots" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+          <Label text="%main.stats.shots" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
           <TextField fx:id="textShots" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
-          <Label text="maps" GridPane.rowIndex="15"/>
+          <Label text="%main.stats.maps" GridPane.rowIndex="15"/>
           <ListView fx:id="mapsList" focusTraversable="false" minHeight="120.0" prefHeight="200.0"
             prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
             <GridPane.margin>
               <Insets top="50.0"/>
             </GridPane.margin>
           </ListView>
-          <Label text="winrate" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+          <Label text="%main.stats.winrate" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
           <TextField fx:id="textWinrate" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
           <TextField fx:id="textTeamKills" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="16"/>
-          <Label text="team kills" GridPane.columnIndex="2" GridPane.rowIndex="16"/>
-          <Label text="cap" GridPane.rowIndex="7"/>
-          <Label text="cap reset" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+          <Label text="%main.stats.team-kills" GridPane.columnIndex="2" GridPane.rowIndex="16"/>
+          <Label text="%main.stats.cap" GridPane.rowIndex="7"/>
+          <Label text="%main.stats.cap-reset" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
           <TextField fx:id="textCap" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
           <TextField fx:id="textCapReset" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="7"/>
-          <Label text="dmg rank" GridPane.columnIndex="2" GridPane.rowIndex="19"/>
+          <Label text="%main.stats.dmg-rank" GridPane.columnIndex="2" GridPane.rowIndex="19"/>
           <TextField fx:id="textDamageRank" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="19"/>
           <TextField fx:id="textXPRank" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="19"/>
-          <Label text="xp rank" GridPane.rowIndex="19"/>
+          <Label text="%main.stats.xp-rank" GridPane.rowIndex="19"/>
         </GridPane>
       </AnchorPane>
     </HBox>
