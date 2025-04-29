@@ -12,6 +12,21 @@ public class ReplayServiceImpl implements ReplayService {
   }
 
   @Override
+  public ObservableList<String> getVehicles(String player) {
+    return null;
+  }
+
+  @Override
+  public ObservableList<String> getMaps(String player, String vehicle) {
+    return null;
+  }
+
+  @Override
+  public int getNumberOfMapsPlayed(String player, String vehicle, String map) {
+    return 0;
+  }
+
+  @Override
   public int getNumberOfGames(String player, String vehicle) {
     return 0;
   }
@@ -27,12 +42,12 @@ public class ReplayServiceImpl implements ReplayService {
   }
 
   @Override
-  public Double getAvgKills(String player, String vehicle) {
+  public double getAvgKills(String player, String vehicle) {
     return 0.0;
   }
 
   @Override
-  public Double getPenRate(String player, String vehicle) {
+  public double getPenRate(String player, String vehicle) {
     return 0.0;
   }
 
@@ -58,6 +73,86 @@ public class ReplayServiceImpl implements ReplayService {
 
   @Override
   public int getAvgXp(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public int getAvgSniperDamageDealt(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public double getHitRate(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public double getAvgSpots(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public int getAvgLifeTime(String String, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public int getAvgHitsReceived(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public int getAvgDamageReceived(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public int getAvgDamageReceivedFromInvisibles(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public double getAvgTKills(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public double getAvgShots(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public int getAvgCredits(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public int getAvgMileage(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public double getWinrate(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public int getAvgCap(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public int getAvgCapReset(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public double getAvgXPRank(String player, String vehicle) {
+    return 0;
+  }
+
+  @Override
+  public double getAvgDamageRank(String player, String vehicle) {
     return 0;
   }
 }

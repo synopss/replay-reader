@@ -1,7 +1,10 @@
 package com.synops.replayreader.controller;
 
+import com.synops.replayreader.comparator.MapsComparator;
 import com.synops.replayreader.comparator.PlayerListComparatorLong;
 import com.synops.replayreader.comparator.SortingComparators;
+import com.synops.replayreader.control.PlayerListCell;
+import com.synops.replayreader.control.VehicleListCell;
 import com.synops.replayreader.model.MainModel;
 import com.synops.replayreader.model.PlayerSort;
 import com.synops.replayreader.service.ReplayService;
@@ -18,7 +21,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -30,13 +35,17 @@ public class MainViewController {
 
   private final ReplayService replayService;
   private final ResourceBundle resourceBundle;
+  private final StringProperty selectedPlayer = new SimpleStringProperty("");
+  private final StringProperty selectedVehicle = new SimpleStringProperty("");
   private final StringProperty selectedClan = new SimpleStringProperty("");
-  @Value("${replay-reader.application.config.max-players}")
+  @Value("${replay-reader.config.max-players}")
   private int MAX_PLAYERS;
-  @Value("${replay-reader.application.config.max-clans}")
+  @Value("${replay-reader.config.max-clans}")
   private int MAX_CLANS;
-  @Value("${replay-reader.application.config.clan-all}")
+  @Value("${replay-reader.config.clan-all}")
   private String CLAN_ALL;
+  @Value("${replay-reader.config.overall}")
+  private String OVERALL;
   @FXML
   private AnchorPane root;
   @FXML
@@ -48,6 +57,56 @@ public class MainViewController {
   @FXML
   private ListView<String> playersList;
   private Comparator<String> playersComparator;
+  @FXML
+  private ListView<String> vehiclesList;
+  @FXML
+  private Label textVehicle;
+  @FXML
+  private TextField textDmg;
+  @FXML
+  private TextField textKills;
+  @FXML
+  private TextField textPenRate;
+  @FXML
+  private TextField textHitRate;
+  @FXML
+  private TextField textAssist;
+  @FXML
+  private TextField textSpots;
+  @FXML
+  private TextField textBlocked;
+  @FXML
+  private TextField textLifeTime;
+  @FXML
+  private TextField textHitsReceived;
+  @FXML
+  private TextField textDmgReceived;
+  @FXML
+  private TextField textDmgReceivedInvisible;
+  @FXML
+  private TextField textTeamDmg;
+  @FXML
+  private TextField textTeamKills;
+  @FXML
+  private TextField textShots;
+  @FXML
+  private TextField textXP;
+  @FXML
+  private TextField textCredits;
+  @FXML
+  private TextField textMileage;
+  @FXML
+  private TextField textWinrate;
+  @FXML
+  private TextField textCap;
+  @FXML
+  private TextField textCapReset;
+  @FXML
+  private TextField textXPRank;
+  @FXML
+  private TextField textDamageRank;
+  @FXML
+  private ListView<String> mapsList;
 
   private MainModel mainModel;
 
@@ -60,8 +119,10 @@ public class MainViewController {
   public void initialize() {
     initMainModel();
     hbox.prefHeightProperty().bind(root.heightProperty());
+    initLists();
     initSortingChoiceBox();
     initClanChoiceBox();
+    bindingSelectedElements();
   }
 
   @FXML
@@ -72,6 +133,15 @@ public class MainViewController {
   @FXML
   private void onClickAbout() {
     (new AboutWindowController(resourceBundle)).showAndWait();
+  }
+
+  private void initLists() {
+    playersList.getSelectionModel().selectedItemProperty().addListener(this::onSelectPlayer);
+    playersList.setCellFactory(
+        (_) -> new PlayerListCell(replayService::getNumberOfGames, replayService::getPlayerInfo));
+    vehiclesList.setCellFactory(
+        (_) -> new VehicleListCell(selectedPlayer, replayService::getNumberOfGames));
+    vehiclesList.getSelectionModel().selectedItemProperty().addListener(this::showVehicleStats);
   }
 
   private void initSortingChoiceBox() {
@@ -91,7 +161,22 @@ public class MainViewController {
     clanChoiceBox.getSelectionModel().selectedItemProperty().addListener(this::onClanChanged);
     clanChoiceBox.setTooltip(new Tooltip(
         String.format(resourceBundle.getString("main.toolbar.filter-clan.tooltip"), MAX_CLANS)));
+  }
+
+  private void bindingSelectedElements() {
+    selectedPlayer.bind(playersList.getSelectionModel().selectedItemProperty());
     selectedClan.bind(clanChoiceBox.getSelectionModel().selectedItemProperty());
+  }
+
+  private void onSelectPlayer(ObservableValue<? extends String> player, String oldValue,
+      String newValue) {
+    if (newValue != null) {
+      var vehicles = replayService.getVehicles(newValue);
+      vehiclesList.getItems().clear();
+      vehicles.addFirst(OVERALL);
+      vehiclesList.setItems(vehicles);
+      vehiclesList.getSelectionModel().selectFirst();
+    }
   }
 
   private void onSortingChanged(ObservableValue<? extends String> player, String oldValue,
@@ -104,6 +189,67 @@ public class MainViewController {
     }
 
     playersList.getSelectionModel().selectFirst();
+  }
+
+  private void showVehicleStats(ObservableValue<? extends String> player, String oldValue,
+      String newValue) {
+    String vehicle = null;
+    if (!OVERALL.equals(newValue)) {
+      vehicle = newValue;
+    }
+
+    textVehicle.setText(String.format("%s (%d)", selectedVehicle.get(),
+        replayService.getNumberOfGames(selectedPlayer.get(), vehicle)));
+    textDmg.setText(
+        String.format("%d (%d)", replayService.getDamageDealt(selectedPlayer.get(), vehicle),
+            replayService.getAvgSniperDamageDealt(selectedPlayer.get(), vehicle)));
+    textKills.setText(
+        String.format("%.2f", replayService.getAvgKills(selectedPlayer.get(), vehicle)));
+    textPenRate.setText(
+        String.format("%.2f%%", 100 * replayService.getPenRate(selectedPlayer.get(), vehicle)));
+    textHitRate.setText(
+        String.format("%.2f%%", 100 * replayService.getHitRate(selectedPlayer.get(), vehicle)));
+    var assistSpots = replayService.getAvgSpotAssist(selectedPlayer.get(), vehicle);
+    var assistTracks = replayService.getAvgTrackAssist(selectedPlayer.get(), vehicle);
+    textAssist.setText(
+        String.format("%d (%d/%d)", assistSpots + assistTracks, assistSpots, assistTracks));
+    textSpots.setText(
+        String.format("%.2f", replayService.getAvgSpots(selectedPlayer.get(), vehicle)));
+    textBlocked.setText(String.valueOf(replayService.getAvgBlocked(selectedPlayer.get(), vehicle)));
+    var lifeTime = replayService.getAvgLifeTime(selectedPlayer.get(), vehicle);
+    var min = lifeTime / 60;
+    var sec = lifeTime % 60;
+    textLifeTime.setText(String.format("%d:%02dmin", min, sec));
+    textHitsReceived.setText(
+        String.valueOf(replayService.getAvgHitsReceived(selectedPlayer.get(), vehicle)));
+    textDmgReceived.setText(
+        String.valueOf(replayService.getAvgDamageReceived(selectedPlayer.get(), vehicle)));
+    textDmgReceivedInvisible.setText(String.valueOf(
+        replayService.getAvgDamageReceivedFromInvisibles(selectedPlayer.get(), vehicle)));
+    textTeamDmg.setText(
+        String.valueOf(replayService.getAvgTdamageDealt(selectedPlayer.get(), vehicle)));
+    textTeamKills.setText(
+        String.format("%.2f", replayService.getAvgTKills(selectedPlayer.get(), vehicle)));
+    textShots.setText(
+        String.format("%.2f", replayService.getAvgShots(selectedPlayer.get(), vehicle)));
+    textXP.setText(String.valueOf(replayService.getAvgXp(selectedPlayer.get(), vehicle)));
+    textCredits.setText(String.valueOf(replayService.getAvgCredits(selectedPlayer.get(), vehicle)));
+    textMileage.setText(
+        String.format("%dm", replayService.getAvgMileage(selectedPlayer.get(), vehicle)));
+    textWinrate.setText(
+        String.format("%.2f%%", 100 * replayService.getWinrate(selectedPlayer.get(), vehicle)));
+    textCap.setText(String.valueOf(replayService.getAvgCap(selectedPlayer.get(), vehicle)));
+    textCapReset.setText(
+        String.valueOf(replayService.getAvgCapReset(selectedPlayer.get(), vehicle)));
+    textXPRank.setText(
+        String.format("%.2f", replayService.getAvgXPRank(selectedPlayer.get(), vehicle)));
+    textDamageRank.setText(
+        String.format("%.2f", replayService.getAvgDamageRank(selectedPlayer.get(), vehicle)));
+    var maps = replayService.getMaps(selectedPlayer.get(), vehicle);
+    maps.sort(
+        new MapsComparator(selectedPlayer, selectedVehicle, replayService::getNumberOfMapsPlayed));
+    mapsList.setItems(maps);
+    mapsList.scrollTo(0);
   }
 
   private void updatePlayers() {

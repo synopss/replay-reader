@@ -2,6 +2,7 @@ package com.synops.replayreader;
 
 import com.synops.replayreader.common.I18nUtils;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,21 +16,20 @@ import org.springframework.stereotype.Component;
 public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 
   private final ApplicationContext applicationContext;
+  private final ResourceBundle resourceBundle;
 
-  @Value("${replay-reader.application.ui.title}")
-  private String applicationTitle;
-
-  @Value("${replay-reader.application.ui.height}")
+  @Value("${replay-reader.ui.height}")
   private int applicationHeight;
 
-  @Value("${replay-reader.application.ui.width}")
+  @Value("${replay-reader.ui.width}")
   private int applicationWidth;
 
   @Value("classpath:/views/main.fxml")
   private Resource mainResource;
 
-  public StageInitializer(ApplicationContext applicationContext) {
+  public StageInitializer(ApplicationContext applicationContext, ResourceBundle resourceBundle) {
     this.applicationContext = applicationContext;
+    this.resourceBundle = resourceBundle;
   }
 
   @Override
@@ -42,7 +42,7 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
       var stage = event.getStage();
       stage.setScene(new Scene(parent, applicationWidth, applicationHeight));
       stage.setResizable(false);
-      stage.setTitle(applicationTitle);
+      stage.setTitle(resourceBundle.getString("main.title"));
       stage.show();
     } catch (IOException e) {
       throw new RuntimeException(e);
