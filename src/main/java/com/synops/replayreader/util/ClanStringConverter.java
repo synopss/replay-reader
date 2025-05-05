@@ -1,27 +1,34 @@
 package com.synops.replayreader.util;
 
+import static com.synops.replayreader.util.Constants.CLAN_ALL;
+import static com.synops.replayreader.util.Constants.CLAN_LESS;
+
 import java.util.function.Function;
 import javafx.util.StringConverter;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ClanStringConverter extends StringConverter<String> {
-  @Value("${replay-reader.config.clan-all}")
-  private String CLAN_ALL;
-  @Value("${replay-reader.config.clan-less}")
-  private String CLAN_LESS;
-  private final Function<String, Integer> function;
-  private final int allPlayersCount;
 
-  public ClanStringConverter(Function<String, Integer> function, int allPlayersCount) {
+  private Function<String, Integer> function;
+  private int allPlayersCount;
+
+  public ClanStringConverter() {
+  }
+
+  public void configure(Function<String, Integer> function, int allPlayersCount) {
     this.function = function;
     this.allPlayersCount = allPlayersCount;
   }
 
   @Override
   public String toString(String clanString) {
+    if (clanString == null) {
+      return null;
+    }
     int playerCount = function.apply(clanString);
     String clan;
-    if ("".equals(clanString)) {
+    if (clanString.isEmpty()) {
       clan = CLAN_LESS;
     } else if (CLAN_ALL.equals(clanString)) {
       clan = clanString;

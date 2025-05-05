@@ -1,5 +1,7 @@
 package com.synops.replayreader.control;
 
+import static com.synops.replayreader.util.Constants.OVERALL;
+
 import com.synops.replayreader.comparator.PlayerAndVehicleToInt;
 import com.synops.replayreader.util.TanksUtil;
 import javafx.beans.property.StringProperty;
@@ -7,14 +9,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import org.springframework.beans.factory.annotation.Value;
 
 public class VehicleListCell extends ListCell<String> {
 
   private final PlayerAndVehicleToInt function;
   private final StringProperty selectedPlayer;
-  @Value("${replay-reader.config.overall}")
-  private String OVERALL;
 
   public VehicleListCell(StringProperty selectedPlayer, PlayerAndVehicleToInt function) {
     this.function = function;
@@ -29,21 +28,21 @@ public class VehicleListCell extends ListCell<String> {
     if (!empty && item != null) {
       if (OVERALL.equals(item)) {
         textVehicle.setText(item + " ");
-        textMatches.setText(String.valueOf(this.function.apply(this.selectedPlayer.get(), null)));
+        textMatches.setText(String.valueOf(function.apply(selectedPlayer.get(), null)));
       } else {
         textVehicle.setText(TanksUtil.getTankName(item) + " ");
-        textMatches.setText(String.valueOf(this.function.apply(this.selectedPlayer.get(), item)));
+        textMatches.setText(String.valueOf(function.apply(selectedPlayer.get(), item)));
       }
 
       var textFlow = new TextFlow();
       textMatches.setFill(Color.ORANGE);
       textFlow.getChildren().addAll(textVehicle, textMatches);
-      this.setGraphic(textFlow);
-      this.setText(null);
+      setGraphic(textFlow);
+      setText(null);
     } else {
-      this.setGraphic(null);
-      this.setText(null);
-      this.setTooltip(null);
+      setGraphic(null);
+      setText(null);
+      setTooltip(null);
     }
   }
 }

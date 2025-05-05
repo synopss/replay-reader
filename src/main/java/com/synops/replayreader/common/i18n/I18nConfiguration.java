@@ -1,6 +1,5 @@
-package com.synops.replayreader.configuration;
+package com.synops.replayreader.common.i18n;
 
-import com.synops.replayreader.common.I18nUtils;
 import java.util.ResourceBundle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

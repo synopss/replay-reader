@@ -1,4 +1,4 @@
-package com.synops.replayreader.common;
+package com.synops.replayreader.common.i18n;
 
 import java.util.ResourceBundle;
 

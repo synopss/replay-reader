@@ -1,18 +1,22 @@
 package com.synops.replayreader.comparator;
 
+import static com.synops.replayreader.util.Constants.OVERALL;
+
 import java.util.Comparator;
 import javafx.beans.property.StringProperty;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MapsComparator implements Comparator<String> {
 
-  private final StringProperty selectedPlayer;
-  private final StringProperty selectedVehicle;
-  private final PlayerAndVehicleAndMapToInt function;
-  @Value("${replay-reader.config.overall}")
-  private String OVERALL;
+  private StringProperty selectedPlayer;
+  private StringProperty selectedVehicle;
+  private PlayerAndVehicleAndMapToInt function;
 
-  public MapsComparator(StringProperty selectedPlayer, StringProperty selectedVehicle,
+  public MapsComparator() {
+  }
+
+  public void configure(StringProperty selectedPlayer, StringProperty selectedVehicle,
       PlayerAndVehicleAndMapToInt function) {
     this.selectedPlayer = selectedPlayer;
     this.selectedVehicle = selectedVehicle;

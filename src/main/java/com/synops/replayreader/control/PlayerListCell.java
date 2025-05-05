@@ -27,7 +27,7 @@ public class PlayerListCell extends ListCell<String> {
       var playerText = item + " ";
       var textPlayer = new Text(playerText);
       textPlayer.setFill(Color.BLACK);
-      var clanText = playerInfoFunction.apply(item).getClanAbbreviation();
+      var clanText = playerInfoFunction.apply(item).getClanAbbrev();
 
       if (!clanText.isEmpty()) {
         clanText = "[" + clanText + "]";
@@ -43,11 +43,15 @@ public class PlayerListCell extends ListCell<String> {
       var textFlow = new TextFlow();
       textFlow.getChildren().addAll(textPlayer, textClan, textMatches);
       setGraphic(textFlow);
-      setTooltip(new Tooltip(String.format("%s%s(%d)", playerText, clanText, overallBattleCount)));
+      setTooltip(new Tooltip(createTooltippText(playerText, clanText, overallBattleCount)));
     } else {
       setGraphic(null);
     }
 
     setText(null);
+  }
+
+  private String createTooltippText(String playerText, String clan, int overallBattleCount) {
+    return String.format("%s%s(%d)", playerText, clan, overallBattleCount);
   }
 }

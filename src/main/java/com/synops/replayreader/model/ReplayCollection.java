@@ -1,37 +1,32 @@
-package com.synops.replayreader.service;
+package com.synops.replayreader.model;
 
-import com.synops.replayreader.model.Player;
-import com.synops.replayreader.model.ReplayProgressEvent;
-import java.io.File;
 import java.util.List;
-import java.util.function.Consumer;
-import javafx.collections.ObservableList;
+import java.util.Set;
 
-public interface ReplayService {
+public interface ReplayCollection {
+  Set<String> getUniquePlayers();
 
-  void load(List<File> files);
+  List<String> getUniquePlayersClan(String clanAbbrev);
 
-  void load(List<File> files, Consumer<ReplayProgressEvent> progressListener);
+  List<String> getVehiclesForPlayer(String player);
 
-  ObservableList<String> getPlayers();
+  Set<String> getUniqueClans();
 
   Player getPlayerInfo(String player);
 
-  ObservableList<String> getVehicles(String player);
+  void updateReplayFilter(ReplayFilter replayFilter);
 
-  ObservableList<String> getClans();
-
-  ObservableList<String> getMaps(String player, String vehicle);
-
-  double getWinrate(String player, String vehicle);
-
-  int getNumberOfMapsPlayed(String player, String vehicle, String map);
-
-  int getNumberOFClanPlayers(String clan);
+  int getNumberOfClanPlayers(String clan);
 
   int getNumberOfGames(String player, String vehicle);
 
-  int getDamageDealt(String player, String vehicle);
+  int getAvgDamageDealt(String player, String vehicle);
+
+  List<String> getMaps(String player, String vehicle);
+
+  int getNumberOfMapsPlayed(String player, String vehicle, String map);
+
+  double getWinRate(String player, String vehicle);
 
   double getAvgKills(String player, String vehicle);
 
@@ -55,15 +50,15 @@ public interface ReplayService {
 
   int getAvgDamageReceivedFromInvisibles(String player, String vehicle);
 
-  int getAvgTdamageDealt(String player, String vehicle);
-
-  double getAvgTKills(String player, String vehicle);
-
   double getAvgShots(String player, String vehicle);
 
-  int getAvgXp(String player, String vehicle);
+  int getAvgTDamageDealt(String player, String vehicle);
+
+  double getavgTKills(String player, String vehicle);
 
   int getAvgCredits(String player, String vehicle);
+
+  int getAvgXp(String player, String vehicle);
 
   int getAvgMileage(String player, String vehicle);
 

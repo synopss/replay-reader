@@ -1,16 +1,20 @@
 package com.synops.replayreader.comparator;
 
+import static com.synops.replayreader.util.Constants.CLAN_ALL;
+
 import java.util.Comparator;
 import java.util.function.Function;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ClanListComparator implements Comparator<String> {
 
-  private final Function<String, Integer> function;
-  @Value("${replay-reader.config.clan-all}")
-  private String CLAN_ALL;
+  private Function<String, Integer> function;
 
-  public ClanListComparator(Function<String, Integer> function) {
+  public ClanListComparator() {
+  }
+
+  public void configure(Function<String, Integer> function) {
     this.function = function;
   }
 

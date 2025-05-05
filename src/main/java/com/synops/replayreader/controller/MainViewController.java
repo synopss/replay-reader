@@ -1,9 +1,13 @@
 package com.synops.replayreader.controller;
 
+import static com.synops.replayreader.util.Constants.CLAN_ALL;
+import static com.synops.replayreader.util.Constants.OVERALL;
+
 import com.synops.replayreader.comparator.ClanListComparator;
 import com.synops.replayreader.comparator.MapsComparator;
 import com.synops.replayreader.comparator.PlayerListComparatorLong;
 import com.synops.replayreader.comparator.SortingComparators;
+import com.synops.replayreader.control.MapListCell;
 import com.synops.replayreader.control.PlayerListCell;
 import com.synops.replayreader.control.VehicleListCell;
 import com.synops.replayreader.model.MainModel;
@@ -12,6 +16,7 @@ import com.synops.replayreader.model.ReplayProgressEvent;
 import com.synops.replayreader.service.ReplayService;
 import com.synops.replayreader.util.ClanStringConverter;
 import com.synops.replayreader.util.DragDropSupport;
+import com.synops.replayreader.util.LogUtil;
 import java.io.File;
 import java.util.Comparator;
 import java.util.List;
@@ -45,6 +50,11 @@ public class MainViewController {
 
   private final ReplayService replayService;
   private final ResourceBundle resourceBundle;
+  private final ClanStringConverter clanStringConverter;
+  private final ClanListComparator clanListComparator;
+  private final SortingComparators sortingComparators;
+  private final MapsComparator mapsComparator;
+  private final DragDropSupport dragDropSupport;
   private final StringProperty selectedPlayer = new SimpleStringProperty("");
   private final StringProperty selectedVehicle = new SimpleStringProperty("");
   private final StringProperty selectedClan = new SimpleStringProperty("");
@@ -52,10 +62,6 @@ public class MainViewController {
   private int MAX_PLAYERS;
   @Value("${replay-reader.config.max-clans}")
   private int MAX_CLANS;
-  @Value("${replay-reader.config.clan-all}")
-  private String CLAN_ALL;
-  @Value("${replay-reader.config.overall}")
-  private String OVERALL;
   @FXML
   private AnchorPane root;
   @FXML
@@ -123,9 +129,17 @@ public class MainViewController {
   private Label progressLabel;
   private MainModel mainModel;
 
-  public MainViewController(ReplayService replayService, ResourceBundle resourceBundle) {
+  public MainViewController(ReplayService replayService, ResourceBundle resourceBundle,
+      ClanStringConverter clanStringConverter, ClanListComparator clanListComparator,
+      SortingComparators sortingComparators, MapsComparator mapsComparator,
+      DragDropSupport dragDropSupport) {
     this.replayService = replayService;
     this.resourceBundle = resourceBundle;
+    this.clanStringConverter = clanStringConverter;
+    this.clanListComparator = clanListComparator;
+    this.sortingComparators = sortingComparators;
+    this.mapsComparator = mapsComparator;
+    this.dragDropSupport = dragDropSupport;
   }
 
   @FXML
@@ -151,20 +165,22 @@ public class MainViewController {
   }
 
   private void initLists() {
-    playersList.getSelectionModel().selectedItemProperty().addListener(this::onSelectPlayer);
     playersList.setCellFactory(
         (_) -> new PlayerListCell(replayService::getNumberOfGames, replayService::getPlayerInfo));
+    playersList.getSelectionModel().selectedItemProperty().addListener(this::onSelectPlayer);
     vehiclesList.setCellFactory(
         (_) -> new VehicleListCell(selectedPlayer, replayService::getNumberOfGames));
     vehiclesList.getSelectionModel().selectedItemProperty().addListener(this::showVehicleStats);
+    mapsList.setCellFactory((_) -> new MapListCell(selectedPlayer, selectedVehicle,
+        replayService::getNumberOfMapsPlayed));
   }
 
   private void initDragDrop() {
-    var dragDrop = new DragDropSupport(this::load);
+    dragDropSupport.configure(this::load);
     root.sceneProperty().addListener((_, oldValue, newValue) -> {
       if (oldValue == null && newValue != null) {
-        newValue.setOnDragOver(dragDrop::onDragOver);
-        newValue.setOnDragDropped(dragDrop::onDragDropped);
+        newValue.setOnDragOver(dragDropSupport::onDragOver);
+        newValue.setOnDragDropped(dragDropSupport::onDragDropped);
       }
     });
   }
@@ -190,6 +206,7 @@ public class MainViewController {
 
   private void bindingSelectedElements() {
     selectedPlayer.bind(playersList.getSelectionModel().selectedItemProperty());
+    selectedVehicle.bind(this.vehiclesList.getSelectionModel().selectedItemProperty());
     selectedClan.bind(clanChoiceBox.getSelectionModel().selectedItemProperty());
   }
 
@@ -207,13 +224,11 @@ public class MainViewController {
   private void onSortingChanged(ObservableValue<? extends String> player, String oldValue,
       String newValue) {
     if (getMainModel().getPlayersData() != null) {
-      playersComparator = (new SortingComparators(replayService)).getComparator(
-          PlayerSort.of(newValue));
+      sortingComparators.initMap();
+      playersComparator = sortingComparators.getComparator(PlayerSort.of(newValue));
       setTextFieldColor(PlayerSort.of(newValue));
       updatePlayers();
     }
-
-    playersList.getSelectionModel().selectFirst();
   }
 
   private void showVehicleStats(ObservableValue<? extends String> player, String oldValue,
@@ -271,8 +286,8 @@ public class MainViewController {
     textDamageRank.setText(
         String.format("%.2f", replayService.getAvgDamageRank(selectedPlayer.get(), vehicle)));
     var maps = replayService.getMaps(selectedPlayer.get(), vehicle);
-    maps.sort(
-        new MapsComparator(selectedPlayer, selectedVehicle, replayService::getNumberOfMapsPlayed));
+    mapsComparator.configure(selectedPlayer, selectedVehicle, replayService::getNumberOfMapsPlayed);
+    maps.sort(mapsComparator);
     mapsList.setItems(maps);
     mapsList.scrollTo(0);
   }
@@ -289,7 +304,7 @@ public class MainViewController {
     task.setOnRunning(_ -> {
     });
     progressBar.setProgress(0);
-    task.setOnScheduled(this::onLoadSucceeded);
+    task.setOnSucceeded(this::onLoadSucceeded);
     var thread = new Thread(task);
     thread.setDaemon(true);
     thread.start();
@@ -305,6 +320,7 @@ public class MainViewController {
   private void onLoadSucceeded(WorkerStateEvent event) {
     updatePlayers();
     updateClans();
+    LogUtil.debug("onLoadSucceeded before selectionmodel changes");
     playersList.getSelectionModel().selectFirst();
     clanChoiceBox.getSelectionModel().selectFirst();
     sortingChoiceBox.getSelectionModel().selectFirst();
@@ -319,7 +335,7 @@ public class MainViewController {
     if (selectedClanValue != null) {
       filteredPlayersData.setPredicate(
           (player) -> selectedClanValue.equals(CLAN_ALL) || selectedClanValue.equals(
-              replayService.getPlayerInfo(player).getClanAbbreviation()));
+              replayService.getPlayerInfo(player).getClanAbbrev()));
     }
 
     var newPlayersData = FXCollections.observableArrayList(filteredPlayersData);
@@ -329,18 +345,20 @@ public class MainViewController {
     }
 
     getMainModel().setPlayersData(newPlayersData);
+    playersList.getItems().clear();
     playersList.setItems(getMainModel().getPlayersData());
-    playersList.getSelectionModel().select(0);
-    playersList.scrollTo(0);
+    playersList.getSelectionModel().selectFirst();
   }
 
   private void updateClans() {
     var newClansData = replayService.getClans();
     newClansData.addFirst(CLAN_ALL);
     var sortedClans = new SortedList<>(newClansData);
-    sortedClans.setComparator(new ClanListComparator(replayService::getNumberOFClanPlayers));
-    clanChoiceBox.setConverter(new ClanStringConverter(replayService::getNumberOFClanPlayers,
-        replayService.getPlayers().size()));
+    clanListComparator.configure(replayService::getNumberOFClanPlayers);
+    sortedClans.setComparator(clanListComparator);
+    clanStringConverter.configure(replayService::getNumberOFClanPlayers,
+        replayService.getPlayers().size());
+    clanChoiceBox.setConverter(clanStringConverter);
     int size = newClansData.size();
     if (size > MAX_CLANS) {
       newClansData.removeAll(sortedClans.subList(MAX_CLANS, size - 1));
@@ -366,7 +384,7 @@ public class MainViewController {
     mainModel = new MainModel();
   }
 
-  private void setTextFieldColor(PlayerSort playerSort) {
+  private void setTextFieldColor(String playerSort) {
     for (var sort : PlayerSort.values()) {
       var element = root.getScene().lookup("#" + sort.getElementId());
       if (element != null) {
@@ -374,7 +392,7 @@ public class MainViewController {
       }
     }
 
-    var lookup = root.getScene().lookup("#" + playerSort.getElementId());
+    var lookup = root.getScene().lookup("#" + playerSort);
     if (lookup != null) {
       lookup.setStyle("-fx-border-color: red");
     }

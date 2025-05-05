@@ -1,6 +1,6 @@
 package com.synops.replayreader.model;
 
-import com.synops.replayreader.common.I18nUtils;
+import com.synops.replayreader.common.i18n.I18nUtils;
 
 public enum PlayerSort {
   GAMES("games", "textGames", "main.toolbar.sort.games"), DMG("dmg", "textDmg",
@@ -20,10 +20,10 @@ public enum PlayerSort {
     this.resourceBundleName = resourceBundleName;
   }
 
-  public static PlayerSort of(String text) {
+  public static String of(String text) {
     for (PlayerSort ps : values()) {
-      if (text.equals(ps.getText())) {
-        return ps;
+      if (text.equals(ps.getResourceBundleName())) {
+        return ps.getResourceBundleName();
       }
     }
 

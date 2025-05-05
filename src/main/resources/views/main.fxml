@@ -148,7 +148,7 @@
           <Font name="System Bold" size="12.0"/>
         </font>
       </Label>
-      <ProgressBar fx:id="progressBar" prefHeight="18.0" progress="0.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+      <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="676" progress="0.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
         <padding>
           <Insets left="182.0"/>
         </padding>

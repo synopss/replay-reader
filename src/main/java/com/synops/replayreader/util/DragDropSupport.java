@@ -5,12 +5,17 @@ import java.util.List;
 import java.util.function.Consumer;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DragDropSupport {
 
-  private final Consumer<List<File>> loader;
+  private Consumer<List<File>> loader;
 
-  public DragDropSupport(Consumer<List<File>> loader) {
+  public DragDropSupport() {
+  }
+
+  public void configure(Consumer<List<File>> loader) {
     this.loader = loader;
   }
 

@@ -1,6 +1,6 @@
 package com.synops.replayreader;
 
-import com.synops.replayreader.common.I18nUtils;
+import com.synops.replayreader.common.i18n.I18nUtils;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
