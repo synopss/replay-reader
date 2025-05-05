@@ -1,5 +1,6 @@
 package com.synops.replayreader;
 
+import com.synops.replayreader.core.StageReadyEvent;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;

@@ -20,7 +20,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
   xmlns="http://javafx.com/javafx"
   minWidth="800.0" prefHeight="583.0" prefWidth="1199.0"
-  fx:controller="com.synops.replayreader.controller.MainViewController"
+  fx:controller="com.synops.replayreader.ui.controller.MainViewController"
   fx:id="root">
   <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
     AnchorPane.topAnchor="0.0">
