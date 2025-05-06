@@ -1,5 +1,7 @@
 package com.synops.replayreader.replay.service;
 
+import static com.synops.replayreader.common.util.Constants.JSON_DEPTH;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -27,17 +29,19 @@ public class ReplayModelBuilder {
   private Gson gson;
   private JsonObject replayJson;
   private JsonObject statsJson;
+  private JsonObject extraDataJson;
 
   public ReplayModelBuilder() {
   }
 
   public void configure(List<String> jsonString) {
-    if (jsonString.size() != 2) {
+    if (jsonString.size() != JSON_DEPTH) {
       throw new IllegalArgumentException("Illegal amount of json string");
     } else {
       this.gson = (new GsonBuilder()).create();
       this.replayJson = gson.fromJson(jsonString.getFirst(), JsonObject.class);
       this.statsJson = gson.fromJson(jsonString.get(1), JsonObject.class);
+      this.extraDataJson = gson.fromJson(jsonString.get(2), JsonObject.class);
     }
   }
 
@@ -86,15 +90,17 @@ public class ReplayModelBuilder {
   private List<PlayerIdMapping> createPlayerIdMapping(List<Player> players) {
     var result = new ArrayList<PlayerIdMapping>();
 
-    for (var vehicleEntry : replayJson.getAsJsonObject("vehicles").entrySet()) {
-      var vehiclePOJO = gson.fromJson(vehicleEntry.getValue(), ReplayVehiclePOJO.class);
+    for (var extraData : extraDataJson.entrySet()) {
+      var key = extraData.getKey();
+      var memberData = extraData.getValue().getAsJsonObject();
+      var vehiclePOJO = gson.fromJson(memberData, ReplayVehiclePOJO.class);
       var find = players.stream().filter((player -> player.getName().equals(vehiclePOJO.name)))
           .findFirst();
       var playerId = find.isPresent() ? find.get().getPlayerId() : "-1";
       var playerIdMapping = new PlayerIdMappingImpl();
       playerIdMapping.setPlayerId(playerId);
       playerIdMapping.setPlayerName(vehiclePOJO.name);
-      playerIdMapping.setVehicleId(vehicleEntry.getKey());
+      playerIdMapping.setVehicleId(key);
       playerIdMapping.setVehicleType(vehiclePOJO.vehicleType);
       result.add(playerIdMapping);
     }
