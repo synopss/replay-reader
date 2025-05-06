@@ -26,10 +26,11 @@
     AnchorPane.topAnchor="0.0">
     <MenuBar>
       <Menu text="%main.menu.file">
-        <MenuItem onAction="#onMenuExit" text="%main.menu.file.exit"/>
+        <MenuItem fx:id="exitApplication" text="%main.menu.file.exit"/>
       </Menu>
       <Menu text="%main.menu.help">
-        <MenuItem onAction="#onClickAbout" text="%main.menu.help.about"/>
+        <MenuItem fx:id="reportBug" mnemonicParsing="false" text="%main.menu.help.report-bug"/>
+        <MenuItem fx:id="showAboutWindow" text="%main.menu.help.about"/>
       </Menu>
     </MenuBar>
     <ToolBar prefHeight="40.0" prefWidth="200.0">
