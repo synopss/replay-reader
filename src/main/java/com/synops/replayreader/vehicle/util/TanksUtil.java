@@ -24,11 +24,19 @@ public class TanksUtil {
 
   public static String getTankName(String internalName) {
     var result = internalName;
+    var tankName = "";
+    var suffix = "";
 
     try {
-      var property = getInstance().getProperties().getProperty(internalName);
-      if (StringUtils.isNotEmpty(property)) {
-        result = property;
+      if (internalName.endsWith("_7x7")) {
+        tankName = getInstance().getProperties().getProperty(internalName.substring(0, internalName.length() - 4));
+        suffix = " 7x7";
+      } else {
+        tankName = getInstance().getProperties().getProperty(internalName);
+      }
+
+      if (StringUtils.isNotEmpty(tankName)) {
+        result = tankName + suffix;
       }
 
       return result;
