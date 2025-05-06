@@ -4,19 +4,19 @@ import static com.synops.replayreader.common.util.Constants.CLAN_ALL;
 import static com.synops.replayreader.common.util.Constants.OVERALL;
 
 import com.synops.replayreader.clan.comparator.ClanListComparator;
-import com.synops.replayreader.maps.comparator.MapsComparator;
-import com.synops.replayreader.player.comparator.PlayerListComparatorLong;
-import com.synops.replayreader.common.comparator.SortingComparators;
-import com.synops.replayreader.maps.ui.MapListCell;
-import com.synops.replayreader.player.ui.PlayerListCell;
-import com.synops.replayreader.vehicle.ui.VehicleListCell;
-import com.synops.replayreader.ui.model.MainModel;
-import com.synops.replayreader.player.model.PlayerSort;
-import com.synops.replayreader.core.event.ReplayProgressEvent;
-import com.synops.replayreader.replay.service.ReplayService;
 import com.synops.replayreader.clan.util.ClanStringConverter;
-import com.synops.replayreader.ui.util.DragDropSupport;
+import com.synops.replayreader.common.comparator.SortingComparators;
 import com.synops.replayreader.common.util.LogUtil;
+import com.synops.replayreader.core.event.ReplayProgressEvent;
+import com.synops.replayreader.maps.comparator.MapsComparator;
+import com.synops.replayreader.maps.ui.MapListCell;
+import com.synops.replayreader.player.comparator.PlayerListComparatorLong;
+import com.synops.replayreader.player.model.PlayerSort;
+import com.synops.replayreader.player.ui.PlayerListCell;
+import com.synops.replayreader.replay.service.ReplayService;
+import com.synops.replayreader.ui.model.MainModel;
+import com.synops.replayreader.ui.util.DragDropSupport;
+import com.synops.replayreader.vehicle.ui.VehicleListCell;
 import com.synops.replayreader.vehicle.util.TanksUtil;
 import java.io.File;
 import java.util.Comparator;
@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -38,18 +39,22 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MainViewController {
 
+  private static final String REPLAY_READER_BUGS_URL = "https://github.com/synopss/replay-reader/issues/new/choose";
   private final ReplayService replayService;
+  private final HostServices hostServices;
   private final ResourceBundle resourceBundle;
   private final ClanStringConverter clanStringConverter;
   private final ClanListComparator clanListComparator;
@@ -71,6 +76,12 @@ public class MainViewController {
   private ChoiceBox<String> clanChoiceBox;
   @FXML
   private HBox hbox;
+  @FXML
+  private MenuItem exitApplication;
+  @FXML
+  private MenuItem reportBug;
+  @FXML
+  private MenuItem showAboutWindow;
   @FXML
   private ListView<String> playersList;
   private Comparator<String> playersComparator;
@@ -130,11 +141,12 @@ public class MainViewController {
   private Label progressLabel;
   private MainModel mainModel;
 
-  public MainViewController(ReplayService replayService, ResourceBundle resourceBundle,
-      ClanStringConverter clanStringConverter, ClanListComparator clanListComparator,
-      SortingComparators sortingComparators, MapsComparator mapsComparator,
-      DragDropSupport dragDropSupport) {
+  public MainViewController(ReplayService replayService, @Nullable HostServices hostServices,
+      ResourceBundle resourceBundle, ClanStringConverter clanStringConverter,
+      ClanListComparator clanListComparator, SortingComparators sortingComparators,
+      MapsComparator mapsComparator, DragDropSupport dragDropSupport) {
     this.replayService = replayService;
+    this.hostServices = hostServices;
     this.resourceBundle = resourceBundle;
     this.clanStringConverter = clanStringConverter;
     this.clanListComparator = clanListComparator;
@@ -147,6 +159,7 @@ public class MainViewController {
   public void initialize() {
     initMainModel();
     hbox.prefHeightProperty().bind(root.heightProperty());
+    initMenu();
     initLists();
     initDragDrop();
     initSortingChoiceBox();
@@ -155,14 +168,10 @@ public class MainViewController {
     progressBar.setVisible(false);
   }
 
-  @FXML
-  private void onMenuExit() {
-    Platform.exit();
-  }
-
-  @FXML
-  private void onClickAbout() {
-    (new AboutWindowController(resourceBundle)).showAndWait();
+  private void initMenu() {
+    exitApplication.setOnAction(_ -> Platform.exit());
+    reportBug.setOnAction(_ -> openUrl(REPLAY_READER_BUGS_URL));
+    showAboutWindow.setOnAction(_ -> (new AboutWindowController(resourceBundle)).showAndWait());
   }
 
   private void initLists() {
@@ -401,5 +410,12 @@ public class MainViewController {
     if (lookup != null) {
       lookup.setStyle("-fx-border-color: red");
     }
+  }
+
+  private void openUrl(String url) {
+    if (hostServices == null) {
+      return;
+    }
+    hostServices.showDocument(url);
   }
 }
