@@ -40,8 +40,8 @@ public class ReplayController {
     files.forEach((f) -> {
       try {
         count.inc();
-        replays.add(this.readReplay(f));
-      } catch (Exception var12) {
+        replays.add(readReplay(f));
+      } catch (Exception ex) {
         countCorrupt.inc();
       } finally {
         ReplayProgressEvent event = new ReplayProgressEvent();

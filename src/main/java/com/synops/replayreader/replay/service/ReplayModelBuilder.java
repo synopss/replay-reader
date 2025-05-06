@@ -73,7 +73,7 @@ public class ReplayModelBuilder {
       var playerPOJO = gson.fromJson(playerEntry.getValue(), StatsPlayerPOJO.class);
       var player = new PlayerImpl();
       player.setPlayerId(playerEntry.getKey());
-      player.setName(playerPOJO.name);
+      player.setName(!playerPOJO.realName.isEmpty() ? playerPOJO.realName : playerPOJO.name);
       player.setTeam(playerPOJO.team);
       player.setClanAbbrev(playerPOJO.clanAbbrev);
       player.setClanDBID(playerPOJO.clanDBID);
