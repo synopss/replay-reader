@@ -23,16 +23,16 @@ public class TanksUtil {
   }
 
   public static String getTankName(String internalName) {
-    String result = internalName;
+    var result = internalName;
 
     try {
-      String property = getInstance().getProperties().getProperty(internalName);
+      var property = getInstance().getProperties().getProperty(internalName);
       if (StringUtils.isNotEmpty(property)) {
         result = property;
       }
 
       return result;
-    } catch (IOException var3) {
+    } catch (IOException ex) {
       throw new RuntimeException(
           String.format("error mapping internal tank name <%s>", internalName));
     }
