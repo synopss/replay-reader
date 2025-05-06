@@ -17,6 +17,7 @@ import com.synops.replayreader.replay.service.ReplayService;
 import com.synops.replayreader.clan.util.ClanStringConverter;
 import com.synops.replayreader.ui.util.DragDropSupport;
 import com.synops.replayreader.common.util.LogUtil;
+import com.synops.replayreader.vehicle.util.TanksUtil;
 import java.io.File;
 import java.util.Comparator;
 import java.util.List;
@@ -206,7 +207,7 @@ public class MainViewController {
 
   private void bindingSelectedElements() {
     selectedPlayer.bind(playersList.getSelectionModel().selectedItemProperty());
-    selectedVehicle.bind(this.vehiclesList.getSelectionModel().selectedItemProperty());
+    selectedVehicle.bind(vehiclesList.getSelectionModel().selectedItemProperty());
     selectedClan.bind(clanChoiceBox.getSelectionModel().selectedItemProperty());
   }
 
@@ -233,12 +234,16 @@ public class MainViewController {
 
   private void showVehicleStats(ObservableValue<? extends String> player, String oldValue,
       String newValue) {
+    if (newValue == null) {
+      return;
+    }
+
     String vehicle = null;
     if (!OVERALL.equals(newValue)) {
       vehicle = newValue;
     }
 
-    textVehicle.setText(String.format("%s (%d)", selectedVehicle.get(),
+    textVehicle.setText(String.format("%s (%d)", TanksUtil.getTankName(selectedVehicle.get()),
         replayService.getNumberOfGames(selectedPlayer.get(), vehicle)));
     textDmg.setText(
         String.format("%d (%d)", replayService.getDamageDealt(selectedPlayer.get(), vehicle),
