@@ -1,5 +1,7 @@
 package com.synops.replayreader.replay.service;
 
+import static com.synops.replayreader.common.util.Constants.JSON_DEPTH;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +18,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReplayReader {
 
-  private static final int DEPTH = 2;
   private File file;
 
   public ReplayReader() {
@@ -36,7 +37,7 @@ public class ReplayReader {
       inputStream = FileUtils.openInputStream(file);
       inputStreamReader = new InputStreamReader(inputStream, Charset.defaultCharset());
       buffer = new BufferedReader(inputStreamReader);
-      results = getJson(buffer, DEPTH);
+      results = getJson(buffer, JSON_DEPTH);
     } catch (IOException e) {
       System.err.println("Error reading file: " + file.getAbsolutePath());
       throw new RuntimeException("Error reading file: " + file.getAbsolutePath(), e);
