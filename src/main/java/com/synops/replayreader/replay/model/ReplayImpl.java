@@ -5,6 +5,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.synops.replayreader.player.model.Player;
 import com.synops.replayreader.player.model.PlayerIdMapping;
+import com.synops.replayreader.player.model.PlayerVehicleMapping;
 import com.synops.replayreader.vehicle.model.VehicleStats;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -27,6 +28,7 @@ public class ReplayImpl implements Replay {
   private String duration;
   private String arenaTypeID;
   private String winnerTeam;
+  private List<PlayerVehicleMapping> playerVehicleMappings;
   private List<Player> players;
   private List<VehicleStats> vehicleStats;
   private final LoadingCache<Pair<String, String>, VehicleStats> vehicleStatsLoadingCache = CacheBuilder.newBuilder()
@@ -34,9 +36,10 @@ public class ReplayImpl implements Replay {
         @Override
         @NonNull
         public VehicleStats load(@NonNull Pair<String, String> key) {
-          String vehicleId = key.getRight();
+          String avatarSessionID = key.getRight();
           return ReplayImpl.this.getVehicleStats().stream()
-              .filter((v) -> vehicleId.equals(v.getVehicleId())).findFirst().orElseThrow();
+              .filter((v) -> avatarSessionID.equals(v.getAvatarSessionID())).findFirst()
+              .orElseThrow();
         }
       });
   private List<PlayerIdMapping> playerIdMapping;
@@ -45,8 +48,19 @@ public class ReplayImpl implements Replay {
         @Override
         @NonNull
         public PlayerIdMapping load(@NonNull String key) {
-          return ReplayImpl.this.getPlayerIdMapping().parallelStream()
-              .filter((pim) -> key.equals(pim.getPlayerName())).findFirst().orElseThrow();
+          return ReplayImpl.this.getPlayerIdMapping().parallelStream().filter(
+                  (pim) -> key.equals(getPlayerNameFromAvatarSessionId(pim.getAvatarSessionId())))
+              .findFirst().orElseThrow();
+        }
+      });
+  private final LoadingCache<String, PlayerVehicleMapping> pvmLoadingCache = CacheBuilder.newBuilder()
+      .build(new CacheLoader<>() {
+        @Override
+        @NonNull
+        public PlayerVehicleMapping load(@NonNull String key) {
+          return ReplayImpl.this.getPlayerVehicleMappings().parallelStream().filter(
+                  (pvm) -> key.equals(getPlayerNameFromAvatarSessionId(pvm.getAvatarSessionId())))
+              .findFirst().orElseThrow();
         }
       });
   private final LoadingCache<String, Boolean> playerLoadingCache = CacheBuilder.newBuilder()
@@ -54,8 +68,8 @@ public class ReplayImpl implements Replay {
         @Override
         @NonNull
         public Boolean load(@NonNull String key) {
-          return ReplayImpl.this.getPlayerIdMapping().parallelStream()
-              .anyMatch((pim) -> key.equals(pim.getPlayerName()));
+          return ReplayImpl.this.getPlayerIdMapping().parallelStream().anyMatch(
+              (pim) -> key.equals(getPlayerNameFromAvatarSessionId(pim.getAvatarSessionId())));
         }
       });
 
@@ -97,6 +111,14 @@ public class ReplayImpl implements Replay {
 
   public void setVehicleStats(List<VehicleStats> vehicleStats) {
     this.vehicleStats = vehicleStats;
+  }
+
+  public List<PlayerVehicleMapping> getPlayerVehicleMappings() {
+    return playerVehicleMappings;
+  }
+
+  public void setPlayerVehicleMappings(List<PlayerVehicleMapping> playerVehicleMappings) {
+    this.playerVehicleMappings = playerVehicleMappings;
   }
 
   public List<Player> getPlayers() {
@@ -183,19 +205,41 @@ public class ReplayImpl implements Replay {
     this.winnerTeam = winnerTeam;
   }
 
+  public Player getPlayerByName(String playerName) {
+    var playerId = getPlayerIdMappingByPlayerName(playerName).getPlayerId();
+    return getPlayers().stream().filter((p) -> playerId.equals(p.getPlayerId())).findFirst()
+        .orElseThrow();
+  }
+
+  public String getPlayerNameFromAvatarSessionId(String avatarSessionId) {
+    var playerId = getPlayerIdMapping().stream()
+        .filter(pim -> avatarSessionId.equals(pim.getAvatarSessionId())).findFirst().orElseThrow()
+        .getPlayerId();
+    return getPlayers().stream().filter(p -> p.getPlayerId().equals(playerId)).findFirst()
+        .orElseThrow().getName();
+  }
+
   public PlayerIdMapping getPlayerIdMappingByPlayerName(String playerName) {
     try {
-      return this.pimLoadingCache.get(playerName);
+      return pimLoadingCache.get(playerName);
+    } catch (ExecutionException e) {
+      throw new RuntimeException(e.getCause());
+    }
+  }
+
+  public PlayerVehicleMapping getPlayerVehicleMappingByPlayerName(String playerName) {
+    try {
+      return pvmLoadingCache.get(playerName);
     } catch (ExecutionException e) {
       throw new RuntimeException(e.getCause());
     }
   }
 
   public VehicleStats getPlayerStatsByPlayerName(String playerName) {
-    String vehicleId = this.getPlayerIdMappingByPlayerName(playerName).getVehicleId();
+    String avatarSessionId = getPlayerIdMappingByPlayerName(playerName).getAvatarSessionId();
 
     try {
-      return this.vehicleStatsLoadingCache.get(Pair.of(playerName, vehicleId));
+      return vehicleStatsLoadingCache.get(Pair.of(playerName, avatarSessionId));
     } catch (ExecutionException e) {
       throw new RuntimeException(e.getCause());
     }
@@ -203,7 +247,7 @@ public class ReplayImpl implements Replay {
 
   public boolean existPlayer(String playerName) {
     try {
-      return this.playerLoadingCache.get(playerName);
+      return playerLoadingCache.get(playerName);
     } catch (ExecutionException e) {
       throw new RuntimeException(e.getCause());
     }

@@ -4,7 +4,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.synops.replayreader.player.model.Player;
-import com.synops.replayreader.player.model.PlayerIdMapping;
 import com.synops.replayreader.replay.util.ReplayCollectionUtil;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,7 +41,7 @@ public class ReplayCollectionImpl implements ReplayCollection {
                 (r) -> BattleType.ANY.equals(filter.getBattleType()) || filter.getBattleType().getId()
                     .equals(r.getBattleType())).filter((r) -> r.existPlayer(player)).filter(
                 (r) -> StringUtils.isEmpty(vehicle) || vehicle.equals(
-                    r.getPlayerIdMappingByPlayerName(player).getVehicleType()))
+                    r.getPlayerVehicleMappingByPlayerName(player).getVehicleType()))
             .collect(Collectors.toList());
       }
     });
@@ -96,9 +95,8 @@ public class ReplayCollectionImpl implements ReplayCollection {
 
   public List<String> getVehiclesForPlayer(String player) {
     var vehicleGroups = replays.parallelStream().filter(r -> r.existPlayer(player))
-        .map(Replay::getPlayerIdMapping).flatMap(Collection::stream)
-        .filter(pim -> player.equals(pim.getPlayerName()))
-        .collect(Collectors.groupingByConcurrent(PlayerIdMapping::getVehicleType));
+        .map(replay -> replay.getPlayerVehicleMappingByPlayerName(player).getVehicleType())
+        .collect(Collectors.groupingByConcurrent(vehicleType -> vehicleType));
 
     var vehicles = vehicleGroups.keySet();
     var result = new ArrayList<>(vehicles);

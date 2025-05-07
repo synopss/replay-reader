@@ -2,11 +2,7 @@ package com.synops.replayreader.player.model;
 
 public interface PlayerIdMapping {
 
-  String getVehicleId();
-
-  String getVehicleType();
+  String getAvatarSessionId();
 
   String getPlayerId();
-
-  String getPlayerName();
 }
