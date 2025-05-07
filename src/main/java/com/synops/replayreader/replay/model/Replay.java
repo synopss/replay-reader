@@ -2,6 +2,7 @@ package com.synops.replayreader.replay.model;
 
 import com.synops.replayreader.player.model.Player;
 import com.synops.replayreader.player.model.PlayerIdMapping;
+import com.synops.replayreader.player.model.PlayerVehicleMapping;
 import com.synops.replayreader.vehicle.model.VehicleStats;
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface Replay {
   List<PlayerIdMapping> getPlayerIdMapping();
 
   List<VehicleStats> getVehicleStats();
+
+  List<PlayerVehicleMapping> getPlayerVehicleMappings();
 
   List<Player> getPlayers();
 
@@ -37,25 +40,30 @@ public interface Replay {
 
   String getBattleType();
 
-  default Player getPlayerByName(String playerName) {
-    String playerId = this.getPlayerIdMappingByPlayerName(playerName).getPlayerId();
-    return this.getPlayers().stream().filter((p) -> playerId.equals(p.getPlayerId()))
-        .findFirst().get();
-  }
+  String getPlayerNameFromAvatarSessionId(String avatarSessionId);
+
+  Player getPlayerByName(String playerName);
 
   default PlayerIdMapping getPlayerIdMappingByPlayerName(String playerName) {
-    return this.getPlayerIdMapping().parallelStream()
-        .filter((pim) -> playerName.equals(pim.getPlayerName())).findFirst().get();
+    return getPlayerIdMapping().parallelStream().filter(
+            (pim) -> playerName.equals(getPlayerNameFromAvatarSessionId(pim.getAvatarSessionId())))
+        .findFirst().orElseThrow();
+  }
+
+  default PlayerVehicleMapping getPlayerVehicleMappingByPlayerName(String playerName) {
+    return getPlayerVehicleMappings().parallelStream().filter(
+            (pvm) -> playerName.equals(getPlayerNameFromAvatarSessionId(pvm.getAvatarSessionId())))
+        .findFirst().orElseThrow();
   }
 
   default VehicleStats getPlayerStatsByPlayerName(String playerName) {
-    String vehicleId = this.getPlayerIdMappingByPlayerName(playerName).getVehicleId();
-    return this.getVehicleStats().parallelStream()
-        .filter((v) -> vehicleId.equals(v.getVehicleId())).findFirst().get();
+    String avatarSessionId = getPlayerIdMappingByPlayerName(playerName).getAvatarSessionId();
+    return getVehicleStats().parallelStream()
+        .filter((v) -> avatarSessionId.equals(v.getAvatarSessionID())).findFirst().orElseThrow();
   }
 
   default boolean existPlayer(String playerName) {
-    return this.getPlayerIdMapping().parallelStream()
-        .anyMatch((pim) -> playerName.equals(pim.getPlayerName()));
+    return getPlayerIdMapping().parallelStream().anyMatch(
+        (pim) -> playerName.equals(getPlayerNameFromAvatarSessionId(pim.getAvatarSessionId())));
   }
 }

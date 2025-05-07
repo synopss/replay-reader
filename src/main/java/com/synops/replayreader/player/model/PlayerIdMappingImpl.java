@@ -5,25 +5,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class PlayerIdMappingImpl implements PlayerIdMapping {
 
-  private String vehicleId;
-  private String vehicleType;
+  private String avatarSessionId;
   private String playerId;
-  private String playerName;
 
-  public String getVehicleId() {
-    return this.vehicleId;
+  public String getAvatarSessionId() {
+    return this.avatarSessionId;
   }
 
-  public void setVehicleId(String vehicleId) {
-    this.vehicleId = vehicleId;
-  }
-
-  public String getVehicleType() {
-    return this.vehicleType;
-  }
-
-  public void setVehicleType(String vehicleType) {
-    this.vehicleType = vehicleType;
+  public void setAvatarSessionId(String avatarSessionId) {
+    this.avatarSessionId = avatarSessionId;
   }
 
   public String getPlayerId() {
@@ -32,14 +22,6 @@ public class PlayerIdMappingImpl implements PlayerIdMapping {
 
   public void setPlayerId(String playerId) {
     this.playerId = playerId;
-  }
-
-  public String getPlayerName() {
-    return this.playerName;
-  }
-
-  public void setPlayerName(String playerName) {
-    this.playerName = playerName;
   }
 
   public String toString() {

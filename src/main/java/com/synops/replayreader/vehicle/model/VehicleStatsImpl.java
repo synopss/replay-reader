@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class VehicleStatsImpl implements VehicleStats {
 
-  private String vehicleId;
+  private String avatarSessionID;
   private int xp;
   private int kills;
   private int credits;
@@ -102,12 +102,12 @@ public class VehicleStatsImpl implements VehicleStats {
     this.tkills = tkills;
   }
 
-  public String getVehicleId() {
-    return this.vehicleId;
+  public String getAvatarSessionID() {
+    return this.avatarSessionID;
   }
 
-  public void setVehicleId(String vehicleId) {
-    this.vehicleId = vehicleId;
+  public void setAvatarSessionID(String avatarSessionID) {
+    this.avatarSessionID = avatarSessionID;
   }
 
   public int getXp() {

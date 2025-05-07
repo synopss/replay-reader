@@ -1,7 +1,7 @@
 package com.synops.replayreader.vehicle.model;
 
 public interface VehicleStats {
-  String getVehicleId();
+  String getAvatarSessionID();
 
   int getXp();
 

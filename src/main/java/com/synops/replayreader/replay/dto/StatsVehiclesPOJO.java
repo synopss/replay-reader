@@ -2,6 +2,7 @@ package com.synops.replayreader.replay.dto;
 
 public class StatsVehiclesPOJO {
 
+  public String accountDBID;
   public int xp;
   public int kills;
   public int credits;

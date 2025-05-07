@@ -10,15 +10,17 @@ import com.synops.replayreader.player.model.Player;
 import com.synops.replayreader.player.model.PlayerIdMapping;
 import com.synops.replayreader.player.model.PlayerIdMappingImpl;
 import com.synops.replayreader.player.model.PlayerImpl;
+import com.synops.replayreader.player.model.PlayerVehicleMapping;
+import com.synops.replayreader.player.model.PlayerVehicleMappingImpl;
+import com.synops.replayreader.replay.dto.ExtraDataPOJO;
+import com.synops.replayreader.replay.dto.ReplayPOJO;
+import com.synops.replayreader.replay.dto.StatsCommonPOJO;
+import com.synops.replayreader.replay.dto.StatsPlayerPOJO;
+import com.synops.replayreader.replay.dto.StatsVehiclesPOJO;
 import com.synops.replayreader.replay.model.Replay;
 import com.synops.replayreader.replay.model.ReplayImpl;
 import com.synops.replayreader.vehicle.model.VehicleStats;
 import com.synops.replayreader.vehicle.model.VehicleStatsImpl;
-import com.synops.replayreader.replay.dto.ReplayPOJO;
-import com.synops.replayreader.replay.dto.ReplayVehiclePOJO;
-import com.synops.replayreader.replay.dto.StatsCommonPOJO;
-import com.synops.replayreader.replay.dto.StatsPlayerPOJO;
-import com.synops.replayreader.replay.dto.StatsVehiclesPOJO;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
@@ -47,8 +49,9 @@ public class ReplayModelBuilder {
 
   public Replay create() {
     var players = createPlayers();
-    var playerIdMapping = createPlayerIdMapping(players);
+    var playerIdMapping = createPlayerIdMapping();
     var vehicleStats = createVehicleStats();
+    var playerVehicleMapping = createPlayerVehicleMapping();
     var replayPOJO = gson.fromJson(replayJson, ReplayPOJO.class);
     var replay = new ReplayImpl();
     replay.setRegionCode(replayPOJO.regionCode);
@@ -58,6 +61,7 @@ public class ReplayModelBuilder {
     replay.setHasMods(replayPOJO.hasMods);
     replay.setMapName(replayPOJO.mapName);
     replay.setPlayers(players);
+    replay.setPlayerVehicleMappings(playerVehicleMapping);
     replay.setPlayerIdMapping(playerIdMapping);
     replay.setVehicleStats(vehicleStats);
     replay.setBattleType(replayPOJO.battleType);
@@ -87,22 +91,33 @@ public class ReplayModelBuilder {
     return result;
   }
 
-  private List<PlayerIdMapping> createPlayerIdMapping(List<Player> players) {
+  private List<PlayerIdMapping> createPlayerIdMapping() {
     var result = new ArrayList<PlayerIdMapping>();
 
-    for (var extraData : extraDataJson.entrySet()) {
-      var key = extraData.getKey();
-      var memberData = extraData.getValue().getAsJsonObject();
-      var vehiclePOJO = gson.fromJson(memberData, ReplayVehiclePOJO.class);
-      var find = players.stream().filter((player -> player.getName().equals(vehiclePOJO.name)))
-          .findFirst();
-      var playerId = find.isPresent() ? find.get().getPlayerId() : "-1";
+    for (var statsEntry : statsJson.getAsJsonObject("vehicles").entrySet()) {
+      var vehicleArray = gson.fromJson(statsEntry.getValue(), JsonArray.class);
+      if (vehicleArray.size() != 1) {
+        throw new RuntimeException("Vehicle stats array size should be 1");
+      }
+      var vehicleStatsPOJO = gson.fromJson(vehicleArray.get(0), StatsVehiclesPOJO.class);
       var playerIdMapping = new PlayerIdMappingImpl();
-      playerIdMapping.setPlayerId(playerId);
-      playerIdMapping.setPlayerName(vehiclePOJO.name);
-      playerIdMapping.setVehicleId(key);
-      playerIdMapping.setVehicleType(vehiclePOJO.vehicleType);
+      playerIdMapping.setPlayerId(vehicleStatsPOJO.accountDBID);
+      playerIdMapping.setAvatarSessionId(statsEntry.getKey());
       result.add(playerIdMapping);
+    }
+
+    return result;
+  }
+
+  private List<PlayerVehicleMapping> createPlayerVehicleMapping() {
+    var result = new ArrayList<PlayerVehicleMapping>();
+
+    for (var playerEntry : extraDataJson.entrySet()) {
+      var extraDataPOJO = gson.fromJson(playerEntry.getValue(), ExtraDataPOJO.class);
+      var playerVehicleMapping = new PlayerVehicleMappingImpl();
+      playerVehicleMapping.setAvatarSessionId(playerEntry.getKey());
+      playerVehicleMapping.setVehicleType(extraDataPOJO.vehicleType);
+      result.add(playerVehicleMapping);
     }
 
     return result;
@@ -119,7 +134,7 @@ public class ReplayModelBuilder {
 
       var vehiclePOJO = gson.fromJson(vehicleArray.get(0), StatsVehiclesPOJO.class);
       var vehicleStats = new VehicleStatsImpl();
-      vehicleStats.setVehicleId(statsEntry.getKey());
+      vehicleStats.setAvatarSessionID(statsEntry.getKey());
       vehicleStats.setCapturePoints(vehiclePOJO.capturePoints);
       vehicleStats.setCredits(vehiclePOJO.credits);
       vehicleStats.setDamageAssistedRadio(vehiclePOJO.damageAssistedRadio);
