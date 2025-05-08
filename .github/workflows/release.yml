@@ -6,12 +6,15 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   build-windows-installer-msi:
     name: Build Windows x64 installer (MSI)
     runs-on: windows-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Check gradle wrapper
@@ -21,51 +24,19 @@ jobs:
         uses: graalvm/setup-graalvm@v1
         with:
           java-version: '24'
-          distribution: 'temurin'
-          cache: gradle
+          distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build with JPackage
-        run: .\gradlew.bat jpackage
+        run: ./gradlew jpackage
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          path: ./app/build/distributions/Replay Reader-*.msi
-          name: windows-installer-msi
-          retention-days: 1
-
-  build-windows-installer-portable:
-    name: Build Windows x64 installer (Portable)
-    runs-on: windows-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Check gradle wrapper
-        uses: gradle/actions/wrapper-validation@v4
-
-      - name: Set up JDK 24
-        uses: graalvm/setup-graalvm@v1
-        with:
-          java-version: '24'
-          distribution: 'temurin'
-          cache: gradle
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Build with JPackage
-        run: .\gradlew.bat jpackage -P"jpackage.portable=true"
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          path: ./app/build/distributions/Replay Reader-*.msi
+          path: ./build/distributions/Replay Reader-*.msi
           name: windows-installer-msi
           retention-days: 1
 
@@ -74,30 +45,22 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build-windows-installer-msi
-      - build-windows-installer-portable
     steps:
       - name: Download Windows x64 installer (MSI)
         uses: actions/download-artifact@v4
         with:
           name: windows-installer-msi
 
-      - name: Download Windows x64 installer (Portable)
-        uses: actions/download-artifact@v4
-        with:
-          name: windows-installer-portable
-
       - name: Generate checksum
         uses: jmgilman/actions-generate-checksum@v1
         with:
           patterns: |
             *.msi
-            *.zip
 
       - name: Create Github release
         uses: softprops/action-gh-release@v2
         with:
-          files:
+          files: |
             checksum.txt
             *.msi
-            *.zip
           token: "${{ secrets.GITHUB_TOKEN }}"

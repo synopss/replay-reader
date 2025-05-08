@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '3.4.5'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'org.panteleyev.jpackageplugin' version '1.6.1'
 }
 
 group = 'com.synops'
@@ -15,8 +16,12 @@ java {
 }
 
 javafx {
-    version = "24.0.1"
+    version = '24.0.1'
     modules = ['javafx.controls', 'javafx.fxml']
+}
+
+wrapper {
+    gradleVersion = '8.14'
 }
 
 repositories {
@@ -35,4 +40,55 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+bootJar {
+    manifest {
+        attributes 'Implementation-Version': "${project.version}"
+        attributes 'Implementation-Title': "${project.name}"
+    }
+}
+
+tasks.register('deleteLibs', Delete) {
+    delete "${base.libsDirectory.get()}"
+}
+
+tasks.register('cleanJpackageWorkdir', Delete) {
+    delete layout.buildDirectory.file('jpackage')
+}
+
+tasks.register('copyInstaller', Copy) {
+    from file("${rootDir}/installer")
+    into file("${base.libsDirectory.get()}")
+    doNotTrackState('Copying installation file need to re-run every time')
+}
+
+import org.panteleyev.jpackage.ImageType
+
+jpackage {
+    dependsOn deleteLibs, cleanJpackageWorkdir, bootJar, copyInstaller
+    mustRunAfter deleteLibs
+    appName = project.name
+    appVersion = "${project.version}".split("-")[0]
+    vendor = 'Synops'
+    copyright = 'Copyright 2025 by Synops. All Rights Reserved'
+    appDescription = project.name
+    input = "${base.libsDirectory.get()}"
+    destination = "${base.distsDirectory.get()}"
+    mainJar = tasks.named('bootJar').get().outputs.files.singleFile.name
+    licenseFile = "${rootDir}/LICENSE"
+    javaOptions = ['-Dfile.encoding=UTF-8',
+                   '-Dlogging.file.name=replay-reader.log',
+                   '-Dlogging.logback.rollingpolicy.clean-history-on-start=true',
+                   '-Dlogging.logback.rollingpolicy.max-file-size=20MB',
+                   '-Dlogging.logback.rollingpolicy.max-history=3']
+    windows {
+        type = ImageType.MSI
+        winMenu = true
+        winPerUserInstall = true
+        winDirChooser = true
+        winMenuGroup = project.name
+        winUpgradeUuid = 'b4aec7f1-a266-43b6-b277-629105fde288'
+        icon = "${rootDir}/icon.ico"
+    }
 }
