@@ -1,13 +1,12 @@
 package com.synops.replayreader.core;
 
 import com.synops.replayreader.common.i18n.I18nUtils;
+import com.synops.replayreader.ui.util.UiUtil;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
@@ -45,7 +44,7 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
       stage.setScene(new Scene(parent, applicationWidth, applicationHeight));
       stage.setResizable(false);
       stage.setTitle(resourceBundle.getString("main.title"));
-      stage.getIcons().add(new Image(Objects.requireNonNull(stage.getClass().getResourceAsStream("/image/icon.png"))));
+      UiUtil.setDefaultIcon(stage);
       stage.show();
     } catch (IOException e) {
       throw new RuntimeException(e);

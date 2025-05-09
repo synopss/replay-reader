@@ -1,6 +1,8 @@
 package com.synops.replayreader.core.configuration;
 
 import com.synops.replayreader.clan.comparator.ClanListComparator;
+import com.synops.replayreader.core.service.DialogService;
+import com.synops.replayreader.core.service.DialogServiceImpl;
 import com.synops.replayreader.maps.comparator.MapsComparator;
 import com.synops.replayreader.common.comparator.SortingComparators;
 import com.synops.replayreader.replay.controller.ReplayController;
@@ -19,6 +21,11 @@ public class ReplayReaderConfiguration {
   @Bean
   public ReplayService replayService(ReplayController replayController) {
     return new ReplayServiceImpl(replayController);
+  }
+
+  @Bean
+  public DialogService dialogService() {
+    return new DialogServiceImpl();
   }
 
   @Bean

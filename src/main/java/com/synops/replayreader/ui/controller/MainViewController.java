@@ -8,6 +8,7 @@ import com.synops.replayreader.clan.util.ClanStringConverter;
 import com.synops.replayreader.common.comparator.SortingComparators;
 import com.synops.replayreader.common.util.LogUtil;
 import com.synops.replayreader.core.event.ReplayProgressEvent;
+import com.synops.replayreader.core.service.DialogService;
 import com.synops.replayreader.maps.comparator.MapsComparator;
 import com.synops.replayreader.maps.ui.MapListCell;
 import com.synops.replayreader.player.comparator.PlayerListComparatorLong;
@@ -16,9 +17,12 @@ import com.synops.replayreader.player.ui.PlayerListCell;
 import com.synops.replayreader.replay.service.ReplayService;
 import com.synops.replayreader.ui.model.MainModel;
 import com.synops.replayreader.ui.util.DragDropSupport;
+import com.synops.replayreader.update.UpdateClient;
+import com.synops.replayreader.update.VersionChecker;
 import com.synops.replayreader.vehicle.ui.VehicleListCell;
 import com.synops.replayreader.vehicle.util.TanksUtil;
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -36,6 +40,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -46,6 +51,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -53,8 +59,11 @@ import org.springframework.stereotype.Component;
 public class MainViewController {
 
   private static final String REPLAY_READER_BUGS_URL = "https://github.com/synopss/replay-reader/issues/new/choose";
+  private static final String REPLAY_RELEASES_URL = "https://github.com/synopss/replay-reader/releases/latest";
   private final ReplayService replayService;
   private final HostServices hostServices;
+  private final DialogService dialogService;
+  private final UpdateClient updateClient;
   private final ResourceBundle resourceBundle;
   private final ClanStringConverter clanStringConverter;
   private final ClanListComparator clanListComparator;
@@ -64,6 +73,7 @@ public class MainViewController {
   private final StringProperty selectedPlayer = new SimpleStringProperty("");
   private final StringProperty selectedVehicle = new SimpleStringProperty("");
   private final StringProperty selectedClan = new SimpleStringProperty("");
+  private final BuildProperties buildProperties;
   @Value("${replay-reader.config.max-players}")
   private int MAX_PLAYERS;
   @Value("${replay-reader.config.max-clans}")
@@ -82,6 +92,8 @@ public class MainViewController {
   private MenuItem reportBug;
   @FXML
   private MenuItem showAboutWindow;
+  @FXML
+  private MenuItem versionCheck;
   @FXML
   private ListView<String> playersList;
   private Comparator<String> playersComparator;
@@ -140,19 +152,24 @@ public class MainViewController {
   @FXML
   private Label progressLabel;
   private MainModel mainModel;
+  private VersionChecker versionChecker;
 
   public MainViewController(ReplayService replayService, @Nullable HostServices hostServices,
-      ResourceBundle resourceBundle, ClanStringConverter clanStringConverter,
-      ClanListComparator clanListComparator, SortingComparators sortingComparators,
-      MapsComparator mapsComparator, DragDropSupport dragDropSupport) {
+      DialogService dialogService, UpdateClient updateClient, ResourceBundle resourceBundle,
+      ClanStringConverter clanStringConverter, ClanListComparator clanListComparator,
+      SortingComparators sortingComparators, MapsComparator mapsComparator,
+      DragDropSupport dragDropSupport, BuildProperties buildProperties) {
     this.replayService = replayService;
     this.hostServices = hostServices;
+    this.dialogService = dialogService;
+    this.updateClient = updateClient;
     this.resourceBundle = resourceBundle;
     this.clanStringConverter = clanStringConverter;
     this.clanListComparator = clanListComparator;
     this.sortingComparators = sortingComparators;
     this.mapsComparator = mapsComparator;
     this.dragDropSupport = dragDropSupport;
+    this.buildProperties = buildProperties;
   }
 
   @FXML
@@ -166,12 +183,14 @@ public class MainViewController {
     initClanChoiceBox();
     bindingSelectedElements();
     progressBar.setVisible(false);
+    versionChecker = new VersionChecker();
   }
 
   private void initMenu() {
     exitApplication.setOnAction(_ -> Platform.exit());
     reportBug.setOnAction(_ -> openUrl(REPLAY_READER_BUGS_URL));
     showAboutWindow.setOnAction(_ -> (new AboutWindowController(resourceBundle)).showAndWait());
+    versionCheck.setOnAction(_ -> checkForUpdate());
   }
 
   private void initLists() {
@@ -417,5 +436,19 @@ public class MainViewController {
       return;
     }
     hostServices.showDocument(url);
+  }
+
+  private void checkForUpdate() {
+    updateClient.getLatestVersion().doOnSuccess(versionResponse -> Platform.runLater(() -> {
+      if (versionChecker.isNewVersionAvailable(versionResponse.tagName(),
+          buildProperties.getVersion())) {
+        dialogService.alertConfirm(
+            MessageFormat.format(resourceBundle.getString("update.new-version"),
+                versionResponse.tagName().substring(1)), () -> openUrl(REPLAY_RELEASES_URL));
+      } else {
+        dialogService.alert(AlertType.INFORMATION,
+            resourceBundle.getString("update.latest-already"));
+      }
+    })).doOnError(dialogService::showAlertError).subscribe();
   }
 }

@@ -31,6 +31,7 @@
       <Menu text="%main.menu.help">
         <MenuItem fx:id="reportBug" mnemonicParsing="false" text="%main.menu.help.report-bug"/>
         <MenuItem fx:id="showAboutWindow" text="%main.menu.help.about"/>
+        <MenuItem fx:id="versionCheck" text="%main.menu.help.version-check"/>
       </Menu>
     </MenuBar>
     <ToolBar prefHeight="40.0" prefWidth="200.0">
