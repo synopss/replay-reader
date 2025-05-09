@@ -10,4 +10,8 @@ public final class UiUtil {
     stage.getIcons().add(
         new Image(Objects.requireNonNull(stage.getClass().getResourceAsStream("/image/icon.png"))));
   }
+
+  public static void setDefaultStyle(Stage stage) {
+    stage.getScene().getStylesheets().add("/css/theme.css");
+  }
 }
