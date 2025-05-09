@@ -1,3 +1,6 @@
+import org.panteleyev.jpackage.ImageType
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.5'
@@ -29,7 +32,11 @@ repositories {
 }
 
 dependencies {
+    implementation(platform(SpringBootPlugin.BOM_COORDINATES))
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation('org.springframework.boot:spring-boot-starter-webflux') {
+        exclude group: 'io.netty', module: 'netty-transport-native-epoll'
+    }
     implementation 'commons-io:commons-io:2.19.0'
     implementation 'com.google.code.gson:gson:2.13.1'
     implementation 'org.apache.commons:commons-lang3:3.17.0'
@@ -62,8 +69,6 @@ tasks.register('copyInstaller', Copy) {
     into file("${base.libsDirectory.get()}")
     doNotTrackState('Copying installation file need to re-run every time')
 }
-
-import org.panteleyev.jpackage.ImageType
 
 jpackage {
     dependsOn deleteLibs, cleanJpackageWorkdir, bootJar, copyInstaller
