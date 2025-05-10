@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.function.Consumer;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DragDropSupport {
+  private static final Logger LOGGER = LoggerFactory.getLogger(DragDropSupport.class);
 
   private Consumer<List<File>> loader;
 
@@ -36,7 +39,7 @@ public class DragDropSupport {
       loader.accept(db.getFiles());
     }
 
-    System.out.println("Drag dropped: " + success);
+    LOGGER.debug("Drag dropped: {}", success);
     event.setDropCompleted(success);
     event.consume();
   }

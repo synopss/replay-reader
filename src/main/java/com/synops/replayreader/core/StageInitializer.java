@@ -2,6 +2,7 @@ package com.synops.replayreader.core;
 
 import atlantafx.base.theme.PrimerDark;
 import atlantafx.base.theme.PrimerLight;
+import com.jthemedetecor.OsThemeDetector;
 import com.synops.replayreader.common.i18n.I18nUtils;
 import com.synops.replayreader.ui.util.UiUtil;
 import java.io.IOException;
@@ -44,8 +45,7 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
       fxmlLoader.setControllerFactory(applicationContext::getBean);
       Parent parent = fxmlLoader.load();
       var stage = event.getStage();
-//      Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
-      Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+      handleDarkMode();
       stage.setScene(new Scene(parent, applicationWidth, applicationHeight));
       stage.setResizable(false);
       stage.setTitle(resourceBundle.getString("main.title"));
@@ -55,5 +55,23 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private void handleDarkMode() {
+    final OsThemeDetector detector = OsThemeDetector.getDetector();
+    final boolean isDarkThemeUsed = detector.isDark();
+    if (isDarkThemeUsed) {
+      Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+    } else {
+      Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+    }
+
+    detector.registerListener(isDark -> {
+      if (isDark) {
+        Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+      } else {
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+      }
+    });
   }
 }

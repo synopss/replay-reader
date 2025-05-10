@@ -13,28 +13,34 @@ import org.springframework.context.support.GenericApplicationContext;
 
 public class JavaFxApplication extends Application {
 
-  private ConfigurableApplicationContext applicationContext;
+  private static Class<?> springApplicationClass;
+  private ConfigurableApplicationContext springContext;
+
+  static void start(String[] args) {
+    JavaFxApplication.springApplicationClass = ReplayReaderApplication.class;
+    Application.launch(JavaFxApplication.class, args);
+  }
 
   @Override
   public void init() {
-    applicationContext = new SpringApplicationBuilder(ReplayReaderApplication.class)
-        .initializers(getInitializer())
-        .run();
+    springContext = new SpringApplicationBuilder(springApplicationClass).initializers(
+        getInitializer()).run(getParameters().getRaw().toArray(new String[0]));
   }
 
   @Override
   public void start(Stage stage) {
-    Objects.requireNonNull(applicationContext);
-    applicationContext.publishEvent(new StageReadyEvent(stage));
+    Objects.requireNonNull(springContext);
+    springContext.publishEvent(new StageReadyEvent(stage));
   }
 
   @Override
   public void stop() {
-    applicationContext.close();
+    springContext.close();
     Platform.exit();
   }
 
   private ApplicationContextInitializer<GenericApplicationContext> getInitializer() {
-    return applicationContext -> applicationContext.registerBean(HostServices.class, this::getHostServices);
+    return applicationContext -> applicationContext.registerBean(HostServices.class,
+        this::getHostServices);
   }
 }

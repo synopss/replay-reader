@@ -8,14 +8,18 @@ import com.synops.replayreader.replay.model.ReplayCollection;
 import com.synops.replayreader.replay.model.ReplayCollectionImpl;
 import com.synops.replayreader.replay.model.ReplayFilter;
 import com.synops.replayreader.core.event.ReplayProgressEvent;
+import com.synops.replayreader.ui.util.DragDropSupport;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ReplayController {
+  private static final Logger LOGGER = LoggerFactory.getLogger(ReplayController.class);
 
   private final ReplayReader replayReader;
   private final ReplayModelBuilder replayModelBuilder;
@@ -53,8 +57,8 @@ public class ReplayController {
       }
 
     });
-    System.out.printf("%nfinished reading %s replays%n", replays.size());
-    System.out.printf("battle type = %s%n", battleType.name());
+    LOGGER.info("finished reading {} replays", replays.size());
+    LOGGER.debug("battle type = {}", battleType.name());
     ReplayFilter replayFilter = ReplayFilter.createDefault().setBattleType(battleType);
     return new ReplayCollectionImpl(replays, replayFilter);
   }

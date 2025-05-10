@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -28,23 +29,23 @@ public class NotificationServiceImpl implements NotificationService {
 
   private final Map<StackPane, ObservableList<Notification>> activeNotifications = new HashMap<>();
 
-  public void alert(String message, StackPane stackPane) {
-    notify(message, AlertType.ERROR, stackPane);
+  public void alert(String message, StackPane stackPane, Button... buttons) {
+    notify(message, AlertType.ERROR, stackPane, buttons);
   }
 
-  public void information(String message, StackPane stackPane) {
-    notify(message, AlertType.INFORMATION, stackPane);
+  public void information(String message, StackPane stackPane, Button... buttons) {
+    notify(message, AlertType.INFORMATION, stackPane, buttons);
   }
 
-  public void warning(String message, StackPane stackPane) {
-    notify(message, AlertType.WARNING, stackPane);
+  public void warning(String message, StackPane stackPane, Button... buttons) {
+    notify(message, AlertType.WARNING, stackPane, buttons);
   }
 
-  public void confirmation(String message, StackPane stackPane) {
-    notify(message, AlertType.CONFIRMATION, stackPane);
+  public void confirmation(String message, StackPane stackPane, Button... buttons) {
+    notify(message, AlertType.CONFIRMATION, stackPane, buttons);
   }
 
-  public void notify(String message, AlertType alertType, StackPane stackPane) {
+  public void notify(String message, AlertType alertType, StackPane stackPane, Button... buttons) {
     var notificationList = activeNotifications.computeIfAbsent(stackPane,
         _ -> FXCollections.observableArrayList());
 
@@ -79,6 +80,10 @@ public class NotificationServiceImpl implements NotificationService {
 
     if (style != null) {
       notification.getStyleClass().add(style);
+    }
+
+    if (buttons.length > 0) {
+      notification.setPrimaryActions(buttons);
     }
 
     notificationList.add(notification);

@@ -6,7 +6,6 @@ import static com.synops.replayreader.common.util.Constants.OVERALL;
 import com.synops.replayreader.clan.comparator.ClanListComparator;
 import com.synops.replayreader.clan.util.ClanStringConverter;
 import com.synops.replayreader.common.comparator.SortingComparators;
-import com.synops.replayreader.common.util.LogUtil;
 import com.synops.replayreader.core.event.ReplayProgressEvent;
 import com.synops.replayreader.core.service.DialogService;
 import com.synops.replayreader.core.service.NotificationService;
@@ -41,6 +40,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -50,6 +50,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.lang.Nullable;
@@ -58,6 +60,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MainViewController {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(MainViewController.class);
   private static final String REPLAY_READER_BUGS_URL = "https://github.com/synopss/replay-reader/issues/new/choose";
   private static final String REPLAY_RELEASES_URL = "https://github.com/synopss/replay-reader/releases/latest";
   private final ReplayService replayService;
@@ -187,6 +190,7 @@ public class MainViewController {
     bindingSelectedElements();
     progressBar.setVisible(false);
     versionChecker = new VersionChecker();
+    versionChecker.scheduleVersionCheck(this::checkForUpdateInBackground);
   }
 
   private void initMenu() {
@@ -356,7 +360,7 @@ public class MainViewController {
   private void onLoadSucceeded(WorkerStateEvent event) {
     updatePlayers();
     updateClans();
-    LogUtil.debug("onLoadSucceeded before selectionmodel changes");
+    LOGGER.debug("onLoadSucceeded before SelectionModel changes");
     playersList.getSelectionModel().selectFirst();
     clanChoiceBox.getSelectionModel().selectFirst();
     sortingChoiceBox.getSelectionModel().selectFirst();
@@ -450,6 +454,26 @@ public class MainViewController {
                 versionResponse.tagName().substring(1)), () -> openUrl(REPLAY_RELEASES_URL));
       } else {
         notificationService.information(resourceBundle.getString("update.latest-already"), root);
+      }
+    })).doOnError(dialogService::showAlertError).subscribe();
+  }
+
+  private void checkForUpdateInBackground() {
+    LOGGER.info("Checking for update in background");
+    updateClient.getLatestVersion().doOnSuccess(versionResponse -> Platform.runLater(() -> {
+      if (versionChecker.isNewVersionAvailable(versionResponse.tagName(),
+          buildProperties.getVersion())) {
+        var newUpdateVersion = versionResponse.tagName().substring(1);
+        LOGGER.info("Update found: {}", newUpdateVersion);
+
+        var downLoadLink = new Button(resourceBundle.getString("update.download"));
+        downLoadLink.setOnAction(_ -> openUrl(REPLAY_RELEASES_URL));
+
+        notificationService.information(
+            MessageFormat.format(resourceBundle.getString("update.new-version-latest"), newUpdateVersion),
+            root, downLoadLink);
+      } else {
+        LOGGER.info("No update found");
       }
     })).doOnError(dialogService::showAlertError).subscribe();
   }
