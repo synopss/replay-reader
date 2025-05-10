@@ -2,8 +2,8 @@ package com.synops.replayreader.maps.ui;
 
 import static com.synops.replayreader.common.util.Constants.OVERALL;
 
-import com.synops.replayreader.common.i18n.I18nUtils;
 import com.synops.replayreader.common.comparator.PlayerAndVehicleAndMapToInt;
+import com.synops.replayreader.common.i18n.I18nUtils;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import javafx.beans.property.StringProperty;
@@ -14,6 +14,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 public class MapListCell extends ListCell<String> {
+
+  private static final double CELL_HEIGHT = 20.0;
 
   private final ResourceBundle resourceBundle = I18nUtils.getBundle();
   private final PlayerAndVehicleAndMapToInt function;
@@ -43,13 +45,17 @@ public class MapListCell extends ListCell<String> {
       textCount.setText(String.valueOf(function.apply(player.get(), vehicleValue, item)));
       textCount.setFill(Color.ORANGE);
       textFlow.getChildren().addAll(textMap, textCount);
-      this.setGraphic(textFlow);
-      this.setTooltip(new Tooltip(this.createTooltippText(item, vehicleValue)));
+      textFlow.setPrefHeight(CELL_HEIGHT);
+      textFlow.setMinHeight(CELL_HEIGHT);
+      textFlow.setMaxHeight(CELL_HEIGHT);
+      setGraphic(textFlow);
+      setTooltip(new Tooltip(createTooltippText(item, vehicleValue)));
     } else {
-      this.setGraphic(null);
+      setTooltip(null);
+      setGraphic(null);
     }
 
-    this.setText(null);
+    setText(null);
   }
 
   private String createTooltippText(String map, String vehicle) {

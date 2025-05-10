@@ -12,6 +12,8 @@ import javafx.scene.text.TextFlow;
 
 public class VehicleListCell extends ListCell<String> {
 
+  private static final double CELL_HEIGHT = 20.0;
+
   private final PlayerAndVehicleToInt function;
   private final StringProperty selectedPlayer;
 
@@ -37,12 +39,14 @@ public class VehicleListCell extends ListCell<String> {
       var textFlow = new TextFlow();
       textMatches.setFill(Color.ORANGE);
       textFlow.getChildren().addAll(textVehicle, textMatches);
+      textFlow.setPrefHeight(CELL_HEIGHT);
+      textFlow.setMinHeight(CELL_HEIGHT);
+      textFlow.setMaxHeight(CELL_HEIGHT);
       setGraphic(textFlow);
-      setText(null);
     } else {
       setGraphic(null);
-      setText(null);
       setTooltip(null);
     }
+    setText(null);
   }
 }
