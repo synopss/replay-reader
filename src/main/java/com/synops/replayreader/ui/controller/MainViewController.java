@@ -40,6 +40,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -462,10 +463,18 @@ public class MainViewController {
     updateClient.getLatestVersion().doOnSuccess(versionResponse -> Platform.runLater(() -> {
       if (versionChecker.isNewVersionAvailable(versionResponse.tagName(),
           buildProperties.getVersion())) {
-        dialogService.alertConfirm(
-            MessageFormat.format(resourceBundle.getString("update.new-version"),
-                versionResponse.tagName().substring(1)), () -> openUrl(REPLAY_RELEASES_URL));
+        var newUpdateVersion = versionResponse.tagName().substring(1);
+        LOGGER.info("Update found: {}", newUpdateVersion);
+
+        var downLoadLink = new Button(resourceBundle.getString("update.download"));
+        downLoadLink.setOnAction(_ -> openUrl(REPLAY_RELEASES_URL));
+
+        notificationService.information(
+            MessageFormat.format(resourceBundle.getString("update.new-version-latest"), newUpdateVersion),
+            root, downLoadLink);
+      } else {
+        LOGGER.info("No update found");
       }
-    })).doOnError(dialogService::showAlertError).subscribe();;
+    })).doOnError(dialogService::showAlertError).subscribe();
   }
 }
