@@ -1,6 +1,6 @@
 package com.synops.replayreader.update;
 
-import com.synops.replayreader.core.StageReadyEvent;
+import com.synops.replayreader.core.event.StartupEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class UpdateClient {
   }
 
   @EventListener
-  public void init(StageReadyEvent event) {
+  public void init(StartupEvent event) {
     webClient = webClientBuilder.baseUrl("https://api.github.com/repos/synopss/replay-reader/")
         .defaultHeaders(HttpHeaders::clear).build();
   }

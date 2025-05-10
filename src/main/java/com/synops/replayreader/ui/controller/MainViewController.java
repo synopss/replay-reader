@@ -189,6 +189,7 @@ public class MainViewController {
     bindingSelectedElements();
     progressBar.setVisible(false);
     versionChecker = new VersionChecker();
+    versionChecker.scheduleVersionCheck(this::checkForUpdateInBackground);
   }
 
   private void initMenu() {
@@ -454,5 +455,17 @@ public class MainViewController {
         notificationService.information(resourceBundle.getString("update.latest-already"), root);
       }
     })).doOnError(dialogService::showAlertError).subscribe();
+  }
+
+  private void checkForUpdateInBackground() {
+    LOGGER.info("Checking for update in background");
+    updateClient.getLatestVersion().doOnSuccess(versionResponse -> Platform.runLater(() -> {
+      if (versionChecker.isNewVersionAvailable(versionResponse.tagName(),
+          buildProperties.getVersion())) {
+        dialogService.alertConfirm(
+            MessageFormat.format(resourceBundle.getString("update.new-version"),
+                versionResponse.tagName().substring(1)), () -> openUrl(REPLAY_RELEASES_URL));
+      }
+    })).doOnError(dialogService::showAlertError).subscribe();;
   }
 }
