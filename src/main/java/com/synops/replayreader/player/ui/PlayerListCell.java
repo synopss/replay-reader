@@ -10,14 +10,12 @@ import javafx.scene.text.TextFlow;
 
 public class PlayerListCell extends BaseListCell<String> {
 
-  private static final double CELL_HEIGHT = 20.0;
-
-  private final PlayerAndVehicleToInt battleCountfunction;
+  private final PlayerAndVehicleToInt battleCountFunction;
   private final Function<String, Player> playerInfoFunction;
 
   public PlayerListCell(PlayerAndVehicleToInt function,
       Function<String, Player> playerInfoFunction) {
-    this.battleCountfunction = function;
+    this.battleCountFunction = function;
     this.playerInfoFunction = playerInfoFunction;
   }
 
@@ -36,7 +34,7 @@ public class PlayerListCell extends BaseListCell<String> {
     var textClan = new Text(clanText);
     textClan.setFill(Color.GRAY);
 
-    int overallBattleCount = battleCountfunction.apply(item, null);
+    int overallBattleCount = battleCountFunction.apply(item, null);
     var textMatches = createCountText(overallBattleCount);
 
     textFlow.getChildren().addAll(textPlayer, textClan, textMatches);
@@ -53,7 +51,7 @@ public class PlayerListCell extends BaseListCell<String> {
       clanText = "";
     }
 
-    int overallBattleCount = battleCountfunction.apply(item, null);
+    int overallBattleCount = battleCountFunction.apply(item, null);
     return String.format("%s%s (%d)", playerText, clanText, overallBattleCount);
   }
 }
