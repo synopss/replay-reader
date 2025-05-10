@@ -5,8 +5,6 @@ import javafx.scene.layout.StackPane;
 
 public interface NotificationService {
 
-  void notify(String message, AlertType alertType, StackPane stackPane);
-
   void alert(String message, StackPane stackPane);
 
   void information(String message, StackPane stackPane);
@@ -14,4 +12,6 @@ public interface NotificationService {
   void warning(String message, StackPane stackPane);
 
   void confirmation(String message, StackPane stackPane);
+
+  void notify(String message, AlertType alertType, StackPane stackPane);
 }
