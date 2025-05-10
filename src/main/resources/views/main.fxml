@@ -17,13 +17,13 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.control.ProgressBar?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
+<?import javafx.scene.layout.StackPane?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
   xmlns="http://javafx.com/javafx"
   minWidth="800.0" prefHeight="583.0" prefWidth="1199.0"
   fx:controller="com.synops.replayreader.ui.controller.MainViewController"
   fx:id="root">
-  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-    AnchorPane.topAnchor="0.0">
+  <VBox>
     <MenuBar>
       <Menu text="%main.menu.file">
         <MenuItem fx:id="exitApplication" text="%main.menu.file.exit"/>
@@ -144,7 +144,7 @@
         </GridPane>
       </AnchorPane>
     </HBox>
-    <ToolBar prefHeight="40">
+    <ToolBar prefHeight="30.0" maxHeight="30.0" minHeight="30.0">
       <Label text="%main.footer.drag">
         <font>
           <Font name="System Bold" size="12.0"/>
@@ -158,4 +158,4 @@
       <Label fx:id="progressLabel" prefHeight="17.0" prefWidth="183.0" GridPane.columnIndex="1"/>
     </ToolBar>
   </VBox>
-</AnchorPane>
+</StackPane>

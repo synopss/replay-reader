@@ -9,6 +9,7 @@ import com.synops.replayreader.common.comparator.SortingComparators;
 import com.synops.replayreader.common.util.LogUtil;
 import com.synops.replayreader.core.event.ReplayProgressEvent;
 import com.synops.replayreader.core.service.DialogService;
+import com.synops.replayreader.core.service.NotificationService;
 import com.synops.replayreader.maps.comparator.MapsComparator;
 import com.synops.replayreader.maps.ui.MapListCell;
 import com.synops.replayreader.player.comparator.PlayerListComparatorLong;
@@ -40,7 +41,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -48,8 +48,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.lang.Nullable;
@@ -74,12 +74,13 @@ public class MainViewController {
   private final StringProperty selectedVehicle = new SimpleStringProperty("");
   private final StringProperty selectedClan = new SimpleStringProperty("");
   private final BuildProperties buildProperties;
+  private final NotificationService notificationService;
   @Value("${replay-reader.config.max-players}")
   private int MAX_PLAYERS;
   @Value("${replay-reader.config.max-clans}")
   private int MAX_CLANS;
   @FXML
-  private AnchorPane root;
+  private StackPane root;
   @FXML
   private ChoiceBox<String> sortingChoiceBox;
   @FXML
@@ -158,7 +159,8 @@ public class MainViewController {
       DialogService dialogService, UpdateClient updateClient, ResourceBundle resourceBundle,
       ClanStringConverter clanStringConverter, ClanListComparator clanListComparator,
       SortingComparators sortingComparators, MapsComparator mapsComparator,
-      DragDropSupport dragDropSupport, BuildProperties buildProperties) {
+      DragDropSupport dragDropSupport, BuildProperties buildProperties,
+      NotificationService notificationService) {
     this.replayService = replayService;
     this.hostServices = hostServices;
     this.dialogService = dialogService;
@@ -170,6 +172,7 @@ public class MainViewController {
     this.mapsComparator = mapsComparator;
     this.dragDropSupport = dragDropSupport;
     this.buildProperties = buildProperties;
+    this.notificationService = notificationService;
   }
 
   @FXML
@@ -446,8 +449,7 @@ public class MainViewController {
             MessageFormat.format(resourceBundle.getString("update.new-version"),
                 versionResponse.tagName().substring(1)), () -> openUrl(REPLAY_RELEASES_URL));
       } else {
-        dialogService.alert(AlertType.INFORMATION,
-            resourceBundle.getString("update.latest-already"));
+        notificationService.information(resourceBundle.getString("update.latest-already"), root);
       }
     })).doOnError(dialogService::showAlertError).subscribe();
   }

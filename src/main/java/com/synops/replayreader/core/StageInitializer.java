@@ -1,9 +1,12 @@
 package com.synops.replayreader.core;
 
+import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.PrimerLight;
 import com.synops.replayreader.common.i18n.I18nUtils;
 import com.synops.replayreader.ui.util.UiUtil;
 import java.io.IOException;
 import java.util.ResourceBundle;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,10 +44,13 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
       fxmlLoader.setControllerFactory(applicationContext::getBean);
       Parent parent = fxmlLoader.load();
       var stage = event.getStage();
+//      Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+      Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
       stage.setScene(new Scene(parent, applicationWidth, applicationHeight));
       stage.setResizable(false);
       stage.setTitle(resourceBundle.getString("main.title"));
       UiUtil.setDefaultIcon(stage);
+      UiUtil.setDefaultStyle(stage);
       stage.show();
     } catch (IOException e) {
       throw new RuntimeException(e);
