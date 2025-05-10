@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'com.synops'
-version = '1.0.0'
+version = '1.1.0'
 
 java {
     toolchain {
@@ -21,6 +21,10 @@ java {
 javafx {
     version = '24.0.1'
     modules = ['javafx.controls', 'javafx.fxml']
+}
+
+springBoot {
+    buildInfo()
 }
 
 wrapper {
