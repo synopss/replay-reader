@@ -18,6 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.StackPane?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
   xmlns="http://javafx.com/javafx"
   minWidth="800.0" prefHeight="583.0" prefWidth="1199.0"
@@ -29,9 +30,21 @@
         <MenuItem fx:id="exitApplication" text="%main.menu.file.exit"/>
       </Menu>
       <Menu text="%main.menu.help">
-        <MenuItem fx:id="reportBug" mnemonicParsing="false" text="%main.menu.help.report-bug"/>
-        <MenuItem fx:id="showAboutWindow" text="%main.menu.help.about"/>
-        <MenuItem fx:id="versionCheck" text="%main.menu.help.version-check"/>
+        <MenuItem fx:id="reportBug" mnemonicParsing="false" text="%main.menu.help.report-bug">
+          <graphic>
+            <FontIcon iconLiteral="fltral-bug-16"/>
+          </graphic>
+        </MenuItem>
+        <MenuItem fx:id="showAboutWindow" text="%main.menu.help.about">
+          <graphic>
+            <FontIcon iconLiteral="fltrmz-question-circle-16"/>
+          </graphic>
+        </MenuItem>
+        <MenuItem fx:id="versionCheck" text="%main.menu.help.version-check">
+          <graphic>
+            <FontIcon iconLiteral="fltfal-arrow-clockwise-20"/>
+          </graphic>
+        </MenuItem>
       </Menu>
     </MenuBar>
     <ToolBar prefHeight="40.0" prefWidth="200.0">
