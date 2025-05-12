@@ -1,6 +1,7 @@
 package com.synops.replayreader.ui.util;
 
 import java.util.Objects;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -20,5 +21,14 @@ public final class UiUtil {
 
   public static Window getWindow(Node node) {
     return node.getScene().getWindow();
+  }
+
+  public static void closeWindow(ActionEvent event) {
+    closeWindow((Node) event.getSource());
+  }
+
+  public static void closeWindow(Node node) {
+    var stage = (Stage) node.getScene().getWindow();
+    stage.close();
   }
 }
