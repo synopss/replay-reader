@@ -1,14 +1,19 @@
 package com.synops.replayreader.ui.controller;
 
-import java.util.ResourceBundle;
-import javafx.scene.control.Alert;
+import com.synops.replayreader.core.window.WindowController;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-public class AboutWindowController extends Alert {
+@Component
+@FxmlView(value = "/views/about/aboutview.fxml")
+public class AboutWindowController implements WindowController {
 
-  public AboutWindowController(ResourceBundle resourceBundle) {
-    super(AlertType.INFORMATION);
-    setTitle(resourceBundle.getString("main.menu.help.about"));
-    setHeaderText(resourceBundle.getString("main.menu.help.about.text")
-        + ": https://github.com/synopss/replay-reader");
+  private static final Logger LOGGER = LoggerFactory.getLogger(AboutWindowController.class);
+
+  @Override
+  public void initialize() {
+    LOGGER.debug("Initializing AboutWindowController");
   }
 }

@@ -21,12 +21,17 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
   xmlns="http://javafx.com/javafx"
-  minWidth="800.0" prefHeight="583.0" prefWidth="1199.0"
-  fx:controller="com.synops.replayreader.ui.controller.MainViewController"
+  minHeight="900" minWidth="1200.0" prefHeight="900.0" prefWidth="1200.0"
+  fx:controller="com.synops.replayreader.ui.controller.MainWindowController"
   fx:id="root">
   <VBox>
     <MenuBar>
       <Menu text="%main.menu.file">
+        <MenuItem fx:id="showSettingsWindow" text="%main.menu.file.settings">
+          <graphic>
+            <FontIcon iconLiteral="fltrmz-settings-16"/>
+          </graphic>
+        </MenuItem>
         <MenuItem fx:id="exitApplication" text="%main.menu.file.exit"/>
       </Menu>
       <Menu text="%main.menu.help">
