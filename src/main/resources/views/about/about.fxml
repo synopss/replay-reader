@@ -14,7 +14,8 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
   prefWidth="450.0"
   xmlns="http://javafx.com/javafx"
-  fx:controller="com.synops.replayreader.ui.controller.AboutWindowController">
+  fx:controller="com.synops.replayreader.about.AboutWindowController"
+  fx:id="root">
   <VBox spacing="12" AnchorPane.topAnchor="12.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.bottomAnchor="12.0">
     <HBox spacing="20">
       <VBox.margin>
