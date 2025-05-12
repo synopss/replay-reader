@@ -9,6 +9,8 @@ import com.synops.replayreader.common.comparator.SortingComparators;
 import com.synops.replayreader.core.event.ReplayProgressEvent;
 import com.synops.replayreader.core.service.DialogService;
 import com.synops.replayreader.core.service.NotificationService;
+import com.synops.replayreader.core.window.WindowController;
+import com.synops.replayreader.core.window.WindowManager;
 import com.synops.replayreader.maps.comparator.MapsComparator;
 import com.synops.replayreader.maps.ui.MapListCell;
 import com.synops.replayreader.player.comparator.PlayerListComparatorLong;
@@ -17,6 +19,7 @@ import com.synops.replayreader.player.ui.PlayerListCell;
 import com.synops.replayreader.replay.service.ReplayService;
 import com.synops.replayreader.ui.model.MainModel;
 import com.synops.replayreader.ui.util.DragDropSupport;
+import com.synops.replayreader.ui.util.UiUtil;
 import com.synops.replayreader.update.UpdateClient;
 import com.synops.replayreader.update.VersionChecker;
 import com.synops.replayreader.vehicle.ui.VehicleListCell;
@@ -50,6 +53,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,9 +62,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MainViewController {
+@FxmlView(value = "/views/main.fxml")
+public class MainWindowController implements WindowController {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MainViewController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MainWindowController.class);
   private static final String REPLAY_READER_BUGS_URL = "https://github.com/synopss/replay-reader/issues/new/choose";
   private static final String REPLAY_RELEASES_URL = "https://github.com/synopss/replay-reader/releases/latest";
   private final ReplayService replayService;
@@ -78,6 +83,7 @@ public class MainViewController {
   private final StringProperty selectedClan = new SimpleStringProperty("");
   private final BuildProperties buildProperties;
   private final NotificationService notificationService;
+  private final WindowManager windowManager;
   @Value("${replay-reader.config.max-players}")
   private int MAX_PLAYERS;
   @Value("${replay-reader.config.max-clans}")
@@ -90,6 +96,8 @@ public class MainViewController {
   private ChoiceBox<String> clanChoiceBox;
   @FXML
   private HBox hbox;
+  @FXML
+  private MenuItem showSettingsWindow;
   @FXML
   private MenuItem exitApplication;
   @FXML
@@ -158,12 +166,12 @@ public class MainViewController {
   private MainModel mainModel;
   private VersionChecker versionChecker;
 
-  public MainViewController(ReplayService replayService, @Nullable HostServices hostServices,
+  public MainWindowController(ReplayService replayService, @Nullable HostServices hostServices,
       DialogService dialogService, UpdateClient updateClient, ResourceBundle resourceBundle,
       ClanStringConverter clanStringConverter, ClanListComparator clanListComparator,
       SortingComparators sortingComparators, MapsComparator mapsComparator,
       DragDropSupport dragDropSupport, BuildProperties buildProperties,
-      NotificationService notificationService) {
+      NotificationService notificationService, WindowManager windowManager) {
     this.replayService = replayService;
     this.hostServices = hostServices;
     this.dialogService = dialogService;
@@ -176,6 +184,7 @@ public class MainViewController {
     this.dragDropSupport = dragDropSupport;
     this.buildProperties = buildProperties;
     this.notificationService = notificationService;
+    this.windowManager = windowManager;
   }
 
   @FXML
@@ -193,10 +202,16 @@ public class MainViewController {
     versionChecker.scheduleVersionCheck(this::checkForUpdateInBackground);
   }
 
+  @Override
+  public void onShown() {
+    windowManager.setRootWindow(UiUtil.getWindow(root));
+  }
+
   private void initMenu() {
+    showSettingsWindow.setOnAction(_ -> LOGGER.info("showSettingsWindow"));
     exitApplication.setOnAction(_ -> Platform.exit());
     reportBug.setOnAction(_ -> openUrl(REPLAY_READER_BUGS_URL));
-    showAboutWindow.setOnAction(_ -> (new AboutWindowController(resourceBundle)).showAndWait());
+    showAboutWindow.setOnAction(_ -> windowManager.openAbout());
     versionCheck.setOnAction(_ -> checkForUpdate());
   }
 
@@ -337,7 +352,7 @@ public class MainViewController {
     final Consumer<ReplayProgressEvent> progress = this::onProgressChanged;
     var task = new Task<>() {
       protected Boolean call() {
-        MainViewController.this.replayService.load(files, progress);
+        MainWindowController.this.replayService.load(files, progress);
         return Boolean.TRUE;
       }
     };
