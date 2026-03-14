@@ -83,6 +83,12 @@ public class ReplayCollectionImpl implements ReplayCollection {
         .collect(Collectors.toSet());
   }
 
+  public Set<String> getUniquePlayersIgnoringMapFilter() {
+    return replays.parallelStream()
+        .flatMap((r) -> r.getPlayers().stream()).map(Player::getName)
+        .collect(Collectors.toSet());
+  }
+
   public Set<String> getUniqueClans() {
     Set<String> result = Collections.synchronizedSet(new HashSet<>());
     result.addAll(getFilteredReplaysByMap().parallelStream()

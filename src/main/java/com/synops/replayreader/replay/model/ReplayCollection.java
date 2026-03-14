@@ -7,6 +7,8 @@ import java.util.Set;
 public interface ReplayCollection {
   Set<String> getUniquePlayers();
 
+  Set<String> getUniquePlayersIgnoringMapFilter();
+
   List<String> getUniquePlayersClan(String clanAbbrev);
 
   List<String> getVehiclesForPlayer(String player);

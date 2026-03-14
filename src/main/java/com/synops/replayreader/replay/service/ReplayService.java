@@ -15,6 +15,8 @@ public interface ReplayService {
 
   ObservableList<String> getPlayers();
 
+  ObservableList<String> getPlayersIgnoringMapFilter();
+
   Player getPlayerInfo(String player);
 
   ObservableList<String> getVehicles(String player);

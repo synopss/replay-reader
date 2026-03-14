@@ -42,6 +42,12 @@ public class ReplayServiceImpl implements ReplayService {
   }
 
   @Override
+  public ObservableList<String> getPlayersIgnoringMapFilter() {
+    return this.replayCollection == null ? FXCollections.emptyObservableList()
+        : FXCollections.observableList(new ArrayList<>(this.replayCollection.getUniquePlayersIgnoringMapFilter()));
+  }
+
+  @Override
   public Player getPlayerInfo(String player) {
     return this.replayCollection.getPlayerInfo(player);
   }

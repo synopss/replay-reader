@@ -378,7 +378,6 @@ public class MainWindowController implements WindowController {
   }
 
   private void onLoadSucceeded(WorkerStateEvent event) {
-    replayService.setMapFilter(null);
     updatePlayers();
     updateClans();
     updateMaps();
@@ -431,10 +430,7 @@ public class MainWindowController implements WindowController {
   }
 
   private void updateMaps() {
-    String currentMapFilter = selectedMap.getValue();
-    replayService.setMapFilter(null);
-
-    var allPlayers = replayService.getPlayers();
+    var allPlayers = replayService.getPlayersIgnoringMapFilter();
     var allMapsSet = allPlayers.stream()
         .flatMap(player -> replayService.getMaps(player, null).stream())
         .collect(Collectors.toSet());
@@ -448,10 +444,6 @@ public class MainWindowController implements WindowController {
     mapStringConverter.configure(replayService::getNumberOfGamesOnMap, totalGames);
     mapChoiceBox.setConverter(mapStringConverter);
     mapChoiceBox.setItems(sortedMaps);
-
-    if (currentMapFilter != null && !MAP_ALL.equals(currentMapFilter)) {
-      replayService.setMapFilter(currentMapFilter);
-    }
   }
 
   private void onClanChanged(ObservableValue<? extends String> player, String oldValue,
