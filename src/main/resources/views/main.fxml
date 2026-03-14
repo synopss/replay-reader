@@ -61,6 +61,12 @@
         </padding>
       </Label>
       <ChoiceBox fx:id="clanChoiceBox"/>
+      <Label text="%main.toolbar.filter-map">
+        <padding>
+          <Insets left="10.0"/>
+        </padding>
+      </Label>
+      <ChoiceBox fx:id="mapChoiceBox"/>
     </ToolBar>
     <HBox fx:id="hbox">
       <ListView fx:id="playersList" prefWidth="250.0"/>
@@ -140,13 +146,6 @@
           </Label>
           <Label text="%main.stats.shots" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
           <TextField fx:id="textShots" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
-          <Label text="%main.stats.maps" GridPane.rowIndex="15"/>
-          <ListView fx:id="mapsList" focusTraversable="false" minHeight="120.0" prefHeight="200.0"
-            prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
-            <GridPane.margin>
-              <Insets top="50.0"/>
-            </GridPane.margin>
-          </ListView>
           <Label text="%main.stats.winrate" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
           <TextField fx:id="textWinrate" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
           <TextField fx:id="textTeamKills" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="16"/>

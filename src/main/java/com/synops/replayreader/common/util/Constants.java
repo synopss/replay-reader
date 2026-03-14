@@ -4,6 +4,7 @@ public class Constants {
   public static final String APP_NAME = "Replay Reader";
   public static final String CLAN_ALL = "<all>";
   public static final String CLAN_LESS = "<clanless>";
+  public static final String MAP_ALL = "<all>";
   public static final String OVERALL = "<overall>";
   public static final int JSON_DEPTH = 3;
 }

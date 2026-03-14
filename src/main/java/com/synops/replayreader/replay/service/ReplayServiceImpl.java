@@ -24,14 +24,15 @@ public class ReplayServiceImpl implements ReplayService {
   }
 
   @Override
-  public void load(List<File> files) {
-    this.load(files, (eReplayProgressEvent) -> {
-    });
+  public void load(List<File> files, Consumer<ReplayProgressEvent> progressListener) {
+    replayCollection = replayController.readReplays(files, BattleType.ANY, progressListener);
   }
 
   @Override
-  public void load(List<File> files, Consumer<ReplayProgressEvent> progressListener) {
-    replayCollection = replayController.readReplays(files, BattleType.ANY, progressListener);
+  public void setMapFilter(String map) {
+    if (this.replayCollection != null) {
+      this.replayCollection.setMapFilter(map);
+    }
   }
 
   @Override
@@ -68,8 +69,13 @@ public class ReplayServiceImpl implements ReplayService {
   }
 
   @Override
-  public int getNumberOfMapsPlayed(String player, String vehicle, String map) {
-    return this.replayCollection.getNumberOfMapsPlayed(player, vehicle, map);
+  public int getNumberOfGamesOnMap(String map) {
+    return this.replayCollection.getNumberOfGamesOnMap(map);
+  }
+
+  @Override
+  public int getTotalGames() {
+    return this.replayCollection == null ? 0 : this.replayCollection.getTotalGames();
   }
 
   @Override

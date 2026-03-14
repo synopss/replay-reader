@@ -15,7 +15,7 @@ public interface ReplayCollection {
 
   Player getPlayerInfo(String player);
 
-  void updateReplayFilter(ReplayFilter replayFilter);
+  void setMapFilter(String map);
 
   int getNumberOfClanPlayers(String clan);
 
@@ -25,7 +25,9 @@ public interface ReplayCollection {
 
   List<String> getMaps(String player, String vehicle);
 
-  int getNumberOfMapsPlayed(String player, String vehicle, String map);
+  int getNumberOfGamesOnMap(String map);
+
+  int getTotalGames();
 
   double getWinRate(String player, String vehicle);
 

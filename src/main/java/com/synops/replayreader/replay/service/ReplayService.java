@@ -9,9 +9,9 @@ import javafx.collections.ObservableList;
 
 public interface ReplayService {
 
-  void load(List<File> files);
-
   void load(List<File> files, Consumer<ReplayProgressEvent> progressListener);
+
+  void setMapFilter(String map);
 
   ObservableList<String> getPlayers();
 
@@ -25,7 +25,9 @@ public interface ReplayService {
 
   double getWinrate(String player, String vehicle);
 
-  int getNumberOfMapsPlayed(String player, String vehicle, String map);
+  int getNumberOfGamesOnMap(String map);
+
+  int getTotalGames();
 
   int getNumberOFClanPlayers(String clan);
 

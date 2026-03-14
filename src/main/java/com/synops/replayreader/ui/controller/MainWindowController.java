@@ -1,6 +1,7 @@
 package com.synops.replayreader.ui.controller;
 
 import static com.synops.replayreader.common.util.Constants.CLAN_ALL;
+import static com.synops.replayreader.common.util.Constants.MAP_ALL;
 import static com.synops.replayreader.common.util.Constants.OVERALL;
 
 import com.synops.replayreader.clan.comparator.ClanListComparator;
@@ -11,8 +12,8 @@ import com.synops.replayreader.core.service.DialogService;
 import com.synops.replayreader.core.service.NotificationService;
 import com.synops.replayreader.core.window.WindowController;
 import com.synops.replayreader.core.window.WindowManager;
-import com.synops.replayreader.maps.comparator.MapsComparator;
-import com.synops.replayreader.maps.ui.MapListCell;
+import com.synops.replayreader.maps.comparator.MapListComparator;
+import com.synops.replayreader.maps.util.MapStringConverter;
 import com.synops.replayreader.player.comparator.PlayerListComparatorLong;
 import com.synops.replayreader.player.model.PlayerSort;
 import com.synops.replayreader.player.ui.PlayerListCell;
@@ -75,12 +76,14 @@ public class MainWindowController implements WindowController {
   private final ResourceBundle resourceBundle;
   private final ClanStringConverter clanStringConverter;
   private final ClanListComparator clanListComparator;
+  private final MapStringConverter mapStringConverter;
+  private final MapListComparator mapListComparator;
   private final SortingComparators sortingComparators;
-  private final MapsComparator mapsComparator;
   private final DragDropSupport dragDropSupport;
   private final StringProperty selectedPlayer = new SimpleStringProperty("");
   private final StringProperty selectedVehicle = new SimpleStringProperty("");
   private final StringProperty selectedClan = new SimpleStringProperty("");
+  private final StringProperty selectedMap = new SimpleStringProperty("");
   private final BuildProperties buildProperties;
   private final NotificationService notificationService;
   private final WindowManager windowManager;
@@ -94,6 +97,8 @@ public class MainWindowController implements WindowController {
   private ChoiceBox<String> sortingChoiceBox;
   @FXML
   private ChoiceBox<String> clanChoiceBox;
+  @FXML
+  private ChoiceBox<String> mapChoiceBox;
   @FXML
   private HBox hbox;
   @FXML
@@ -158,8 +163,6 @@ public class MainWindowController implements WindowController {
   @FXML
   private TextField textDamageRank;
   @FXML
-  private ListView<String> mapsList;
-  @FXML
   private ProgressBar progressBar;
   @FXML
   private Label progressLabel;
@@ -169,9 +172,10 @@ public class MainWindowController implements WindowController {
   public MainWindowController(ReplayService replayService, @Nullable HostServices hostServices,
       DialogService dialogService, UpdateClient updateClient, ResourceBundle resourceBundle,
       ClanStringConverter clanStringConverter, ClanListComparator clanListComparator,
-      SortingComparators sortingComparators, MapsComparator mapsComparator,
-      DragDropSupport dragDropSupport, BuildProperties buildProperties,
-      NotificationService notificationService, WindowManager windowManager) {
+      MapStringConverter mapStringConverter, MapListComparator mapListComparator,
+      SortingComparators sortingComparators, DragDropSupport dragDropSupport,
+      BuildProperties buildProperties, NotificationService notificationService,
+      WindowManager windowManager) {
     this.replayService = replayService;
     this.hostServices = hostServices;
     this.dialogService = dialogService;
@@ -179,8 +183,9 @@ public class MainWindowController implements WindowController {
     this.resourceBundle = resourceBundle;
     this.clanStringConverter = clanStringConverter;
     this.clanListComparator = clanListComparator;
+    this.mapStringConverter = mapStringConverter;
+    this.mapListComparator = mapListComparator;
     this.sortingComparators = sortingComparators;
-    this.mapsComparator = mapsComparator;
     this.dragDropSupport = dragDropSupport;
     this.buildProperties = buildProperties;
     this.notificationService = notificationService;
@@ -196,6 +201,7 @@ public class MainWindowController implements WindowController {
     initDragDrop();
     initSortingChoiceBox();
     initClanChoiceBox();
+    initMapChoiceBox();
     bindingSelectedElements();
     progressBar.setVisible(false);
     versionChecker = new VersionChecker();
@@ -222,8 +228,6 @@ public class MainWindowController implements WindowController {
     vehiclesList.setCellFactory(
         (_) -> new VehicleListCell(selectedPlayer, replayService::getNumberOfGames));
     vehiclesList.getSelectionModel().selectedItemProperty().addListener(this::showVehicleStats);
-    mapsList.setCellFactory((_) -> new MapListCell(selectedPlayer, selectedVehicle,
-        replayService::getNumberOfMapsPlayed));
   }
 
   private void initDragDrop() {
@@ -255,10 +259,16 @@ public class MainWindowController implements WindowController {
         String.format(resourceBundle.getString("main.toolbar.filter-clan.tooltip"), MAX_CLANS)));
   }
 
+  private void initMapChoiceBox() {
+    mapChoiceBox.getSelectionModel().selectedItemProperty().addListener(this::onMapChanged);
+    mapChoiceBox.setTooltip(new Tooltip(resourceBundle.getString("main.toolbar.filter-map.tooltip")));
+  }
+
   private void bindingSelectedElements() {
     selectedPlayer.bind(playersList.getSelectionModel().selectedItemProperty());
     selectedVehicle.bind(vehiclesList.getSelectionModel().selectedItemProperty());
     selectedClan.bind(clanChoiceBox.getSelectionModel().selectedItemProperty());
+    selectedMap.bind(mapChoiceBox.getSelectionModel().selectedItemProperty());
   }
 
   private void onSelectPlayer(ObservableValue<? extends String> player, String oldValue,
@@ -340,11 +350,6 @@ public class MainWindowController implements WindowController {
         String.format("%.2f", replayService.getAvgXPRank(selectedPlayer.get(), vehicle)));
     textDamageRank.setText(
         String.format("%.2f", replayService.getAvgDamageRank(selectedPlayer.get(), vehicle)));
-    var maps = replayService.getMaps(selectedPlayer.get(), vehicle);
-    mapsComparator.configure(selectedPlayer, selectedVehicle, replayService::getNumberOfMapsPlayed);
-    maps.sort(mapsComparator);
-    mapsList.setItems(maps);
-    mapsList.scrollTo(0);
   }
 
   private void load(final List<File> files) {
@@ -373,11 +378,14 @@ public class MainWindowController implements WindowController {
   }
 
   private void onLoadSucceeded(WorkerStateEvent event) {
+    replayService.setMapFilter(null);
     updatePlayers();
     updateClans();
+    updateMaps();
     LOGGER.debug("onLoadSucceeded before SelectionModel changes");
     playersList.getSelectionModel().selectFirst();
     clanChoiceBox.getSelectionModel().selectFirst();
+    mapChoiceBox.getSelectionModel().selectFirst();
     sortingChoiceBox.getSelectionModel().selectFirst();
     progressBar.setVisible(false);
   }
@@ -388,8 +396,8 @@ public class MainWindowController implements WindowController {
     var filteredPlayersData = new FilteredList<>(playersRawData);
     var selectedClanValue = selectedClan.getValue();
     if (selectedClanValue != null) {
-      filteredPlayersData.setPredicate(
-          (player) -> selectedClanValue.equals(CLAN_ALL) || selectedClanValue.equals(
+      filteredPlayersData.setPredicate((player) ->
+          selectedClanValue.equals(CLAN_ALL) || selectedClanValue.equals(
               replayService.getPlayerInfo(player).getClanAbbrev()));
     }
 
@@ -422,9 +430,55 @@ public class MainWindowController implements WindowController {
     clanChoiceBox.setItems(sortedClans);
   }
 
+  private void updateMaps() {
+    String currentMapFilter = selectedMap.getValue();
+    replayService.setMapFilter(null);
+
+    var allPlayers = replayService.getPlayers();
+    var allMapsSet = allPlayers.stream()
+        .flatMap(player -> replayService.getMaps(player, null).stream())
+        .collect(Collectors.toSet());
+    var mapsList = FXCollections.observableArrayList(allMapsSet);
+    mapsList.addFirst(MAP_ALL);
+    var sortedMaps = new SortedList<>(mapsList);
+    mapListComparator.configure(replayService::getNumberOfGamesOnMap);
+    sortedMaps.setComparator(mapListComparator);
+
+    int totalGames = replayService.getTotalGames();
+    mapStringConverter.configure(replayService::getNumberOfGamesOnMap, totalGames);
+    mapChoiceBox.setConverter(mapStringConverter);
+    mapChoiceBox.setItems(sortedMaps);
+
+    if (currentMapFilter != null && !MAP_ALL.equals(currentMapFilter)) {
+      replayService.setMapFilter(currentMapFilter);
+    }
+  }
+
   private void onClanChanged(ObservableValue<? extends String> player, String oldValue,
       String newValue) {
     if (oldValue != null) {
+      updatePlayers();
+    }
+
+    playersList.getSelectionModel().selectFirst();
+  }
+
+  private void onMapChanged(ObservableValue<? extends String> map, String oldValue,
+      String newValue) {
+    if (oldValue != null) {
+      String mapFilter = (newValue != null && !MAP_ALL.equals(newValue)) ? newValue : null;
+      replayService.setMapFilter(mapFilter);
+
+      var selectedClanValue = clanChoiceBox.getSelectionModel().getSelectedItem();
+
+      updateClans();
+
+      if (selectedClanValue != null && clanChoiceBox.getItems().contains(selectedClanValue)) {
+        clanChoiceBox.getSelectionModel().select(selectedClanValue);
+      } else {
+        clanChoiceBox.getSelectionModel().selectFirst();
+      }
+
       updatePlayers();
     }
 
