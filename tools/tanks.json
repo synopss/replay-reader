@@ -1,9 +1,9 @@
 {
   "status": "ok",
   "meta": {
-    "count": 917,
+    "count": 986,
     "page_total": 10,
-    "total": 917,
+    "total": 986,
     "limit": 100,
     "page": null
   },
@@ -18,9 +18,9 @@
       "name": "AMX 50 100",
       "nation": "france"
     },
-    "2049": {
-      "tag": "R12_A-20",
-      "name": "A-20",
+    "67585": {
+      "tag": "R228_KR_1",
+      "name": "KR-1",
       "nation": "ussr"
     },
     "15617": {
@@ -47,6 +47,11 @@
       "tag": "A07_T20",
       "name": "T20",
       "nation": "usa"
+    },
+    "21073": {
+      "tag": "GB146_Gabler_s_Destroyer",
+      "name": "Gabler’s Destroyer",
+      "nation": "uk"
     },
     "5729": {
       "tag": "J23_Mi_To",
@@ -103,6 +108,11 @@
       "name": "Comet",
       "nation": "uk"
     },
+    "11793": {
+      "tag": "G40_Nashorn",
+      "name": "Nashorn",
+      "nation": "germany"
+    },
     "2097": {
       "tag": "Ch12_111_1_2_3",
       "name": "WZ-111 model 1-4",
@@ -113,10 +123,10 @@
       "name": "T-34 with L-11",
       "nation": "ussr"
     },
-    "8961": {
-      "tag": "R46_KV-13",
-      "name": "KV-13",
-      "nation": "ussr"
+    "2593": {
+      "tag": "A14_T30",
+      "name": "T30",
+      "nation": "usa"
     },
     "9793": {
       "tag": "F32_Somua_Sau_40",
@@ -133,6 +143,11 @@
       "name": "BT-2",
       "nation": "ussr"
     },
+    "35873": {
+      "tag": "A183_XM69_Hacker",
+      "name": "XM69 Hacker",
+      "nation": "usa"
+    },
     "55377": {
       "tag": "GB108_A46",
       "name": "A46",
@@ -147,11 +162,6 @@
       "tag": "G15_VK3601H",
       "name": "VK 36.01 (H)",
       "nation": "germany"
-    },
-    "52513": {
-      "tag": "A45_M6A2E1",
-      "name": "M6A2E1",
-      "nation": "usa"
     },
     "53329": {
       "tag": "GB12_Conqueror_FL",
@@ -173,19 +183,24 @@
       "name": "T-45",
       "nation": "ussr"
     },
-    "20257": {
-      "tag": "A129_T6_medium",
-      "name": "T6 Medium",
-      "nation": "usa"
+    "4913": {
+      "tag": "Ch15_59_16",
+      "name": "59-16",
+      "nation": "china"
     },
-    "8289": {
-      "tag": "J35_Ho_Ri_3",
-      "name": "Ho-Ri 3",
+    "55393": {
+      "tag": "J48_Saryuda",
+      "name": "Saryuda",
       "nation": "japan"
     },
     "22273": {
       "tag": "R169_ST_II",
       "name": "ST-II",
+      "nation": "ussr"
+    },
+    "2049": {
+      "tag": "R12_A-20",
+      "name": "A-20",
       "nation": "ussr"
     },
     "6209": {
@@ -208,6 +223,11 @@
       "name": "T1E6",
       "nation": "usa"
     },
+    "7505": {
+      "tag": "GB59_Cruiser_Mk_IV",
+      "name": "Cruiser Mk. IV",
+      "nation": "uk"
+    },
     "6257": {
       "tag": "Cz28_LPT_67_Selma",
       "name": "LPT-67 Šelma",
@@ -228,10 +248,10 @@
       "name": "WZ-131",
       "nation": "china"
     },
-    "5937": {
-      "tag": "Ch29_Type_62C_prot",
-      "name": "WZ-132-1",
-      "nation": "china"
+    "21281": {
+      "tag": "A144_M_VI_Y",
+      "name": "M-VI-Y",
+      "nation": "usa"
     },
     "20241": {
       "tag": "G126_HWK_12",
@@ -283,6 +303,16 @@
       "name": "A-32",
       "nation": "ussr"
     },
+    "22305": {
+      "tag": "A191_Ares_90_C",
+      "name": "Ares 90 C",
+      "nation": "usa"
+    },
+    "57153": {
+      "tag": "F127_AMX_ELC_901",
+      "name": "AMX ELC 901",
+      "nation": "france"
+    },
     "161": {
       "tag": "It04_Fiat_3000",
       "name": "Fiat 3000",
@@ -298,9 +328,9 @@
       "name": "Renault UE 57",
       "nation": "france"
     },
-    "2417": {
-      "tag": "Cz04_T50_51",
-      "name": "TVP T 50\/51",
+    "52593": {
+      "tag": "Cz30_TBT",
+      "name": "TBT",
       "nation": "czech"
     },
     "5393": {
@@ -332,11 +362,6 @@
       "tag": "R38_KV-220",
       "name": "KV-220-2",
       "nation": "ussr"
-    },
-    "7985": {
-      "tag": "Ch36_WZ111_1G_FT",
-      "name": "WZ-111-1G FT",
-      "nation": "china"
     },
     "5121": {
       "tag": "R10_AT-1",
@@ -398,10 +423,20 @@
       "name": "SU-101",
       "nation": "ussr"
     },
+    "10817": {
+      "tag": "F35_AMX_AC_Mle1946",
+      "name": "AMX AC mle. 46",
+      "nation": "france"
+    },
     "9009": {
       "tag": "Ch48_BZ_75",
       "name": "BZ-75",
       "nation": "china"
+    },
+    "59201": {
+      "tag": "F120_Projet_Louis",
+      "name": "Projet Louis",
+      "nation": "france"
     },
     "2129": {
       "tag": "GB20_Crusader",
@@ -422,6 +457,11 @@
       "tag": "GB114_Vickers_MBT_Mk3",
       "name": "Vickers MBT Mk. 3",
       "nation": "uk"
+    },
+    "62209": {
+      "tag": "R121_KV4_KTT",
+      "name": "KV-4 KTTS",
+      "nation": "ussr"
     },
     "22785": {
       "tag": "R170_IS_2_II",
@@ -452,16 +492,6 @@
       "tag": "A40_T95",
       "name": "T95",
       "nation": "usa"
-    },
-    "43585": {
-      "tag": "F106_Panhard_EBR_75_Mle1954",
-      "name": "Panhard EBR 75 (FL 10)",
-      "nation": "france"
-    },
-    "66369": {
-      "tag": "F132_Vercingetorix",
-      "name": "Vercingétorix",
-      "nation": "france"
     },
     "19969": {
       "tag": "R148_Object_430_U",
@@ -508,6 +538,11 @@
       "name": "Pudel",
       "nation": "poland"
     },
+    "8961": {
+      "tag": "R46_KV-13",
+      "name": "KV-13",
+      "nation": "ussr"
+    },
     "8465": {
       "tag": "G64_Panther_II",
       "name": "Panther II",
@@ -538,6 +573,16 @@
       "name": "LTS-85",
       "nation": "ussr"
     },
+    "41745": {
+      "tag": "G187_Taschenratte",
+      "name": "Taschenratte",
+      "nation": "germany"
+    },
+    "11057": {
+      "tag": "Ch70_PTZ_78",
+      "name": "PTZ-78",
+      "nation": "china"
+    },
     "61249": {
       "tag": "F112_M10_RBFM",
       "name": "M10 RBFM",
@@ -547,6 +592,11 @@
       "tag": "A19_T2_lt",
       "name": "T2 Light Tank",
       "nation": "usa"
+    },
+    "32065": {
+      "tag": "F117_Alt_Proto_AMX_30",
+      "name": "AltProto AMX 30",
+      "nation": "france"
     },
     "9249": {
       "tag": "A64_T25_AT",
@@ -603,6 +653,11 @@
       "name": "Somua SM",
       "nation": "france"
     },
+    "897": {
+      "tag": "S04_Lago_I",
+      "name": "Lago",
+      "nation": "sweden"
+    },
     "4417": {
       "tag": "F11_Renault_G1R",
       "name": "Renault G1",
@@ -642,6 +697,11 @@
       "tag": "GB12_Conqueror",
       "name": "Conqueror",
       "nation": "uk"
+    },
+    "46593": {
+      "tag": "R156_IS_2M",
+      "name": "IS-2M",
+      "nation": "ussr"
     },
     "27153": {
       "tag": "G169_T_54D",
@@ -703,6 +763,11 @@
       "name": "Prototipo 6",
       "nation": "italy"
     },
+    "66097": {
+      "tag": "Ch63_Yong_Bing",
+      "name": "Yong Bing",
+      "nation": "china"
+    },
     "11537": {
       "tag": "G71_JagdPantherII",
       "name": "Jagdpanther II",
@@ -712,11 +777,6 @@
       "tag": "A125_AEP_1",
       "name": "AE Phase I",
       "nation": "usa"
-    },
-    "15697": {
-      "tag": "GB91_Super_Conqueror",
-      "name": "Super Conqueror",
-      "nation": "uk"
     },
     "353": {
       "tag": "J15_Chi_Ni",
@@ -803,10 +863,10 @@
       "name": "Object 430 Version II",
       "nation": "ussr"
     },
-    "51569": {
-      "tag": "Cz01_Skoda_T40",
-      "name": "Škoda T 40",
-      "nation": "czech"
+    "1377": {
+      "tag": "J08_Chi_Nu",
+      "name": "Type 3 Chi-Nu",
+      "nation": "japan"
     },
     "2449": {
       "tag": "Pl10_40TP_Habicha",
@@ -827,16 +887,6 @@
       "tag": "R225_SU_100i",
       "name": "SU-100I",
       "nation": "ussr"
-    },
-    "52865": {
-      "tag": "S25_EMIL_51",
-      "name": "EMIL 1951",
-      "nation": "sweden"
-    },
-    "3361": {
-      "tag": "A09_T1_hvy",
-      "name": "T1 Heavy Tank",
-      "nation": "usa"
     },
     "45841": {
       "tag": "G154_Kpz_07_RH",
@@ -888,6 +938,11 @@
       "name": "VK 20.01 (D)",
       "nation": "germany"
     },
+    "33089": {
+      "tag": "F135_AS_XX_40_t",
+      "name": "AS-XX 40 t",
+      "nation": "france"
+    },
     "2401": {
       "tag": "J04_Ke_Ni",
       "name": "Type 98 Ke-Ni",
@@ -900,7 +955,7 @@
     },
     "14881": {
       "tag": "A67_T57_58",
-      "name": "T57 Heavy Tank",
+      "name": "T57 Heavy",
       "nation": "usa"
     },
     "3697": {
@@ -918,14 +973,14 @@
       "name": "K-91 Version II",
       "nation": "ussr"
     },
-    "62209": {
-      "tag": "R121_KV4_KTT",
-      "name": "KV-4 KTTS",
-      "nation": "ussr"
+    "46865": {
+      "tag": "G143_E75_TS",
+      "name": "E 75 TS",
+      "nation": "germany"
     },
-    "833": {
-      "tag": "F20_RenaultBS",
-      "name": "Renault FT 75 BS",
+    "66369": {
+      "tag": "F132_Vercingetorix",
+      "name": "Vercingétorix",
       "nation": "france"
     },
     "13313": {
@@ -963,10 +1018,10 @@
       "name": "Type 61",
       "nation": "japan"
     },
-    "46593": {
-      "tag": "R156_IS_2M",
-      "name": "IS-2M",
-      "nation": "ussr"
+    "31249": {
+      "tag": "G186_Schwertwal",
+      "name": "Schwertwal",
+      "nation": "germany"
     },
     "561": {
       "tag": "Ch01_Type59_Gold",
@@ -1038,11 +1093,6 @@
       "name": "STG",
       "nation": "ussr"
     },
-    "1585": {
-      "tag": "Ch05_T34_2",
-      "name": "T-34-2",
-      "nation": "china"
-    },
     "48913": {
       "tag": "G138_VK168_02",
       "name": "VK 168.01 (P)",
@@ -1073,15 +1123,15 @@
       "name": "M24 Chaffee No. 594",
       "nation": "usa"
     },
-    "5889": {
-      "tag": "R39_KV-3",
-      "name": "KV-3",
+    "2817": {
+      "tag": "R106_KV85",
+      "name": "KV-85",
       "nation": "ussr"
     },
-    "32001": {
-      "tag": "R178_Object_780",
-      "name": "Object 780",
-      "nation": "ussr"
+    "16657": {
+      "tag": "G99_RhB_Waffentrager",
+      "name": "Rhm.-Borsig Waffenträger",
+      "nation": "germany"
     },
     "66849": {
       "tag": "A176_M103_110_CFE_R",
@@ -1108,11 +1158,6 @@
       "name": "M41 Walker Bulldog",
       "nation": "usa"
     },
-    "49937": {
-      "tag": "G119_Panzer58_BF",
-      "name": "Schwarzpanzer 58",
-      "nation": "germany"
-    },
     "34593": {
       "tag": "A148_Convertible_Medium_Tank_T3",
       "name": "Convert. Medium Tank T3",
@@ -1128,15 +1173,15 @@
       "name": "Pz.Kpfw. 38 (t)",
       "nation": "germany"
     },
-    "2593": {
-      "tag": "A14_T30",
-      "name": "T30",
+    "68129": {
+      "tag": "A144_M_VI_Y_CFE_R",
+      "name": "M-VI-Y (120)",
       "nation": "usa"
     },
-    "1041": {
-      "tag": "G05_StuG_40_AusfG",
-      "name": "StuG III Ausf. G",
-      "nation": "germany"
+    "16385": {
+      "tag": "R100_SU122A",
+      "name": "SU-122A",
+      "nation": "ussr"
     },
     "51233": {
       "tag": "A132_T77",
@@ -1157,6 +1202,11 @@
       "tag": "R186_KV_1_Screened",
       "name": "KV-1 shielded",
       "nation": "ussr"
+    },
+    "67873": {
+      "tag": "A178_SPHT",
+      "name": "SPHT",
+      "nation": "usa"
     },
     "21841": {
       "tag": "GB142_FV230_Canopener",
@@ -1213,9 +1263,9 @@
       "name": "FV215b",
       "nation": "uk"
     },
-    "2145": {
-      "tag": "J07_Chi_Ha",
-      "name": "Type 97 Chi-Ha",
+    "8289": {
+      "tag": "J35_Ho_Ri_3",
+      "name": "Ho-Ri 3",
       "nation": "japan"
     },
     "18705": {
@@ -1223,19 +1273,19 @@
       "name": "Mäuschen",
       "nation": "germany"
     },
-    "16657": {
-      "tag": "G99_RhB_Waffentrager",
-      "name": "Rhm.-Borsig Waffenträger",
-      "nation": "germany"
+    "3361": {
+      "tag": "A09_T1_hvy",
+      "name": "T1 Heavy",
+      "nation": "usa"
     },
     "22865": {
       "tag": "GB140_FV224_Chopper",
       "name": "FV224 Chopper",
       "nation": "uk"
     },
-    "21073": {
-      "tag": "GB146_Gabler_s_Destroyer",
-      "name": "Gabler’s Destroyer",
+    "25169": {
+      "tag": "GB156_Black_Prince_II",
+      "name": "Black Prince II",
       "nation": "uk"
     },
     "50689": {
@@ -1263,9 +1313,9 @@
       "name": "AC 4 Experimental",
       "nation": "uk"
     },
-    "6753": {
-      "tag": "J34_Ho_Ri_1",
-      "name": "Ho-Ri 1",
+    "8801": {
+      "tag": "J41_Type_68",
+      "name": "Type 68",
       "nation": "japan"
     },
     "3089": {
@@ -1283,9 +1333,9 @@
       "name": "Centurion Action X",
       "nation": "uk"
     },
-    "46865": {
-      "tag": "G143_E75_TS",
-      "name": "E 75 TS",
+    "49937": {
+      "tag": "G119_Panzer58_BF",
+      "name": "Schwarzpanzer 58",
       "nation": "germany"
     },
     "19729": {
@@ -1298,6 +1348,11 @@
       "name": "T32",
       "nation": "usa"
     },
+    "23889": {
+      "tag": "GB147_FV4025_Contriver",
+      "name": "FV4025 Contriver",
+      "nation": "uk"
+    },
     "6769": {
       "tag": "Cz34_Vz_71_Tesak",
       "name": "Vz. 71 Tesák",
@@ -1308,20 +1363,20 @@
       "name": "Churchill III",
       "nation": "ussr"
     },
-    "5681": {
-      "tag": "Ch28_WZ_132A",
-      "name": "WZ-132A",
+    "21025": {
+      "tag": "A139_M_III_Y",
+      "name": "M-III-Y",
+      "nation": "usa"
+    },
+    "5937": {
+      "tag": "Ch29_Type_62C_prot",
+      "name": "WZ-132-1",
       "nation": "china"
     },
     "29969": {
       "tag": "G174_Kpz3_GST_Turm",
       "name": "Kpz. 3 GST Turm",
       "nation": "germany"
-    },
-    "2817": {
-      "tag": "R106_KV85",
-      "name": "KV-85",
-      "nation": "ussr"
     },
     "57169": {
       "tag": "GB95_Ekins_Firefly_M4A4",
@@ -1333,9 +1388,9 @@
       "name": "M41D",
       "nation": "china"
     },
-    "641": {
-      "tag": "S12_Strv_M40",
-      "name": "Strv m\/40L",
+    "51841": {
+      "tag": "S15_L_60",
+      "name": "L-60",
       "nation": "sweden"
     },
     "4113": {
@@ -1363,20 +1418,35 @@
       "name": "M7",
       "nation": "usa"
     },
+    "577": {
+      "tag": "F01_RenaultFT",
+      "name": "Renault FT",
+      "nation": "france"
+    },
     "2705": {
       "tag": "Pl11_45TP_Habicha",
       "name": "45TP Habicha",
       "nation": "poland"
+    },
+    "1409": {
+      "tag": "S07_Strv_74",
+      "name": "Strv 74",
+      "nation": "sweden"
     },
     "37393": {
       "tag": "G164_Kpz_Pr_68_P",
       "name": "Mittlerer Kpz. Pr. 68 (P)",
       "nation": "germany"
     },
-    "56897": {
-      "tag": "F129_ARL_44_BPXIV",
-      "name": "Char de transition",
-      "nation": "france"
+    "22049": {
+      "tag": "A189_Ares_90",
+      "name": "Ares 90",
+      "nation": "usa"
+    },
+    "61489": {
+      "tag": "Ch39_WZ120_1G_FT_FL",
+      "name": "WZ-120-1G FT FL",
+      "nation": "china"
     },
     "3841": {
       "tag": "R16_SU-18",
@@ -1413,6 +1483,11 @@
       "name": "T56 GMC",
       "nation": "usa"
     },
+    "25937": {
+      "tag": "GB86_Centurion_Action_X_CFE_A",
+      "name": "Triumphant",
+      "nation": "uk"
+    },
     "60785": {
       "tag": "Cz35_T56_G",
       "name": "TT-130M",
@@ -1428,10 +1503,15 @@
       "name": "SU-85I",
       "nation": "ussr"
     },
-    "7729": {
-      "tag": "Ch35_T-34-2G_FT",
-      "name": "T-34-2G FT",
-      "nation": "china"
+    "23073": {
+      "tag": "A187_Ares_75",
+      "name": "Ares 75",
+      "nation": "usa"
+    },
+    "1041": {
+      "tag": "G05_StuG_40_AusfG",
+      "name": "StuG III Ausf. G",
+      "nation": "germany"
     },
     "4865": {
       "tag": "R14_SU-5",
@@ -1453,14 +1533,14 @@
       "name": "Pz.Kpfw. II Luchs",
       "nation": "germany"
     },
-    "16385": {
-      "tag": "R100_SU122A",
-      "name": "SU-122A",
-      "nation": "ussr"
+    "56353": {
+      "tag": "A101_M56",
+      "name": "M56 Scorpion",
+      "nation": "usa"
     },
-    "21281": {
-      "tag": "A144_M_VI_Y",
-      "name": "M-VI-Y",
+    "20257": {
+      "tag": "A129_T6_medium",
+      "name": "T6 Medium",
       "nation": "usa"
     },
     "22801": {
@@ -1488,15 +1568,25 @@
       "name": "SU-100Y",
       "nation": "ussr"
     },
+    "58945": {
+      "tag": "F124_AMX_13FL11",
+      "name": "AMX 13 (FL 11)",
+      "nation": "france"
+    },
+    "68609": {
+      "tag": "R172_Object_752_CFE_T",
+      "name": "Peerless",
+      "nation": "ussr"
+    },
     "11857": {
       "tag": "GB77_FV304",
       "name": "FV304",
       "nation": "uk"
     },
-    "56081": {
-      "tag": "G141_VK7501K",
-      "name": "VK 75.01 (K)",
-      "nation": "germany"
+    "5889": {
+      "tag": "R39_KV-3",
+      "name": "KV-3",
+      "nation": "ussr"
     },
     "60241": {
       "tag": "GB37_Valliant",
@@ -1533,14 +1623,29 @@
       "name": "T92 HMC",
       "nation": "usa"
     },
+    "43329": {
+      "tag": "F111_AM39_Gendron_Somua",
+      "name": "AM 39 Gendron-Somua",
+      "nation": "france"
+    },
     "55809": {
       "tag": "R196_Object_452K",
       "name": "Object 452K",
       "nation": "ussr"
     },
-    "58913": {
-      "tag": "A117_T26E5",
-      "name": "T26E5",
+    "9777": {
+      "tag": "Ch51_BZ_58",
+      "name": "BZ-58",
+      "nation": "china"
+    },
+    "59969": {
+      "tag": "F97_ELC_EVEN_90_FL",
+      "name": "ELC EVEN 90 FL",
+      "nation": "france"
+    },
+    "8993": {
+      "tag": "A63_M46_Patton",
+      "name": "M46 Patton",
       "nation": "usa"
     },
     "6913": {
@@ -1588,15 +1693,25 @@
       "name": "P26\/40",
       "nation": "italy"
     },
-    "59697": {
-      "tag": "Ch17_WZ131_1_WZ132_FL",
-      "name": "WZ-132 FL",
-      "nation": "china"
+    "9505": {
+      "tag": "A66_M103",
+      "name": "M103",
+      "nation": "usa"
     },
     "37649": {
       "tag": "G171_E77",
       "name": "E 77",
       "nation": "germany"
+    },
+    "41489": {
+      "tag": "G185_Leopard_120_Verbessert",
+      "name": "Leopard 120 Verbessert",
+      "nation": "germany"
+    },
+    "10801": {
+      "tag": "Ch67_BZ_79",
+      "name": "BZ-79",
+      "nation": "china"
     },
     "60993": {
       "tag": "F85_M4A1_FL10",
@@ -1638,9 +1753,9 @@
       "name": "Archer",
       "nation": "uk"
     },
-    "6961": {
-      "tag": "Ch32_SU-76G_FT",
-      "name": "SU-76G FT",
+    "7985": {
+      "tag": "Ch36_WZ111_1G_FT",
+      "name": "WZ-111-1G FT",
       "nation": "china"
     },
     "2209": {
@@ -1663,9 +1778,9 @@
       "name": "D1",
       "nation": "france"
     },
-    "4913": {
-      "tag": "Ch15_59_16",
-      "name": "59-16",
+    "6961": {
+      "tag": "Ch32_SU-76G_FT",
+      "name": "SU-76G FT",
       "nation": "china"
     },
     "62017": {
@@ -1673,9 +1788,19 @@
       "name": "AMX M4 mle. 49 Liberté",
       "nation": "france"
     },
+    "641": {
+      "tag": "S12_Strv_M40",
+      "name": "Strv m\/40L",
+      "nation": "sweden"
+    },
     "59153": {
       "tag": "G163_Pz_Kpfw_KW_Ir_mit_75mm_kwk40",
       "name": "Pz.Kpfw. KW I (r)",
+      "nation": "germany"
+    },
+    "40977": {
+      "tag": "G189_Hirschkafer",
+      "name": "Hirschkäfer",
       "nation": "germany"
     },
     "13121": {
@@ -1737,6 +1862,11 @@
       "tag": "R113_Object_730",
       "name": "IS-5 (Object 730)",
       "nation": "ussr"
+    },
+    "13345": {
+      "tag": "A80_T26_E4_SuperPershing",
+      "name": "T26E4 SuperPershing",
+      "nation": "usa"
     },
     "63041": {
       "tag": "F73_M4A1_Revalorise",
@@ -1813,6 +1943,11 @@
       "name": "M4 Improved",
       "nation": "usa"
     },
+    "1393": {
+      "tag": "Cz08_T_25",
+      "name": "Škoda T 25",
+      "nation": "czech"
+    },
     "51585": {
       "tag": "S01_Strv_74_A2",
       "name": "Strv m\/42-57 Alt A.2",
@@ -1883,9 +2018,9 @@
       "name": "Super Hellcat",
       "nation": "usa"
     },
-    "10049": {
-      "tag": "F33_S_35CA",
-      "name": "S35 CA",
+    "833": {
+      "tag": "F20_RenaultBS",
+      "name": "Renault FT 75 BS",
       "nation": "france"
     },
     "4193": {
@@ -1907,6 +2042,11 @@
       "tag": "Ch26_59_Patton",
       "name": "59-Patton",
       "nation": "china"
+    },
+    "2417": {
+      "tag": "Cz04_T50_51",
+      "name": "TVP T 50\/51",
+      "nation": "czech"
     },
     "52113": {
       "tag": "Pl08_50TP_Prototyp_Resilient",
@@ -1958,10 +2098,15 @@
       "name": "Škoda T 50",
       "nation": "czech"
     },
-    "13345": {
-      "tag": "A80_T26_E4_SuperPershing",
-      "name": "T26E4 SuperPershing",
-      "nation": "usa"
+    "2145": {
+      "tag": "J07_Chi_Ha",
+      "name": "Type 97 Chi-Ha",
+      "nation": "japan"
+    },
+    "6305": {
+      "tag": "It39_Coccodrillo",
+      "name": "Coccodrillo",
+      "nation": "italy"
     },
     "45313": {
       "tag": "R160_T_50_2",
@@ -1988,9 +2133,9 @@
       "name": "T-44-100",
       "nation": "ussr"
     },
-    "577": {
-      "tag": "F01_RenaultFT",
-      "name": "Renault FT",
+    "66113": {
+      "tag": "F130_Sentinelle",
+      "name": "Sentinelle",
       "nation": "france"
     },
     "4737": {
@@ -2022,6 +2167,11 @@
       "tag": "It13_Progetto_M35_mod_46",
       "name": "Progetto M35 mod. 46",
       "nation": "italy"
+    },
+    "30993": {
+      "tag": "G184_Windhund",
+      "name": "Windhund",
+      "nation": "germany"
     },
     "65841": {
       "tag": "Ch65_Type59_IC4_3DSt",
@@ -2098,6 +2248,11 @@
       "name": "T37",
       "nation": "usa"
     },
+    "5489": {
+      "tag": "Cz22_Skoda_T_15A",
+      "name": "Škoda T 15A",
+      "nation": "czech"
+    },
     "11777": {
       "tag": "R80_KV1",
       "name": "KV-1",
@@ -2128,6 +2283,11 @@
       "name": "Renault R35",
       "nation": "france"
     },
+    "6785": {
+      "tag": "S39_Strv_m31",
+      "name": "Strv m\/31",
+      "nation": "sweden"
+    },
     "11297": {
       "tag": "A68_T28_Prototype",
       "name": "T28 Prototype",
@@ -2142,6 +2302,11 @@
       "tag": "G51_Lowe_FL",
       "name": "Löwe FL",
       "nation": "germany"
+    },
+    "49953": {
+      "tag": "A167_TS_6",
+      "name": "TS-6",
+      "nation": "usa"
     },
     "3921": {
       "tag": "GB11_Caernarvon",
@@ -2313,6 +2478,11 @@
       "name": "Centurion Mk. I",
       "nation": "uk"
     },
+    "56161": {
+      "tag": "J42_Chi_Se_CFE_A",
+      "name": "Stitch",
+      "nation": "japan"
+    },
     "7233": {
       "tag": "F24_Lorraine155_50",
       "name": "Lorraine 155 mle. 50",
@@ -2348,10 +2518,20 @@
       "name": "Type 2597 Chi-Ha",
       "nation": "china"
     },
+    "5681": {
+      "tag": "Ch28_WZ_132A",
+      "name": "WZ-132A",
+      "nation": "china"
+    },
     "54353": {
       "tag": "GB51_Excelsior",
       "name": "Excelsior",
       "nation": "uk"
+    },
+    "29713": {
+      "tag": "G178_KanJpz_2",
+      "name": "Kanonenjagdpanzer 2",
+      "nation": "germany"
     },
     "51729": {
       "tag": "G36_PzII_J",
@@ -2378,6 +2558,11 @@
       "name": "Cruiser Mk. II",
       "nation": "uk"
     },
+    "56577": {
+      "tag": "R86_LTP",
+      "name": "LTP",
+      "nation": "ussr"
+    },
     "52321": {
       "tag": "J19_Tiger_I_Jpn",
       "name": "Heavy Tank No. VI",
@@ -2395,7 +2580,7 @@
     },
     "4129": {
       "tag": "A18_M41",
-      "name": "M41 HMC",
+      "name": "M41",
       "nation": "usa"
     },
     "23633": {
@@ -2418,9 +2603,9 @@
       "name": "M-II-Y",
       "nation": "usa"
     },
-    "1137": {
-      "tag": "Cz09_T_24",
-      "name": "Škoda T 24",
+    "7281": {
+      "tag": "Cz21_Vz_60S_Dravec",
+      "name": "Vz. 60S Dravec",
       "nation": "czech"
     },
     "3649": {
@@ -2613,9 +2798,9 @@
       "name": "M36 Jackson",
       "nation": "usa"
     },
-    "21025": {
-      "tag": "A139_M_III_Y",
-      "name": "M-III-Y",
+    "69153": {
+      "tag": "A182_T803",
+      "name": "T803",
       "nation": "usa"
     },
     "54033": {
@@ -2652,6 +2837,11 @@
       "tag": "GB99_Turtle_Mk1",
       "name": "Turtle Mk. I",
       "nation": "uk"
+    },
+    "69409": {
+      "tag": "A192_M4A4_Firefly_CFE_A",
+      "name": "Sherman Firefly Saunders",
+      "nation": "usa"
     },
     "6929": {
       "tag": "G42_Maus",
@@ -2693,20 +2883,15 @@
       "name": "BZ-166",
       "nation": "china"
     },
-    "59713": {
-      "tag": "F36_AMX_AC_Mle1948_FL",
-      "name": "AMX AC mle. 48 FL",
-      "nation": "france"
-    },
     "56849": {
       "tag": "G119_Panzer58_FL",
       "name": "Panzer 58 FL",
       "nation": "germany"
     },
-    "10817": {
-      "tag": "F35_AMX_AC_Mle1946",
-      "name": "AMX AC mle. 46",
-      "nation": "france"
+    "61009": {
+      "tag": "GB116_Harry_Hopkins_I",
+      "name": "A25 Harry Hopkins I",
+      "nation": "uk"
     },
     "7953": {
       "tag": "G44_JagdTiger",
@@ -2738,9 +2923,9 @@
       "name": "ISU-152K",
       "nation": "ussr"
     },
-    "897": {
-      "tag": "S04_Lago_I",
-      "name": "Lago",
+    "6017": {
+      "tag": "S36_Strv_107_12",
+      "name": "Strv 107-12",
       "nation": "sweden"
     },
     "1345": {
@@ -2748,10 +2933,15 @@
       "name": "Hotchkiss H35",
       "nation": "france"
     },
-    "56577": {
-      "tag": "R86_LTP",
-      "name": "LTP",
-      "nation": "ussr"
+    "41233": {
+      "tag": "G188_LeKpz_Borkenkafer",
+      "name": "leKpz Borkenkäfer",
+      "nation": "germany"
+    },
+    "10545": {
+      "tag": "Ch57_BZT_70",
+      "name": "BZT-70",
+      "nation": "china"
     },
     "60737": {
       "tag": "F113_Bretagne_Panther",
@@ -2783,6 +2973,11 @@
       "name": "DZT-159",
       "nation": "china"
     },
+    "3201": {
+      "tag": "S19_Sav_M43",
+      "name": "Sav m\/43",
+      "nation": "sweden"
+    },
     "8977": {
       "tag": "G49_G_Panther",
       "name": "G.W. Panther",
@@ -2798,9 +2993,9 @@
       "name": "FV4004 Conway",
       "nation": "uk"
     },
-    "7457": {
-      "tag": "A37_M40M43",
-      "name": "M40\/M43",
+    "1313": {
+      "tag": "A06_M4A3E8_Sherman",
+      "name": "M4A3E8 Sherman",
       "nation": "usa"
     },
     "40961": {
@@ -2833,6 +3028,11 @@
       "name": "AMX Canon d'assaut 105",
       "nation": "france"
     },
+    "50577": {
+      "tag": "Pl25_CS_52_C",
+      "name": "CS-52 C",
+      "nation": "poland"
+    },
     "60721": {
       "tag": "Ch46_113_140",
       "name": "WZ-113-II",
@@ -2852,6 +3052,11 @@
       "tag": "A141_M_IV_Y",
       "name": "M-IV-Y",
       "nation": "usa"
+    },
+    "63057": {
+      "tag": "GB134_Gryphon",
+      "name": "Gryphon",
+      "nation": "uk"
     },
     "56369": {
       "tag": "Ch12_111_1_2_3_FL",
@@ -2893,15 +3098,20 @@
       "name": "Kpz. Erich Konzept I",
       "nation": "germany"
     },
-    "61489": {
-      "tag": "Ch39_WZ120_1G_FT_FL",
-      "name": "WZ-120-1G FT FL",
-      "nation": "china"
+    "66049": {
+      "tag": "R218_T_115",
+      "name": "T-115",
+      "nation": "ussr"
     },
     "113": {
       "tag": "Cz06_Kolohousenka",
       "name": "Kolohousenka",
       "nation": "czech"
+    },
+    "66881": {
+      "tag": "F131_Brennos",
+      "name": "Brennos",
+      "nation": "france"
     },
     "58625": {
       "tag": "R111_ISU130",
@@ -2918,14 +3128,14 @@
       "name": "AMX M4 mle. 49",
       "nation": "france"
     },
-    "1409": {
-      "tag": "S07_Strv_74",
-      "name": "Strv 74",
-      "nation": "sweden"
+    "69377": {
+      "tag": "R231_Buryan",
+      "name": "Buryan",
+      "nation": "ussr"
     },
-    "7505": {
-      "tag": "GB59_Cruiser_Mk_IV",
-      "name": "Cruiser Mk. IV",
+    "15697": {
+      "tag": "GB91_Super_Conqueror",
+      "name": "Super Conqueror",
       "nation": "uk"
     },
     "13889": {
@@ -2963,9 +3173,9 @@
       "name": "Object 140",
       "nation": "ussr"
     },
-    "1377": {
-      "tag": "J08_Chi_Nu",
-      "name": "Type 3 Chi-Nu",
+    "9569": {
+      "tag": "J52_STK_2",
+      "name": "STK-2",
       "nation": "japan"
     },
     "27665": {
@@ -3008,9 +3218,9 @@
       "name": "Hurricane",
       "nation": "poland"
     },
-    "1393": {
-      "tag": "Cz08_T_25",
-      "name": "Škoda T 25",
+    "7537": {
+      "tag": "Cz37_SDT_58_Vlkodav",
+      "name": "SDT-58 Vlkodav",
       "nation": "czech"
     },
     "60945": {
@@ -3073,15 +3283,20 @@
       "name": "105 leFH18B2",
       "nation": "france"
     },
-    "59969": {
-      "tag": "F97_ELC_EVEN_90_FL",
-      "name": "ELC EVEN 90 FL",
+    "43585": {
+      "tag": "F106_Panhard_EBR_75_Mle1954",
+      "name": "Panhard EBR 75 (FL 10)",
       "nation": "france"
     },
     "52353": {
       "tag": "S23_Strv_81",
       "name": "Strv 81",
       "nation": "sweden"
+    },
+    "5233": {
+      "tag": "Cz38_SZDV_vz50",
+      "name": "SZDV Vz. 50",
+      "nation": "czech"
     },
     "16417": {
       "tag": "A87_M44",
@@ -3093,10 +3308,10 @@
       "name": "Ikv 103",
       "nation": "sweden"
     },
-    "50577": {
-      "tag": "Pl25_CS_52_C",
-      "name": "CS-52 C",
-      "nation": "poland"
+    "7729": {
+      "tag": "Ch35_T-34-2G_FT",
+      "name": "T-34-2G FT",
+      "nation": "china"
     },
     "61969": {
       "tag": "G112_KanonenJagdPanzer",
@@ -3112,6 +3327,11 @@
       "tag": "GB14_M2",
       "name": "M2",
       "nation": "uk"
+    },
+    "43777": {
+      "tag": "R112_T54_45_FL",
+      "name": "T-54 first prototype FL",
+      "nation": "ussr"
     },
     "13073": {
       "tag": "G82_Pz_II_AusfG",
@@ -3283,6 +3503,11 @@
       "name": "Type 5 Heavy",
       "nation": "japan"
     },
+    "7825": {
+      "tag": "Pl37_CS_67_Szakal",
+      "name": "CS-67 Szakal",
+      "nation": "poland"
+    },
     "55057": {
       "tag": "G70_PzIV_Hydro",
       "name": "Pz.Kpfw. IV hydrostat.",
@@ -3302,6 +3527,16 @@
       "tag": "GB148_FV227_Conceiver",
       "name": "FV227 Conceiver",
       "nation": "uk"
+    },
+    "55425": {
+      "tag": "S35_Stridsyxa",
+      "name": "Stridsyxa",
+      "nation": "sweden"
+    },
+    "67905": {
+      "tag": "F140_Fantome",
+      "name": "Fantôme",
+      "nation": "france"
     },
     "21505": {
       "tag": "R96_Object_430",
@@ -3338,6 +3573,11 @@
       "name": "Panhard EBR 105",
       "nation": "france"
     },
+    "53857": {
+      "tag": "J42_Chi_Se",
+      "name": "Chi-Se",
+      "nation": "japan"
+    },
     "2465": {
       "tag": "It12_Prototipo_Standard_B",
       "name": "Prototipo Standard B",
@@ -3373,15 +3613,20 @@
       "name": "D2",
       "nation": "france"
     },
+    "32001": {
+      "tag": "R178_Object_780",
+      "name": "Object 780",
+      "nation": "ussr"
+    },
+    "7457": {
+      "tag": "A37_M40M43",
+      "name": "M40\/M43",
+      "nation": "usa"
+    },
     "64769": {
       "tag": "R152_KV2_W",
       "name": "KV-2 (R)",
       "nation": "ussr"
-    },
-    "49425": {
-      "tag": "G44_JagdTigerH",
-      "name": "Jagdtiger Prototype",
-      "nation": "germany"
     },
     "34081": {
       "tag": "A149_AMBT",
@@ -3423,15 +3668,15 @@
       "name": "Pz.Kpfw. IV Ausf. A",
       "nation": "germany"
     },
-    "1825": {
-      "tag": "A02_M2_lt",
-      "name": "M2 Light Tank",
+    "67361": {
+      "tag": "A179_Black_Rock",
+      "name": "Black Rock",
       "nation": "usa"
     },
-    "2929": {
-      "tag": "Cz17_Vz_55",
-      "name": "Vz. 55",
-      "nation": "czech"
+    "21329": {
+      "tag": "GB137_Cromwell_Applique",
+      "name": "Cromwell Applique",
+      "nation": "uk"
     },
     "5985": {
       "tag": "J26_Type_89",
@@ -3458,6 +3703,11 @@
       "name": "113",
       "nation": "china"
     },
+    "29457": {
+      "tag": "G175_Rheinmetall_Begleitwagen",
+      "name": "Rheinmetall Begleitwagen",
+      "nation": "germany"
+    },
     "65793": {
       "tag": "R217_Object_Kust",
       "name": "Object Kust",
@@ -3473,25 +3723,35 @@
       "name": "Sexton I",
       "nation": "uk"
     },
-    "9777": {
-      "tag": "Ch51_BZ_58",
-      "name": "BZ-58",
+    "1585": {
+      "tag": "Ch05_T34_2",
+      "name": "T-34-2",
       "nation": "china"
+    },
+    "66337": {
+      "tag": "A171_IMT",
+      "name": "IMT",
+      "nation": "usa"
     },
     "1553": {
       "tag": "G17_JagdPzIV",
       "name": "Jagdpanzer IV",
       "nation": "germany"
     },
-    "51745": {
-      "tag": "A62_Ram-II",
-      "name": "Ram II",
-      "nation": "usa"
+    "32785": {
+      "tag": "G176_Jagdpanzer_E90",
+      "name": "Jagdpanzer E 90",
+      "nation": "germany"
     },
     "5713": {
       "tag": "GB24_Centurion_Mk3",
       "name": "Centurion Mk. 7\/1",
       "nation": "uk"
+    },
+    "55905": {
+      "tag": "J51_Ashigaru",
+      "name": "Ashigaru",
+      "nation": "japan"
     },
     "18193": {
       "tag": "G81_Pz_IV_AusfH",
@@ -3503,9 +3763,9 @@
       "name": "T34",
       "nation": "usa"
     },
-    "58945": {
-      "tag": "F124_AMX_13FL11",
-      "name": "AMX 13 (FL 11)",
+    "56897": {
+      "tag": "F129_ARL_44_BPXIV",
+      "name": "Char de transition",
       "nation": "france"
     },
     "48129": {
@@ -3518,15 +3778,20 @@
       "name": "121",
       "nation": "china"
     },
-    "8801": {
-      "tag": "J41_Type_68",
-      "name": "Type 68",
+    "6753": {
+      "tag": "J34_Ho_Ri_1",
+      "name": "Ho-Ri 1",
       "nation": "japan"
     },
     "51473": {
       "tag": "G32_PzV_PzIV",
       "name": "Pz.Kpfw. V\/IV",
       "nation": "germany"
+    },
+    "36129": {
+      "tag": "A190_Ares_85",
+      "name": "Ares 85",
+      "nation": "usa"
     },
     "55633": {
       "tag": "GB70_N_FV4202_105",
@@ -3538,9 +3803,9 @@
       "name": "Matilda IV",
       "nation": "ussr"
     },
-    "61009": {
-      "tag": "GB116_Harry_Hopkins_I",
-      "name": "A25 Harry Hopkins I",
+    "26193": {
+      "tag": "GB109_GSOR_1008_CFE_J",
+      "name": "Jade Coil",
       "nation": "uk"
     },
     "2577": {
@@ -3551,11 +3816,6 @@
     "52769": {
       "tag": "A43_M22_Locust",
       "name": "M22 Locust",
-      "nation": "usa"
-    },
-    "56353": {
-      "tag": "A101_M56",
-      "name": "M56 Scorpion",
       "nation": "usa"
     },
     "34561": {
@@ -3572,6 +3832,16 @@
       "tag": "R61_Object252",
       "name": "IS-6",
       "nation": "ussr"
+    },
+    "8033": {
+      "tag": "J45_Mitsu_108",
+      "name": "Mitsu 108",
+      "nation": "japan"
+    },
+    "10049": {
+      "tag": "F33_S_35CA",
+      "name": "S35 CA",
+      "nation": "france"
     },
     "7777": {
       "tag": "J44_Type_3_Ju_Nu",
@@ -3606,6 +3876,11 @@
     "52497": {
       "tag": "G33_H39_captured",
       "name": "Pz.Kpfw. 38H 735 (f)",
+      "nation": "germany"
+    },
+    "49425": {
+      "tag": "G44_JagdTigerH",
+      "name": "Jagdtiger Prototype",
       "nation": "germany"
     },
     "56657": {
@@ -3653,6 +3928,11 @@
       "name": "M2 Medium Tank",
       "nation": "usa"
     },
+    "24401": {
+      "tag": "GB152_AT_FV230_Breaker",
+      "name": "AT-FV230 Breaker",
+      "nation": "uk"
+    },
     "9057": {
       "tag": "J43_Type_4_Ju-To",
       "name": "Type 4 Ju-To",
@@ -3662,6 +3942,11 @@
       "tag": "S34_Lago_M38",
       "name": "Lago M38",
       "nation": "sweden"
+    },
+    "56081": {
+      "tag": "G141_VK7501K",
+      "name": "VK 75.01 (K)",
+      "nation": "germany"
     },
     "52225": {
       "tag": "R34_BT-SV",
@@ -3693,6 +3978,11 @@
       "name": "56TP",
       "nation": "poland"
     },
+    "1825": {
+      "tag": "A02_M2_lt",
+      "name": "M2 Light",
+      "nation": "usa"
+    },
     "4625": {
       "tag": "G22_Sturmpanzer_II",
       "name": "Sturmpanzer II",
@@ -3703,10 +3993,20 @@
       "name": "AT 2",
       "nation": "uk"
     },
+    "2929": {
+      "tag": "Cz17_Vz_55",
+      "name": "Vz. 55",
+      "nation": "czech"
+    },
     "3489": {
       "tag": "It19_Progetto_C50_mod_66",
       "name": "Progetto C50 mod. 66",
       "nation": "italy"
+    },
+    "36609": {
+      "tag": "R230_Object_432U",
+      "name": "Object 432U",
+      "nation": "ussr"
     },
     "5921": {
       "tag": "A35_Pershing",
@@ -3760,7 +4060,7 @@
     },
     "58705": {
       "tag": "GB103_GSOR3301_AVR_FS",
-      "name": "GSOR3301 AVR FS",
+      "name": "GSOR 3301 AVR FS",
       "nation": "uk"
     },
     "20993": {
@@ -3803,9 +4103,9 @@
       "name": "FCM 2C",
       "nation": "france"
     },
-    "1313": {
-      "tag": "A06_M4A3E8_Sherman",
-      "name": "M4A3E8 Sherman",
+    "52513": {
+      "tag": "A45_M6A2E1",
+      "name": "M6A2E1",
       "nation": "usa"
     },
     "55569": {
@@ -3818,6 +4118,11 @@
       "name": "GSR 3301 Setter",
       "nation": "uk"
     },
+    "58913": {
+      "tag": "A117_T26E5",
+      "name": "T26E5",
+      "nation": "usa"
+    },
     "22017": {
       "tag": "R155_Object_277",
       "name": "Object 277",
@@ -3827,6 +4132,11 @@
       "tag": "GB26_Birch_Gun",
       "name": "Birch Gun",
       "nation": "uk"
+    },
+    "21793": {
+      "tag": "A175_LTC_II",
+      "name": "LTC II",
+      "nation": "usa"
     },
     "58673": {
       "tag": "Ch25_121_mod_1971B_MK",
@@ -3842,6 +4152,11 @@
       "tag": "F04_B1",
       "name": "B1",
       "nation": "france"
+    },
+    "66065": {
+      "tag": "G191_StuG_IIIF_CFE_A",
+      "name": "StuG III Ausf. F Kabasan",
+      "nation": "germany"
     },
     "55297": {
       "tag": "R89_SU122_44",
@@ -3883,10 +4198,10 @@
       "name": "Renault FT AC",
       "nation": "france"
     },
-    "8993": {
-      "tag": "A63_M46_Patton",
-      "name": "M46 Patton",
-      "nation": "usa"
+    "59185": {
+      "tag": "Ch56_BZ_74_1",
+      "name": "BZ-74-1",
+      "nation": "china"
     },
     "43841": {
       "tag": "F42_AMR_35",
@@ -3913,9 +4228,9 @@
       "name": "Char Futur 4",
       "nation": "france"
     },
-    "51841": {
-      "tag": "S15_L_60",
-      "name": "L-60",
+    "52865": {
+      "tag": "S25_EMIL_51",
+      "name": "EMIL 1951",
       "nation": "sweden"
     },
     "2385": {
@@ -3932,6 +4247,11 @@
       "tag": "G78_Panther_M10",
       "name": "Panther\/M10",
       "nation": "germany"
+    },
+    "42273": {
+      "tag": "A166_H_3",
+      "name": "H3",
+      "nation": "usa"
     },
     "61777": {
       "tag": "GB127_A7E3",
@@ -3967,6 +4287,11 @@
       "tag": "It10_P43_bis",
       "name": "P.43 bis",
       "nation": "italy"
+    },
+    "1137": {
+      "tag": "Cz09_T_24",
+      "name": "Škoda T 24",
+      "nation": "czech"
     },
     "60209": {
       "tag": "Ch47_BZ_176",
@@ -4063,6 +4388,11 @@
       "name": "Progetto M40 mod. 65",
       "nation": "italy"
     },
+    "51745": {
+      "tag": "A62_Ram-II",
+      "name": "Ram II",
+      "nation": "usa"
+    },
     "11041": {
       "tag": "A72_T25_2",
       "name": "T25\/2",
@@ -4087,11 +4417,6 @@
       "tag": "Pl16_T34_85_Rudy",
       "name": "T-34-85 Rudy",
       "nation": "poland"
-    },
-    "9505": {
-      "tag": "A66_M103",
-      "name": "M103",
-      "nation": "usa"
     },
     "59665": {
       "tag": "G100_Gtraktor_Krupp",
@@ -4163,9 +4488,9 @@
       "name": "ST vz. 39",
       "nation": "czech"
     },
-    "8033": {
-      "tag": "J45_Mitsu_108",
-      "name": "Mitsu 108",
+    "55137": {
+      "tag": "J49_Kame",
+      "name": "Kame",
       "nation": "japan"
     },
     "59393": {
@@ -4208,10 +4533,10 @@
       "name": "Škoda T 56",
       "nation": "czech"
     },
-    "11793": {
-      "tag": "G40_Nashorn",
-      "name": "Nashorn",
-      "nation": "germany"
+    "68385": {
+      "tag": "A144_M_VI_Y_CFE_RC",
+      "name": "OCP Peacekeeper",
+      "nation": "usa"
     },
     "61985": {
       "tag": "A124_T54E2",
@@ -4233,10 +4558,10 @@
       "name": "SMV CC-67",
       "nation": "italy"
     },
-    "43777": {
-      "tag": "R112_T54_45_FL",
-      "name": "T-54 first prototype FL",
-      "nation": "ussr"
+    "59697": {
+      "tag": "Ch17_WZ131_1_WZ132_FL",
+      "name": "WZ-132 FL",
+      "nation": "china"
     },
     "63281": {
       "tag": "Ch39_WZ120_1G_FT",
@@ -4268,15 +4593,15 @@
       "name": "M4A1 Revalorisé FL",
       "nation": "france"
     },
-    "43329": {
-      "tag": "F111_AM39_Gendron_Somua",
-      "name": "AM 39 Gendron-Somua",
+    "59713": {
+      "tag": "F36_AMX_AC_Mle1948_FL",
+      "name": "AMX AC mle. 48 FL",
       "nation": "france"
     },
-    "3201": {
-      "tag": "S19_Sav_M43",
-      "name": "Sav m\/43",
-      "nation": "sweden"
+    "53393": {
+      "tag": "Pl15_60TP_Lewandowskiego_CFE_A",
+      "name": "Ashbringer",
+      "nation": "poland"
     },
     "7489": {
       "tag": "F25_Lorraine155_51",
@@ -4302,6 +4627,11 @@
       "tag": "Pl19_CS_52_LIS",
       "name": "CS-52 LIS",
       "nation": "poland"
+    },
+    "66353": {
+      "tag": "Ch61_DZT_159_CFE_A",
+      "name": "DZT-159 Dragon's Soul",
+      "nation": "china"
     },
     "12817": {
       "tag": "G53_PzI",
@@ -4403,6 +4733,11 @@
       "name": "M41 Walker Bulldog FL",
       "nation": "usa"
     },
+    "33345": {
+      "tag": "F136_AMX_67_Imbattable",
+      "name": "AMX 67 Imbattable",
+      "nation": "france"
+    },
     "2913": {
       "tag": "J06_Ke_Ho",
       "name": "Type 5 Ke-Ho",
@@ -4411,6 +4746,11 @@
     "54801": {
       "tag": "G50_T-15",
       "name": "Pz.Kpfw. T 15",
+      "nation": "germany"
+    },
+    "30481": {
+      "tag": "G177_E65_Zwilling",
+      "name": "E 65 Zwilling",
       "nation": "germany"
     },
     "65329": {
@@ -4528,9 +4868,9 @@
       "name": "M47 Patton Improved",
       "nation": "usa"
     },
-    "32065": {
-      "tag": "F117_Alt_Proto_AMX_30",
-      "name": "AltProto AMX 30",
+    "67649": {
+      "tag": "F138_Renault_R35_FCM_36",
+      "name": "Renault R35\/FCM 36",
       "nation": "france"
     },
     "6481": {
@@ -4587,6 +4927,11 @@
       "tag": "Ch18_WZ-120",
       "name": "WZ-120",
       "nation": "china"
+    },
+    "51569": {
+      "tag": "Cz01_Skoda_T40",
+      "name": "Škoda T 40",
+      "nation": "czech"
     },
     "5169": {
       "tag": "Ch20_Type58",
