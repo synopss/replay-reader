@@ -66,4 +66,6 @@ public interface VehicleStats {
   int getDamageAssistedStun();
 
   int getStunNum();
+
+  int getComp7PrestigePoints();
 }

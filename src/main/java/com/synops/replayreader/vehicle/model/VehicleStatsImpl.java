@@ -38,6 +38,7 @@ public class VehicleStatsImpl implements VehicleStats {
   private int damageAssistedStun;
   private int stunNum;
   private int tkills;
+  private int comp7PrestigePoints;
 
   public int getDroppedCapturePoints() {
     return this.droppedCapturePoints;
@@ -305,5 +306,13 @@ public class VehicleStatsImpl implements VehicleStats {
 
   public void setDirectHits(int directHits) {
     this.directHits = directHits;
+  }
+
+  public int getComp7PrestigePoints() {
+      return comp7PrestigePoints;
+  }
+
+  public void setComp7PrestigePoints(int comp7PrestigePoints) {
+      this.comp7PrestigePoints = comp7PrestigePoints;
   }
 }

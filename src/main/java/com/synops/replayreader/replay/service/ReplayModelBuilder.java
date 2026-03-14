@@ -167,6 +167,7 @@ public class ReplayModelBuilder {
       vehicleStats.setDamageAssistedStun(vehiclePOJO.damageAssistedStun);
       vehicleStats.setTKills(vehiclePOJO.tkills);
       vehicleStats.setStunNum(vehiclePOJO.stunNum);
+      vehicleStats.setComp7PrestigePoints(vehiclePOJO.comp7PrestigePoints);
       result.add(vehicleStats);
     }
 

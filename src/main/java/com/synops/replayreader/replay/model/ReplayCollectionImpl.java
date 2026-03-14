@@ -362,4 +362,9 @@ public class ReplayCollectionImpl implements ReplayCollection {
 
     return (double) sumRank / (double) filteredReplays.size();
   }
+
+  public int getComp7PrestigePoints(String player, String vehicle) {
+    return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingDouble(
+            (r) -> r.getPlayerStatsByPlayerName(player).getComp7PrestigePoints())).intValue();
+  }
 }

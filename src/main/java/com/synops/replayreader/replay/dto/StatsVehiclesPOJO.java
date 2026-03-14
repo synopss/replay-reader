@@ -35,4 +35,5 @@ public class StatsVehiclesPOJO {
   public int damageAssistedStun;
   public int stunNum;
   public int tkills;
+  public int comp7PrestigePoints;
 }

@@ -213,4 +213,9 @@ public class ReplayServiceImpl implements ReplayService {
   public double getAvgDamageRank(String player, String vehicle) {
     return this.replayCollection.getAvgDamageRank(player, vehicle);
   }
+
+  @Override
+  public int getComp7PrestigePoints(String player, String vehicle) {
+    return this.replayCollection.getComp7PrestigePoints(player, vehicle);
+  }
 }

@@ -82,4 +82,6 @@ public interface ReplayService {
   double getAvgXPRank(String player, String vehicle);
 
   double getAvgDamageRank(String player, String vehicle);
+
+  int getComp7PrestigePoints(String player, String vehicle);
 }

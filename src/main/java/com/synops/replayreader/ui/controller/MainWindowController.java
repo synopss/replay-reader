@@ -165,6 +165,8 @@ public class MainWindowController implements WindowController {
   @FXML
   private TextField textDamageRank;
   @FXML
+  private TextField textPrestigePoints;
+  @FXML
   private ProgressBar progressBar;
   @FXML
   private Label progressLabel;
@@ -353,6 +355,7 @@ public class MainWindowController implements WindowController {
         String.format("%.2f", replayService.getAvgXPRank(selectedPlayer.get(), vehicle)));
     textDamageRank.setText(
         String.format("%.2f", replayService.getAvgDamageRank(selectedPlayer.get(), vehicle)));
+    textPrestigePoints.setText(String.valueOf(replayService.getComp7PrestigePoints(selectedPlayer.get(), vehicle)));
   }
 
   private void load(final List<File> files) {
