@@ -13,6 +13,7 @@ public class StatsVehiclesPOJO {
   public int damageAssistedTrack;
   public int damageBlockedByArmor;
   public int damageReceivedFromInvisibles;
+  public int equipmentDamageDealt;
   public int spotted;
   public int capturePoints;
   public int flagCapture;

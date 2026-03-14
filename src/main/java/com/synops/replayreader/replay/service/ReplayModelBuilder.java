@@ -144,6 +144,7 @@ public class ReplayModelBuilder {
       vehicleStats.setDamageDealt(vehiclePOJO.damageDealt);
       vehicleStats.setDamageReceived(vehiclePOJO.damageReceived);
       vehicleStats.setDamageReceivedFromInvisibles(vehiclePOJO.damageReceivedFromInvisibles);
+      vehicleStats.setEquipmentDamageDealt(vehiclePOJO.equipmentDamageDealt);
       vehicleStats.setDirectHitsReceived(vehiclePOJO.directHitsReceived);
       vehicleStats.setHealth(vehiclePOJO.health);
       vehicleStats.setKillerID(vehiclePOJO.killerID);

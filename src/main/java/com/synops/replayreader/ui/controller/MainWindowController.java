@@ -139,6 +139,8 @@ public class MainWindowController implements WindowController {
   @FXML
   private TextField textDmgReceived;
   @FXML
+  private TextField textStrikesDamage;
+  @FXML
   private TextField textDmgReceivedInvisible;
   @FXML
   private TextField textTeamDmg;
@@ -331,6 +333,7 @@ public class MainWindowController implements WindowController {
         String.valueOf(replayService.getAvgDamageReceived(selectedPlayer.get(), vehicle)));
     textDmgReceivedInvisible.setText(String.valueOf(
         replayService.getAvgDamageReceivedFromInvisibles(selectedPlayer.get(), vehicle)));
+    textStrikesDamage.setText(String.valueOf(replayService.getAvgEquipmentDamageDealt(selectedPlayer.get(), vehicle)));
     textTeamDmg.setText(
         String.valueOf(replayService.getAvgTdamageDealt(selectedPlayer.get(), vehicle)));
     textTeamKills.setText(

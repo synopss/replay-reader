@@ -228,6 +228,11 @@ public class ReplayCollectionImpl implements ReplayCollection {
         .intValue();
   }
 
+  public int getAvgEquipmentDamageDealt(String player, String vehicle) {
+    return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingDouble(
+            (r) -> (double) r.getPlayerStatsByPlayerName(player).getEquipmentDamageDealt())).intValue();
+  }
+
   public double getAvgShots(String player, String vehicle) {
     return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingDouble(
         (r) -> (double) r.getPlayerStatsByPlayerName(player).getShots()));

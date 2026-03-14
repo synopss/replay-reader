@@ -23,6 +23,8 @@ public interface VehicleStats {
 
   int getDamageReceivedFromInvisibles();
 
+  int getEquipmentDamageDealt();
+
   int getSpotted();
 
   int getCapturePoints();

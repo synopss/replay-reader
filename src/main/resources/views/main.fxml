@@ -146,6 +146,8 @@
           </Label>
           <Label text="%main.stats.shots" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
           <TextField fx:id="textShots" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+          <Label text="%main.stats.strikes-damage" GridPane.rowIndex="15"/>
+          <TextField fx:id="textStrikesDamage" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
           <Label text="%main.stats.winrate" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
           <TextField fx:id="textWinrate" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
           <TextField fx:id="textTeamKills" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="16"/>

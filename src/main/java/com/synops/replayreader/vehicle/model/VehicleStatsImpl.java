@@ -16,6 +16,7 @@ public class VehicleStatsImpl implements VehicleStats {
   private int damageAssistedTrack;
   private int damageBlockedByArmor;
   private int damageReceivedFromInvisibles;
+  private int equipmentDamageDealt;
   private int spotted;
   private int capturePoints;
   private int shots;
@@ -188,6 +189,14 @@ public class VehicleStatsImpl implements VehicleStats {
 
   public void setDamageReceivedFromInvisibles(int damageReceivedFromInvisibles) {
     this.damageReceivedFromInvisibles = damageReceivedFromInvisibles;
+  }
+
+  public int getEquipmentDamageDealt() {
+    return equipmentDamageDealt;
+  }
+
+  public void setEquipmentDamageDealt(int equipmentDamageDealt) {
+    this.equipmentDamageDealt = equipmentDamageDealt;
   }
 
   public int getSpotted() {

@@ -55,6 +55,8 @@ public interface ReplayCollection {
 
   int getAvgDamageReceivedFromInvisibles(String player, String vehicle);
 
+  int getAvgEquipmentDamageDealt(String player, String vehicle);
+
   double getAvgShots(String player, String vehicle);
 
   int getAvgTDamageDealt(String player, String vehicle);
