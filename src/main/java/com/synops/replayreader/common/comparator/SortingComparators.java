@@ -39,6 +39,8 @@ public class SortingComparators {
         new SortingHolder(new PlayerListComparatorInt(replayService::getAvgBlocked)));
     this.map.put(PlayerSort.XP.getResourceBundleName(),
         new SortingHolder(new PlayerListComparatorInt(replayService::getAvgXp)));
+    this.map.put(PlayerSort.PRESTIGE_POINTS.getResourceBundleName(),
+        new SortingHolder(new PlayerListComparatorInt(replayService::getComp7PrestigePoints)));
   }
 
   public Comparator<String> getComparator(String sort) {
