@@ -45,6 +45,10 @@ public interface VehicleStats {
 
   int getHealth();
 
+  int getHealthRepair();
+
+  int getAlliedHealthRepair();
+
   String getTeam();
 
   int getLifeTime();

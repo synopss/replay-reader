@@ -26,6 +26,8 @@ public class StatsVehiclesPOJO {
   public int mileage;
   public String killerID;
   public int health;
+  public int healthRepair;
+  public int alliedHealthRepair;
   public String team;
   public int lifeTime;
   public int directHits;

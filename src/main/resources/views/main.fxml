@@ -150,6 +150,8 @@
           <TextField fx:id="textStrikesDamage" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
           <Label text="%main.stats.prestige-points" GridPane.rowIndex="16"/>
           <TextField fx:id="textPrestigePoints" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="16"/>
+          <Label text="%main.stats.heal" GridPane.rowIndex="17"/>
+          <TextField fx:id="textHeal" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="17"/>
           <Label text="%main.stats.winrate" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
           <TextField fx:id="textWinrate" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
           <TextField fx:id="textTeamKills" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="16"/>

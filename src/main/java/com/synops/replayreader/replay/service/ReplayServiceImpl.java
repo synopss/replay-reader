@@ -135,6 +135,16 @@ public class ReplayServiceImpl implements ReplayService {
   }
 
   @Override
+  public int getAvgHealthRepair(String player, String vehicle) {
+    return this.replayCollection.getAvgHealthRepair(player, vehicle);
+  }
+
+  @Override
+  public int getAvgAlliedHealthRepair(String player, String vehicle) {
+    return this.replayCollection.getAvgAlliedHealthRepair(player, vehicle);
+  }
+
+  @Override
   public int getAvgLifeTime(String player, String vehicle) {
     return this.replayCollection.getAvgLifeTime(player, vehicle);
   }

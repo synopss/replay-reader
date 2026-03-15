@@ -133,6 +133,8 @@ public class MainWindowController implements WindowController {
   @FXML
   private TextField textBlocked;
   @FXML
+  private TextField textHeal;
+  @FXML
   private TextField textLifeTime;
   @FXML
   private TextField textHitsReceived;
@@ -325,6 +327,9 @@ public class MainWindowController implements WindowController {
     textSpots.setText(
         String.format("%.2f", replayService.getAvgSpots(selectedPlayer.get(), vehicle)));
     textBlocked.setText(String.valueOf(replayService.getAvgBlocked(selectedPlayer.get(), vehicle)));
+    var selfHeal = replayService.getAvgHealthRepair(selectedPlayer.get(), vehicle);
+    var alliesHeal = replayService.getAvgAlliedHealthRepair(selectedPlayer.get(), vehicle);
+    textHeal.setText(String.format("%d (%d)", selfHeal, alliesHeal));
     var lifeTime = replayService.getAvgLifeTime(selectedPlayer.get(), vehicle);
     var min = lifeTime / 60;
     var sec = lifeTime % 60;

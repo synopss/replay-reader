@@ -51,6 +51,10 @@ public interface ReplayService {
 
   int getAvgBlocked(String player, String vehicle);
 
+  int getAvgHealthRepair(String player, String vehicle);
+
+  int getAvgAlliedHealthRepair(String player, String vehicle);
+
   int getAvgLifeTime(String player, String vehicle);
 
   int getAvgHitsReceived(String player, String vehicle);

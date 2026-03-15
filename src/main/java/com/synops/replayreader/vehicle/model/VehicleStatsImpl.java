@@ -27,6 +27,8 @@ public class VehicleStatsImpl implements VehicleStats {
   private int mileage;
   private String killerID;
   private int health;
+  private int healthRepair;
+  private int alliedHealthRepair;
   private String team;
   private int lifeTime;
   private int directHits;
@@ -278,6 +280,22 @@ public class VehicleStatsImpl implements VehicleStats {
 
   public void setHealth(int health) {
     this.health = health;
+  }
+
+  public int getHealthRepair() {
+    return healthRepair;
+  }
+
+  public void setHealthRepair(int healthRepair) {
+    this.healthRepair = healthRepair;
+  }
+
+  public int getAlliedHealthRepair() {
+    return alliedHealthRepair;
+  }
+
+  public void setAlliedHealthRepair(int alliedHealthRepair) {
+    this.alliedHealthRepair = alliedHealthRepair;
   }
 
   public String getTeam() {

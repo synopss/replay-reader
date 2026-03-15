@@ -207,6 +207,16 @@ public class ReplayCollectionImpl implements ReplayCollection {
         (r) -> (double) r.getPlayerStatsByPlayerName(player).getDamageBlockedByArmor())).intValue();
   }
 
+  public int getAvgHealthRepair(String player, String vehicle) {
+    return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingInt(
+            (r) -> r.getPlayerStatsByPlayerName(player).getHealthRepair())).intValue();
+  }
+
+  public int getAvgAlliedHealthRepair(String player, String vehicle) {
+    return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingInt(
+            (r) -> r.getPlayerStatsByPlayerName(player).getAlliedHealthRepair())).intValue();
+  }
+
   public int getAvgLifeTime(String player, String vehicle) {
     return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingDouble(
         (r) -> (double) r.getPlayerStatsByPlayerName(player).getLifeTime())).intValue();
