@@ -220,7 +220,8 @@ public class MainWindowController implements WindowController {
   }
 
   private void initMenu() {
-    showSettingsWindow.setOnAction(_ -> LOGGER.info("showSettingsWindow"));
+    // TODO adding settings
+    // showSettingsWindow.setOnAction(_ -> LOGGER.info("showSettingsWindow"));
     exitApplication.setOnAction(_ -> Platform.exit());
     reportBug.setOnAction(_ -> openUrl(REPLAY_READER_BUGS_URL));
     showAboutWindow.setOnAction(_ -> windowManager.openAbout());

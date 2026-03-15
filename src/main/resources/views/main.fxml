@@ -27,11 +27,12 @@
   <VBox>
     <MenuBar>
       <Menu text="%main.menu.file">
-        <MenuItem fx:id="showSettingsWindow" text="%main.menu.file.settings">
-          <graphic>
-            <FontIcon iconLiteral="fltrmz-settings-16"/>
-          </graphic>
-        </MenuItem>
+        <!-- TODO adding settings-->
+        <!-- <MenuItem fx:id="showSettingsWindow" text="%main.menu.file.settings">-->
+        <!--   <graphic>-->
+        <!--     <FontIcon iconLiteral="fltrmz-settings-16"/>-->
+        <!--   </graphic>-->
+        <!-- </MenuItem>-->
         <MenuItem fx:id="exitApplication" text="%main.menu.file.exit"/>
       </Menu>
       <Menu text="%main.menu.help">
