@@ -9,11 +9,13 @@ import javafx.collections.ObservableList;
 
 public interface ReplayService {
 
-  void load(List<File> files);
-
   void load(List<File> files, Consumer<ReplayProgressEvent> progressListener);
 
+  void setMapFilter(String map);
+
   ObservableList<String> getPlayers();
+
+  ObservableList<String> getPlayersIgnoringMapFilter();
 
   Player getPlayerInfo(String player);
 
@@ -25,7 +27,9 @@ public interface ReplayService {
 
   double getWinrate(String player, String vehicle);
 
-  int getNumberOfMapsPlayed(String player, String vehicle, String map);
+  int getNumberOfGamesOnMap(String map);
+
+  int getTotalGames();
 
   int getNumberOFClanPlayers(String clan);
 
@@ -47,6 +51,10 @@ public interface ReplayService {
 
   int getAvgBlocked(String player, String vehicle);
 
+  int getAvgHealthRepair(String player, String vehicle);
+
+  int getAvgAlliedHealthRepair(String player, String vehicle);
+
   int getAvgLifeTime(String player, String vehicle);
 
   int getAvgHitsReceived(String player, String vehicle);
@@ -54,6 +62,8 @@ public interface ReplayService {
   int getAvgDamageReceived(String player, String vehicle);
 
   int getAvgDamageReceivedFromInvisibles(String player, String vehicle);
+
+  int getAvgEquipmentDamageDealt(String player, String vehicle);
 
   int getAvgTdamageDealt(String player, String vehicle);
 
@@ -76,4 +86,6 @@ public interface ReplayService {
   double getAvgXPRank(String player, String vehicle);
 
   double getAvgDamageRank(String player, String vehicle);
+
+  int getComp7PrestigePoints(String player, String vehicle);
 }

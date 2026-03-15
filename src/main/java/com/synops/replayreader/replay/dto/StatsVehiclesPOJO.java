@@ -13,6 +13,7 @@ public class StatsVehiclesPOJO {
   public int damageAssistedTrack;
   public int damageBlockedByArmor;
   public int damageReceivedFromInvisibles;
+  public int equipmentDamageDealt;
   public int spotted;
   public int capturePoints;
   public int flagCapture;
@@ -25,6 +26,8 @@ public class StatsVehiclesPOJO {
   public int mileage;
   public String killerID;
   public int health;
+  public int healthRepair;
+  public int alliedHealthRepair;
   public String team;
   public int lifeTime;
   public int directHits;
@@ -34,4 +37,5 @@ public class StatsVehiclesPOJO {
   public int damageAssistedStun;
   public int stunNum;
   public int tkills;
+  public int comp7PrestigePoints;
 }

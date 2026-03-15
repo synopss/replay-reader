@@ -144,8 +144,11 @@ public class ReplayModelBuilder {
       vehicleStats.setDamageDealt(vehiclePOJO.damageDealt);
       vehicleStats.setDamageReceived(vehiclePOJO.damageReceived);
       vehicleStats.setDamageReceivedFromInvisibles(vehiclePOJO.damageReceivedFromInvisibles);
+      vehicleStats.setEquipmentDamageDealt(vehiclePOJO.equipmentDamageDealt);
       vehicleStats.setDirectHitsReceived(vehiclePOJO.directHitsReceived);
       vehicleStats.setHealth(vehiclePOJO.health);
+      vehicleStats.setHealthRepair(vehiclePOJO.healthRepair);
+      vehicleStats.setAlliedHealthRepair(vehiclePOJO.alliedHealthRepair);
       vehicleStats.setKillerID(vehiclePOJO.killerID);
       vehicleStats.setKills(vehiclePOJO.kills);
       vehicleStats.setLifeTime(vehiclePOJO.lifeTime);
@@ -166,6 +169,7 @@ public class ReplayModelBuilder {
       vehicleStats.setDamageAssistedStun(vehiclePOJO.damageAssistedStun);
       vehicleStats.setTKills(vehiclePOJO.tkills);
       vehicleStats.setStunNum(vehiclePOJO.stunNum);
+      vehicleStats.setComp7PrestigePoints(vehiclePOJO.comp7PrestigePoints);
       result.add(vehicleStats);
     }
 

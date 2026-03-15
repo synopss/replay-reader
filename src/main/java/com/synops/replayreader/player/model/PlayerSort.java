@@ -8,7 +8,8 @@ public enum PlayerSort {
       "penrate", "textPenRate", "main.toolbar.sort.pen-rate"), TEAMDMG("team dmg", "textTeamDmg",
       "main.toolbar.sort.team-damage"), ASSIST("assist", "textAssist",
       "main.toolbar.sort.assist"), BLOCKED("dmg blocked", "textBlocked",
-      "main.toolbar.sort.damage-blocked"), XP("xp", "textXP", "main.toolbar.sort.damage-xp");
+      "main.toolbar.sort.damage-blocked"), XP("xp", "textXP", "main.toolbar.sort.damage-xp"), PRESTIGE_POINTS(
+      "prestige points", "textPrestigePoints", "main.toolbar.sort.prestige-points");
 
   private final String text;
   private final String elementId;

@@ -27,11 +27,12 @@
   <VBox>
     <MenuBar>
       <Menu text="%main.menu.file">
-        <MenuItem fx:id="showSettingsWindow" text="%main.menu.file.settings">
-          <graphic>
-            <FontIcon iconLiteral="fltrmz-settings-16"/>
-          </graphic>
-        </MenuItem>
+        <!-- TODO adding settings-->
+        <!-- <MenuItem fx:id="showSettingsWindow" text="%main.menu.file.settings">-->
+        <!--   <graphic>-->
+        <!--     <FontIcon iconLiteral="fltrmz-settings-16"/>-->
+        <!--   </graphic>-->
+        <!-- </MenuItem>-->
         <MenuItem fx:id="exitApplication" text="%main.menu.file.exit"/>
       </Menu>
       <Menu text="%main.menu.help">
@@ -61,6 +62,12 @@
         </padding>
       </Label>
       <ChoiceBox fx:id="clanChoiceBox"/>
+      <Label text="%main.toolbar.filter-map">
+        <padding>
+          <Insets left="10.0"/>
+        </padding>
+      </Label>
+      <ChoiceBox fx:id="mapChoiceBox"/>
     </ToolBar>
     <HBox fx:id="hbox">
       <ListView fx:id="playersList" prefWidth="250.0"/>
@@ -140,13 +147,12 @@
           </Label>
           <Label text="%main.stats.shots" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
           <TextField fx:id="textShots" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
-          <Label text="%main.stats.maps" GridPane.rowIndex="15"/>
-          <ListView fx:id="mapsList" focusTraversable="false" minHeight="120.0" prefHeight="200.0"
-            prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
-            <GridPane.margin>
-              <Insets top="50.0"/>
-            </GridPane.margin>
-          </ListView>
+          <Label text="%main.stats.strikes-damage" GridPane.rowIndex="15"/>
+          <TextField fx:id="textStrikesDamage" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
+          <Label text="%main.stats.prestige-points" GridPane.rowIndex="16"/>
+          <TextField fx:id="textPrestigePoints" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="16"/>
+          <Label text="%main.stats.heal" GridPane.rowIndex="17"/>
+          <TextField fx:id="textHeal" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="17"/>
           <Label text="%main.stats.winrate" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
           <TextField fx:id="textWinrate" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
           <TextField fx:id="textTeamKills" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="16"/>

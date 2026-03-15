@@ -16,6 +16,7 @@ public class VehicleStatsImpl implements VehicleStats {
   private int damageAssistedTrack;
   private int damageBlockedByArmor;
   private int damageReceivedFromInvisibles;
+  private int equipmentDamageDealt;
   private int spotted;
   private int capturePoints;
   private int shots;
@@ -26,6 +27,8 @@ public class VehicleStatsImpl implements VehicleStats {
   private int mileage;
   private String killerID;
   private int health;
+  private int healthRepair;
+  private int alliedHealthRepair;
   private String team;
   private int lifeTime;
   private int directHits;
@@ -37,6 +40,7 @@ public class VehicleStatsImpl implements VehicleStats {
   private int damageAssistedStun;
   private int stunNum;
   private int tkills;
+  private int comp7PrestigePoints;
 
   public int getDroppedCapturePoints() {
     return this.droppedCapturePoints;
@@ -190,6 +194,14 @@ public class VehicleStatsImpl implements VehicleStats {
     this.damageReceivedFromInvisibles = damageReceivedFromInvisibles;
   }
 
+  public int getEquipmentDamageDealt() {
+    return equipmentDamageDealt;
+  }
+
+  public void setEquipmentDamageDealt(int equipmentDamageDealt) {
+    this.equipmentDamageDealt = equipmentDamageDealt;
+  }
+
   public int getSpotted() {
     return this.spotted;
   }
@@ -270,6 +282,22 @@ public class VehicleStatsImpl implements VehicleStats {
     this.health = health;
   }
 
+  public int getHealthRepair() {
+    return healthRepair;
+  }
+
+  public void setHealthRepair(int healthRepair) {
+    this.healthRepair = healthRepair;
+  }
+
+  public int getAlliedHealthRepair() {
+    return alliedHealthRepair;
+  }
+
+  public void setAlliedHealthRepair(int alliedHealthRepair) {
+    this.alliedHealthRepair = alliedHealthRepair;
+  }
+
   public String getTeam() {
     return this.team;
   }
@@ -296,5 +324,13 @@ public class VehicleStatsImpl implements VehicleStats {
 
   public void setDirectHits(int directHits) {
     this.directHits = directHits;
+  }
+
+  public int getComp7PrestigePoints() {
+      return comp7PrestigePoints;
+  }
+
+  public void setComp7PrestigePoints(int comp7PrestigePoints) {
+      this.comp7PrestigePoints = comp7PrestigePoints;
   }
 }

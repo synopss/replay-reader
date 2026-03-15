@@ -23,6 +23,8 @@ public interface VehicleStats {
 
   int getDamageReceivedFromInvisibles();
 
+  int getEquipmentDamageDealt();
+
   int getSpotted();
 
   int getCapturePoints();
@@ -42,6 +44,10 @@ public interface VehicleStats {
   String getKillerID();
 
   int getHealth();
+
+  int getHealthRepair();
+
+  int getAlliedHealthRepair();
 
   String getTeam();
 
@@ -64,4 +70,6 @@ public interface VehicleStats {
   int getDamageAssistedStun();
 
   int getStunNum();
+
+  int getComp7PrestigePoints();
 }

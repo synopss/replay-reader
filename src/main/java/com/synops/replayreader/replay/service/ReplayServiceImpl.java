@@ -24,20 +24,27 @@ public class ReplayServiceImpl implements ReplayService {
   }
 
   @Override
-  public void load(List<File> files) {
-    this.load(files, (eReplayProgressEvent) -> {
-    });
+  public void load(List<File> files, Consumer<ReplayProgressEvent> progressListener) {
+    replayCollection = replayController.readReplays(files, BattleType.ANY, progressListener);
   }
 
   @Override
-  public void load(List<File> files, Consumer<ReplayProgressEvent> progressListener) {
-    replayCollection = replayController.readReplays(files, BattleType.ANY, progressListener);
+  public void setMapFilter(String map) {
+    if (this.replayCollection != null) {
+      this.replayCollection.setMapFilter(map);
+    }
   }
 
   @Override
   public ObservableList<String> getPlayers() {
     return this.replayCollection == null ? FXCollections.emptyObservableList()
         : FXCollections.observableList(new ArrayList<>(this.replayCollection.getUniquePlayers()));
+  }
+
+  @Override
+  public ObservableList<String> getPlayersIgnoringMapFilter() {
+    return this.replayCollection == null ? FXCollections.emptyObservableList()
+        : FXCollections.observableList(new ArrayList<>(this.replayCollection.getUniquePlayersIgnoringMapFilter()));
   }
 
   @Override
@@ -68,8 +75,13 @@ public class ReplayServiceImpl implements ReplayService {
   }
 
   @Override
-  public int getNumberOfMapsPlayed(String player, String vehicle, String map) {
-    return this.replayCollection.getNumberOfMapsPlayed(player, vehicle, map);
+  public int getNumberOfGamesOnMap(String map) {
+    return this.replayCollection.getNumberOfGamesOnMap(map);
+  }
+
+  @Override
+  public int getTotalGames() {
+    return this.replayCollection == null ? 0 : this.replayCollection.getTotalGames();
   }
 
   @Override
@@ -123,6 +135,16 @@ public class ReplayServiceImpl implements ReplayService {
   }
 
   @Override
+  public int getAvgHealthRepair(String player, String vehicle) {
+    return this.replayCollection.getAvgHealthRepair(player, vehicle);
+  }
+
+  @Override
+  public int getAvgAlliedHealthRepair(String player, String vehicle) {
+    return this.replayCollection.getAvgAlliedHealthRepair(player, vehicle);
+  }
+
+  @Override
   public int getAvgLifeTime(String player, String vehicle) {
     return this.replayCollection.getAvgLifeTime(player, vehicle);
   }
@@ -140,6 +162,11 @@ public class ReplayServiceImpl implements ReplayService {
   @Override
   public int getAvgDamageReceivedFromInvisibles(String player, String vehicle) {
     return this.replayCollection.getAvgDamageReceivedFromInvisibles(player, vehicle);
+  }
+
+  @Override
+  public int getAvgEquipmentDamageDealt(String player, String vehicle) {
+    return this.replayCollection.getAvgEquipmentDamageDealt(player, vehicle);
   }
 
   @Override
@@ -195,5 +222,10 @@ public class ReplayServiceImpl implements ReplayService {
   @Override
   public double getAvgDamageRank(String player, String vehicle) {
     return this.replayCollection.getAvgDamageRank(player, vehicle);
+  }
+
+  @Override
+  public int getComp7PrestigePoints(String player, String vehicle) {
+    return this.replayCollection.getComp7PrestigePoints(player, vehicle);
   }
 }

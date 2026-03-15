@@ -7,6 +7,8 @@ import java.util.Set;
 public interface ReplayCollection {
   Set<String> getUniquePlayers();
 
+  Set<String> getUniquePlayersIgnoringMapFilter();
+
   List<String> getUniquePlayersClan(String clanAbbrev);
 
   List<String> getVehiclesForPlayer(String player);
@@ -15,7 +17,7 @@ public interface ReplayCollection {
 
   Player getPlayerInfo(String player);
 
-  void updateReplayFilter(ReplayFilter replayFilter);
+  void setMapFilter(String map);
 
   int getNumberOfClanPlayers(String clan);
 
@@ -25,7 +27,9 @@ public interface ReplayCollection {
 
   List<String> getMaps(String player, String vehicle);
 
-  int getNumberOfMapsPlayed(String player, String vehicle, String map);
+  int getNumberOfGamesOnMap(String map);
+
+  int getTotalGames();
 
   double getWinRate(String player, String vehicle);
 
@@ -43,6 +47,10 @@ public interface ReplayCollection {
 
   int getAvgBlocked(String player, String vehicle);
 
+  int getAvgHealthRepair(String player, String vehicle);
+
+  int getAvgAlliedHealthRepair(String player, String vehicle);
+
   int getAvgLifeTime(String player, String vehicle);
 
   int getAvgHitsReceived(String player, String vehicle);
@@ -50,6 +58,8 @@ public interface ReplayCollection {
   int getAvgDamageReceived(String player, String vehicle);
 
   int getAvgDamageReceivedFromInvisibles(String player, String vehicle);
+
+  int getAvgEquipmentDamageDealt(String player, String vehicle);
 
   double getAvgShots(String player, String vehicle);
 
@@ -72,4 +82,6 @@ public interface ReplayCollection {
   double getAvgXPRank(String player, String vehicle);
 
   double getAvgDamageRank(String player, String vehicle);
+
+  int getComp7PrestigePoints(String player, String vehicle);
 }

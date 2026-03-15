@@ -37,11 +37,14 @@ public class ReplayCollectionImpl implements ReplayCollection {
         String player = key.getLeft();
         String vehicle = key.getMiddle();
         ReplayFilter filter = key.getRight();
-        return ReplayCollectionImpl.this.replays.parallelStream().filter(
-                (r) -> BattleType.ANY.equals(filter.getBattleType()) || filter.getBattleType().getId()
-                    .equals(r.getBattleType())).filter((r) -> r.existPlayer(player)).filter(
-                (r) -> StringUtils.isEmpty(vehicle) || vehicle.equals(
-                    r.getPlayerVehicleMappingByPlayerName(player).getVehicleType()))
+        return ReplayCollectionImpl.this.replays.parallelStream()
+            .filter((r) -> BattleType.ANY.equals(filter.getBattleType())
+                || filter.getBattleType().getId().equals(r.getBattleType()))
+            .filter((r) -> StringUtils.isEmpty(filter.getMap())
+                || filter.getMap().equals(r.getMapName()))
+            .filter((r) -> r.existPlayer(player))
+            .filter((r) -> StringUtils.isEmpty(vehicle)
+                || vehicle.equals(r.getPlayerVehicleMappingByPlayerName(player).getVehicleType()))
             .collect(Collectors.toList());
       }
     });
@@ -65,14 +68,31 @@ public class ReplayCollectionImpl implements ReplayCollection {
     }
   }
 
+  private List<Replay> getFilteredReplaysByMap() {
+    if (StringUtils.isEmpty(replayFilter.getMap())) {
+      return replays;
+    }
+    return replays.parallelStream()
+        .filter((r) -> replayFilter.getMap().equals(r.getMapName()))
+        .collect(Collectors.toList());
+  }
+
   public Set<String> getUniquePlayers() {
-    return replays.parallelStream().flatMap((r) -> r.getPlayers().stream()).map(Player::getName)
+    return getFilteredReplaysByMap().parallelStream()
+        .flatMap((r) -> r.getPlayers().stream()).map(Player::getName)
+        .collect(Collectors.toSet());
+  }
+
+  public Set<String> getUniquePlayersIgnoringMapFilter() {
+    return replays.parallelStream()
+        .flatMap((r) -> r.getPlayers().stream()).map(Player::getName)
         .collect(Collectors.toSet());
   }
 
   public Set<String> getUniqueClans() {
     Set<String> result = Collections.synchronizedSet(new HashSet<>());
-    result.addAll(replays.parallelStream().map(Replay::getPlayers).flatMap(Collection::stream)
+    result.addAll(getFilteredReplaysByMap().parallelStream()
+        .map(Replay::getPlayers).flatMap(Collection::stream)
         .map(Player::getClanAbbrev).collect(Collectors.toSet()));
     return result;
   }
@@ -82,8 +102,9 @@ public class ReplayCollectionImpl implements ReplayCollection {
   }
 
   public List<String> getUniquePlayersClan(String clanAbbrev) {
-    Set<String> playerNames = replays.parallelStream().map(Replay::getPlayers)
-        .flatMap(Collection::stream).filter(p -> clanAbbrev.equals(p.getClanAbbrev()))
+    Set<String> playerNames = getFilteredReplaysByMap().parallelStream()
+        .map(Replay::getPlayers).flatMap(Collection::stream)
+        .filter(p -> clanAbbrev.equals(p.getClanAbbrev()))
         .map(Player::getName).collect(Collectors.toSet());
 
     return new ArrayList<>(Collections.synchronizedSet(playerNames));
@@ -94,7 +115,8 @@ public class ReplayCollectionImpl implements ReplayCollection {
   }
 
   public List<String> getVehiclesForPlayer(String player) {
-    var vehicleGroups = replays.parallelStream().filter(r -> r.existPlayer(player))
+    var vehicleGroups = getFilteredReplaysByMap().parallelStream()
+        .filter(r -> r.existPlayer(player))
         .map(replay -> replay.getPlayerVehicleMappingByPlayerName(player).getVehicleType())
         .collect(Collectors.groupingByConcurrent(vehicleType -> vehicleType));
 
@@ -117,9 +139,13 @@ public class ReplayCollectionImpl implements ReplayCollection {
         .collect(Collectors.toList());
   }
 
-  public int getNumberOfMapsPlayed(String player, String vehicle, String map) {
-    return (int) filteredReplays(player, vehicle).parallelStream()
+  public int getNumberOfGamesOnMap(String map) {
+    return (int) replays.parallelStream()
         .filter((r) -> map.equals(r.getMapName())).count();
+  }
+
+  public int getTotalGames() {
+    return replays.size();
   }
 
   public double getWinRate(String player, String vehicle) {
@@ -181,6 +207,16 @@ public class ReplayCollectionImpl implements ReplayCollection {
         (r) -> (double) r.getPlayerStatsByPlayerName(player).getDamageBlockedByArmor())).intValue();
   }
 
+  public int getAvgHealthRepair(String player, String vehicle) {
+    return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingInt(
+            (r) -> r.getPlayerStatsByPlayerName(player).getHealthRepair())).intValue();
+  }
+
+  public int getAvgAlliedHealthRepair(String player, String vehicle) {
+    return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingInt(
+            (r) -> r.getPlayerStatsByPlayerName(player).getAlliedHealthRepair())).intValue();
+  }
+
   public int getAvgLifeTime(String player, String vehicle) {
     return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingDouble(
         (r) -> (double) r.getPlayerStatsByPlayerName(player).getLifeTime())).intValue();
@@ -200,6 +236,11 @@ public class ReplayCollectionImpl implements ReplayCollection {
     return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingDouble(
             (r) -> (double) r.getPlayerStatsByPlayerName(player).getDamageReceivedFromInvisibles()))
         .intValue();
+  }
+
+  public int getAvgEquipmentDamageDealt(String player, String vehicle) {
+    return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingDouble(
+            (r) -> (double) r.getPlayerStatsByPlayerName(player).getEquipmentDamageDealt())).intValue();
   }
 
   public double getAvgShots(String player, String vehicle) {
@@ -253,8 +294,8 @@ public class ReplayCollectionImpl implements ReplayCollection {
         (r) -> r.getPlayerStatsByPlayerName(player).getDroppedCapturePoints())).intValue();
   }
 
-  public void updateReplayFilter(ReplayFilter replayFilter) {
-    this.replayFilter = Objects.requireNonNullElseGet(replayFilter, ReplayFilter::createDefault);
+  public void setMapFilter(String map) {
+    this.replayFilter.setMap(map);
   }
 
   private void debugGetAllVehicles() {
@@ -330,5 +371,10 @@ public class ReplayCollectionImpl implements ReplayCollection {
     }
 
     return (double) sumRank / (double) filteredReplays.size();
+  }
+
+  public int getComp7PrestigePoints(String player, String vehicle) {
+    return filteredReplays(player, vehicle).parallelStream().collect(Collectors.averagingDouble(
+            (r) -> r.getPlayerStatsByPlayerName(player).getComp7PrestigePoints())).intValue();
   }
 }
